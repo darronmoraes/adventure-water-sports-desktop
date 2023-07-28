@@ -172,10 +172,17 @@ public class LoginWindow extends javax.swing.JFrame {
                     // Prompt user to next window
                     System.out.println("Login successful!");
                     JOptionPane.showMessageDialog(null, "Login as Admin successful");
+                    // Disable login window
+                    this.setVisible(false);
+                    // Create object to next window
+                    HomeWindow adminHome = new HomeWindow();
+                    // Show home window
+                    adminHome.setVisible(true);
                 } else {
                     // Login Failed
                     // Handle failure
                     System.out.println("Login failed! Invalid credentials");
+                    JOptionPane.showMessageDialog(null, "Incorrect credentials");
                 }
             } catch (MalformedURLException ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
