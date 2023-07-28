@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.JSONObject;
 
 /**
@@ -136,41 +137,54 @@ public class LoginWindow extends javax.swing.JFrame {
         String username = textFieldUserName.getText();
         String password = new String(textFieldUserPassword.getPassword());
         
-        // URL to REST API
-        String loginApiUrl = "http://127.0.0.1:5000/login";
+        // Conditions to check if username and password is entered
+        if (username.isEmpty() && password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Username and Password are required");
+        } else if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Username is required");
+        } else if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password is required");
+        } else {
+            // Validate credentials entered and login
+            String loginUrl = Constants.URL + Constants.LOGIN_ENDPOINT;
         
-        try {
-            URL url = new URL(loginApiUrl);
-            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-            connect.setRequestMethod("POST");
-            connect.setRequestProperty("Content-Type", "application/json");
-            connect.setDoOutput(true);
+            try {
+                URL url = new URL(loginUrl);
+                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+                connect.setRequestMethod("POST");
+                connect.setRequestProperty("Content-Type", "application/json");
+                connect.setDoOutput(true);
             
-            // Create the JSON object with email and password fields
-            JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("email", username);
-            jsonRequest.put("password", password);
+                // Create the JSON object with email and password fields
+                JSONObject jsonRequest = new JSONObject();
+                jsonRequest.put("email", username);
+                jsonRequest.put("password", password);
             
-            try (OutputStream os = connect.getOutputStream()) {
-                byte[] input = jsonRequest.toString().getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
+                // Write the JSON payload to the request body
+                try (OutputStream os = connect.getOutputStream()) {
+                    byte[] input = jsonRequest.toString().getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
             
-            int responseCode = connect.getResponseCode();
-            if (responseCode == 200) {
-                // Login Successful
-                // Prompt user to next window
-                System.out.println("Login successful!");
-            } else {
-                // Login Failed
-                // Handle failure
-                System.out.println("Login failed! Invalid credentials");
-            }
-        } catch (MalformedURLException ex) {
+                int responseCode = connect.getResponseCode();
+                if (responseCode == 200) {
+                    // Login Successful
+                    // Prompt user to next window
+                    System.out.println("Login successful!");
+                    JOptionPane.showMessageDialog(null, "Login as Admin successful");
+                } else {
+                    // Login Failed
+                    // Handle failure
+                    System.out.println("Login failed! Invalid credentials");
+                }
+            } catch (MalformedURLException ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+            } catch (IOException ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
