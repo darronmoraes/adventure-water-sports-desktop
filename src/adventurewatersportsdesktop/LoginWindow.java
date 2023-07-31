@@ -159,7 +159,7 @@ public class LoginWindow extends javax.swing.JFrame {
         } else {
             // Validate credentials entered and login
             String loginUrl = Constants.URL + Constants.LOGIN_ENDPOINT;
-        
+                 
             try {
                 URL url = new URL(loginUrl);
                 HttpURLConnection connect = (HttpURLConnection) url.openConnection();
