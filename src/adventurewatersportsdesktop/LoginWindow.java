@@ -187,9 +187,9 @@ public class LoginWindow extends javax.swing.JFrame {
                     // Disable login window
                     this.setVisible(false);
                     // Create object to next window
-                    HomeWindow adminHome = new HomeWindow();
+                    DashboardWindow dashboard = new DashboardWindow();
                     // Show home window
-                    adminHome.setVisible(true);
+                    dashboard.setVisible(true);
                 } else {
                     // Login Failed
                     // Handle failure
