@@ -160,7 +160,7 @@ public class LoginWindow extends javax.swing.JFrame {
         } else {
             // Validate credentials entered and login
             String loginUrl = Constants.URL + Constants.LOGIN_ENDPOINT;
-        
+                 
             try {
                 URL url = new URL(loginUrl);
                 HttpURLConnection connect = (HttpURLConnection) url.openConnection();
@@ -188,9 +188,9 @@ public class LoginWindow extends javax.swing.JFrame {
                     // Disable login window
                     this.setVisible(false);
                     // Create object to next window
-                    HomeWindow adminHome = new HomeWindow();
+                    DashboardWindow dashboard = new DashboardWindow();
                     // Show home window
-                    adminHome.setVisible(true);
+                    dashboard.setVisible(true);
                 } else {
                     // Login Failed
                     // Handle failure
