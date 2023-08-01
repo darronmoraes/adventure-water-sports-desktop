@@ -13,7 +13,13 @@ public class Constants {
     // API URL
     public static final String URL = "http://127.0.0.1:5000/";
     
-    // API END-POINT
+    // AUTH API END-POINT
     public static final String LOGIN_ENDPOINT = "login";
+    
+    
+    // BOOKING API END-POINT
+    public static final String NON_COMMERCIAL_BOOKING_ENDPOINT = "private_booking";
+    
+    public static final String COMMERCIAL_BOOKING_ENDPOINT = "booking";
     
 }
