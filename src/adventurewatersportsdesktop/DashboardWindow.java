@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import models.BookingTicket;
 import org.json.JSONObject;
 
 /**
@@ -81,6 +82,20 @@ public class DashboardWindow extends javax.swing.JFrame {
         jMenuIssueTicket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuIssueTicketMouseClicked(evt);
+            }
+        });
+
+        // Default toggle button unseleted state
+        // Set the toggle button to be initially not selected
+        jToggleBtnCommercialVehicle.setSelected(false);
+
+        // Disable the panel on toggle off
+        jPanelCommercialData.setVisible(false);
+
+        // Add the action listener to the toggle button
+        jToggleBtnCommercialVehicle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleBtnCommercialVehicleActionPerformed(evt);
             }
         });
 
@@ -647,6 +662,29 @@ public class DashboardWindow extends javax.swing.JFrame {
                 while((line = br.readLine()) != null) {
                     response.append(line);
                 }
+                
+                // Parse the JSON response
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                
+                // Check if the status is 200 (success)
+                if (jsonResponse.getInt("status") == 200) {
+                    JSONObject result = jsonResponse.getJSONObject("result");
+                    JSONObject order = result.getJSONObject("order");
+                    
+                    BookingTicket bookingData = new BookingTicket(
+                            order.getInt("serial_number"),
+                            order.getInt("amount"),
+                            order.getInt("pax")
+                    );
+                    
+                    // Show the serial number, amount and pax in dialog
+                    String message = "Serial Number: " + bookingData.getSerialNumber() +
+                            "\nAmount: " + bookingData.getAmount() +
+                            "\nPax: " + bookingData.getPax();
+                    
+                    JOptionPane.showMessageDialog(null, message);
+                }
+                
                 br.close();
             
                 // Print in the terminal the response
@@ -701,6 +739,28 @@ public class DashboardWindow extends javax.swing.JFrame {
                 response.append(line);
             }
             br.close();
+            
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+                
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200) {
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONObject order = result.getJSONObject("order");
+                    
+                BookingTicket bookingData = new BookingTicket(
+                        order.getInt("serial_number"),
+                        order.getInt("amount"),
+                        order.getInt("pax")
+                );
+                    
+                // Show the serial number, amount and pax in dialog
+                String message = "Serial Number: " + bookingData.getSerialNumber() +
+                        "\nAmount: " + bookingData.getAmount() +
+                        "\nPax: " + bookingData.getPax();
+                    
+                JOptionPane.showMessageDialog(null, message);
+            }
             
             // Print in the terminal the response
             System.out.println("Response " + response.toString());
