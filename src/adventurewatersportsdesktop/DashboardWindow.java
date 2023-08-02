@@ -539,6 +539,14 @@ public class DashboardWindow extends javax.swing.JFrame {
 
     private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
         // TODO add your handling code here:
+        
+        // Clear the text Fields
+        jTextPaxCount.setText("0");
+        jTextFieldAmount.setText("0 Rs.");
+        
+        jTextFieldRegistrationNumber.setText("");
+        jTextFieldTransportProprieter.setText("");
+        jTextFieldContactNumber.setText("");
     }//GEN-LAST:event_jBtnClearTicketActionPerformed
 
     private void jToggleBtnCommercialVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleBtnCommercialVehicleActionPerformed
