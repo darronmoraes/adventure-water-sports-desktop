@@ -100,6 +100,20 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        // Default toggle button unselected state
+        // Set the toggle button to be initially not selected
+        jToggleBtnCommercialVehicle.setSelected(false);
+
+        // Hide the panel initially
+        jPanelCommercialData.setVisible(false);
+
+        // Add the action listener to the toggle button
+        jToggleBtnCommercialVehicle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleBtnCommercialVehicleActionPerformed(evt);
+            }
+        });
+
         label2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         label2.setText("Adventure Water Sports");
 
