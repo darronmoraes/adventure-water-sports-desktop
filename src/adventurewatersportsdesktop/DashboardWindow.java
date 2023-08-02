@@ -678,7 +678,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                     JSONObject order = result.getJSONObject("order");
                     
                     BookingTicket bookingData = new BookingTicket(
-                            order.getInt("serial_number"),
+                            order.getString("serial_number"),
                             order.getInt("amount"),
                             order.getInt("pax")
                     );
@@ -755,7 +755,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 JSONObject order = result.getJSONObject("order");
                     
                 BookingTicket bookingData = new BookingTicket(
-                        order.getInt("serial_number"),
+                        order.getString("serial_number"),
                         order.getInt("amount"),
                         order.getInt("pax")
                 );
