@@ -85,20 +85,6 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
 
-        // Default toggle button unseleted state
-        // Set the toggle button to be initially not selected
-        jToggleBtnCommercialVehicle.setSelected(false);
-
-        // Disable the panel on toggle off
-        jPanelCommercialData.setVisible(false);
-
-        // Add the action listener to the toggle button
-        jToggleBtnCommercialVehicle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleBtnCommercialVehicleActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ISSUE TICKET");
@@ -201,8 +187,6 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(jMenuReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jTabIssueTicket.setBackground(new java.awt.Color(255, 255, 51));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
