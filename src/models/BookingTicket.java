@@ -7,12 +7,12 @@ package models;
 public class BookingTicket {
     
     // Variables declaration
-    private int serialNumber;
+    private String serialNumber;
     private int amount;
     private int pax;
     
     // Constructor
-    public BookingTicket(int serialNumber, int amount, int pax) {
+    public BookingTicket(String serialNumber, int amount, int pax) {
         this.serialNumber = serialNumber;
         this.amount = amount;
         this.pax = pax;
@@ -20,7 +20,7 @@ public class BookingTicket {
     
     // getters
 
-    public int getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
