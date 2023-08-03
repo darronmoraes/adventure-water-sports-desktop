@@ -4,6 +4,7 @@
  */
 package adventurewatersportsdesktop;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import models.BookingTicket;
 import org.json.JSONObject;
@@ -81,6 +83,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         tBoatOwner = new java.awt.TextField();
         btnAddBoat = new java.awt.Button();
         btnClear = new java.awt.Button();
+        jComboBoxBoatCapacity = new javax.swing.JComboBox<>();
         jPanelAddOwnerDetails = new javax.swing.JPanel();
         lEmail = new java.awt.Label();
         tEmail = new java.awt.TextField();
@@ -431,8 +434,20 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabbedPane1.setToolTipText("BOAT");
 
         tBoatRegNo.setText("textField1");
+        tBoatRegNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tBoatRegNoActionPerformed(evt);
+            }
+        });
 
+        tBoatCapacity.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tBoatCapacity.setName(""); // NOI18N
         tBoatCapacity.setText("textField2");
+        tBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tBoatCapacityActionPerformed(evt);
+            }
+        });
 
         lBoatCapacity.setText("Boat Capacity");
 
@@ -441,10 +456,32 @@ public class DashboardWindow extends javax.swing.JFrame {
         lBoatOwner.setText("Owner Name");
 
         tBoatOwner.setText("textField4");
+        tBoatOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tBoatOwnerActionPerformed(evt);
+            }
+        });
 
         btnAddBoat.setLabel("Add Boat");
+        btnAddBoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBoatActionPerformed(evt);
+            }
+        });
 
         btnClear.setLabel("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        jComboBoxBoatCapacity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "18", "20" }));
+        jComboBoxBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBoatCapacityActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAddBoatLayout = new javax.swing.GroupLayout(jPanelAddBoat);
         jPanelAddBoat.setLayout(jPanelAddBoatLayout);
@@ -462,8 +499,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tBoatRegNo, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                        .addComponent(tBoatCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tBoatOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(tBoatOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelAddBoatLayout.createSequentialGroup()
+                            .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(21, 21, 21)
+                            .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanelAddBoatLayout.setVerticalGroup(
@@ -475,9 +515,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(tBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelAddBoatLayout.createSequentialGroup()
                         .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -486,7 +528,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Boat Details", jPanelAddBoat);
@@ -494,6 +536,11 @@ public class DashboardWindow extends javax.swing.JFrame {
         lEmail.setText("Email id");
 
         tEmail.setText("textField3");
+        tEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tEmailActionPerformed(evt);
+            }
+        });
 
         lFirstName.setText("first name");
 
@@ -764,6 +811,63 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldRegistrationNumberActionPerformed
 
+    private void tEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tEmailActionPerformed
+
+    
+    
+/** ------------------------------  Add boat tab ----------------------------------------- */
+    
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    
+    private void tBoatRegNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatRegNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tBoatRegNoActionPerformed
+
+    private void tBoatCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatCapacityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tBoatCapacityActionPerformed
+
+    private void tBoatOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatOwnerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tBoatOwnerActionPerformed
+
+    private void jComboBoxBoatCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoatCapacityActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBoxBoatCapacityActionPerformed
+
+    private void btnAddBoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoatActionPerformed
+        // TODO add your handling code here:
+        
+        String boatRegNo = tBoatRegNo.getText();
+        String boatCapacity = tBoatCapacity.getText();
+        String boatOwnerId = tBoatOwner.getText();
+        
+        if(boatRegNo.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter Reg no.");
+        } else if(boatCapacity.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter capacity");
+        }else if(boatOwnerId.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter User id");
+        }
+        
+        if( !boatRegNo.isEmpty() && !boatCapacity.isEmpty() && !boatOwnerId.isEmpty()){
+            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
+        }
+    }//GEN-LAST:event_btnAddBoatActionPerformed
+
+    
+    
+    
+
+    
+    
+
     /**
      * @param args the command line arguments
      */
@@ -966,6 +1070,78 @@ public class DashboardWindow extends javax.swing.JFrame {
         
         return !registrationNumber.isEmpty() && !proprieterName.isEmpty() && !contactNumber.isEmpty();
     }
+    
+    
+    
+    /** ------------------------------------ add boat details api call ---------------------------------- */
+    
+    public void addBoatDetails(String boatRegNo, String boatCapacity, Integer boatOwnerId){
+        String addBoatDetailApiUrl = Constants.URL + Constants.ADD_BOAT_ENDPOINT;
+         
+         try {
+                // Create the JSON object
+                JSONObject jsonRequest = new JSONObject();
+                jsonRequest.put("registration_no", boatRegNo);
+                jsonRequest.put("capacity", boatCapacity);
+                jsonRequest.put("user_id", boatOwnerId);
+        
+        
+                URL url = new URL(addBoatDetailApiUrl);
+                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+                connect.setRequestMethod("POST");
+                connect.setRequestProperty("Content-Type", "application/json");
+                connect.setDoOutput(true);
+        
+            
+                // Write the JSON payload to request body
+                try (OutputStream os = connect.getOutputStream()) {
+                    byte[] input = jsonRequest.toString().getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                } catch (IOException ex) {
+                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "hello developer");
+                }
+            
+                // Get the response from the server
+                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+                
+                // Parse the JSON response
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                
+                
+                // Check if the status is 200 (success)
+                if (jsonResponse.getInt("status") == 200 || jsonResponse.getInt("status") == 410) {
+                    String responseMessage = jsonResponse.getString("message");
+                    
+                    JOptionPane.showMessageDialog(null, responseMessage);
+                }else{
+                    JOptionPane.showMessageDialog(null, "connection failed");
+                }
+                
+                br.close();
+            
+                // Print in the terminal the response
+                System.out.println("Response " + response.toString());
+            
+                connect.disconnect();
+            
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ProtocolException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
+            }
+        
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnAddBoat;
@@ -974,6 +1150,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Button btnClearOwner;
     private javax.swing.JButton jBtnDecrementPax;
     private javax.swing.JButton jBtnIncrementPax;
+    private javax.swing.JComboBox<String> jComboBoxBoatCapacity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

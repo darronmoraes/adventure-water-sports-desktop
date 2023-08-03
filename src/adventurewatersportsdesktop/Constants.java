@@ -22,4 +22,10 @@ public class Constants {
     
     public static final String COMMERCIAL_BOOKING_ENDPOINT = "booking";
     
+    // ADD BOAT END-POINT
+    public static final String ADD_BOAT_ENDPOINT = "add_boat_details";
+    
+    // GET EXISTING BOAT OWNER
+    public static final String GET_BOAT_OWNERS = "user_as_owner";
+    
 }
