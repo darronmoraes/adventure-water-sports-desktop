@@ -13,10 +13,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import models.BoatOwners;
 import models.BookingTicket;
 import org.json.JSONObject;
 
@@ -857,7 +859,8 @@ public class DashboardWindow extends javax.swing.JFrame {
         }
         
         if( !boatRegNo.isEmpty() && !boatCapacity.isEmpty() && !boatOwnerId.isEmpty()){
-            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
+//            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
+            getBoatOwners();
         }
     }//GEN-LAST:event_btnAddBoatActionPerformed
 
@@ -1137,6 +1140,78 @@ public class DashboardWindow extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
+            }
+        
+        
+        
+    }
+    
+    /** ------------------------------------ GET boat owner details api call ---------------------------------- */
+    
+    public void getBoatOwners(){
+        String getBoatOwnerdApiUrl = Constants.URL + Constants.GET_BOAT_OWNERS;
+         
+         try {
+                URL url = new URL(getBoatOwnerdApiUrl);
+                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+                connect.setRequestMethod("GET");
+                connect.setRequestProperty("Content-Type", "application/json");
+                connect.setDoOutput(true);
+        
+            
+//                // Write the JSON payload to request body
+//                try (OutputStream os = connect.getOutputStream()) {
+//                    byte[] input = jsonRequest.toString().getBytes("utf-8");
+//                    os.write(input, 0, input.length);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                    JOptionPane.showMessageDialog(null, "hello developer");
+//                }
+            
+                // Get the response from the server
+                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                List<BoatOwners> boatOwnerDetails;
+                String line;
+                while((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+                
+                // Parse the JSON response
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                
+//                if(!response.isEmpty()){
+//                    boatOwnerDetails.setId(jsonResponse.getInt("id"));
+//                }
+//                
+//                String fname = jsonResponse.getString("first_name");
+//                JOptionPane.showMessageDialog(null, fname);
+                
+                
+                
+//                // Check if the status is 200 (success)
+//                if (jsonResponse.getInt("status") == 200) {
+//                    String responseMessage = jsonResponse.getString("message");
+//                    
+//                    JOptionPane.showMessageDialog(null, responseMessage);
+//                }else{
+//                    JOptionPane.showMessageDialog(null, "connection failed");
+//                }
+                
+                br.close();
+            
+                // Print in the terminal the response
+                System.out.println("Response " + response.toString());
+            
+                connect.disconnect();
+            
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ProtocolException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
             }
         
         
