@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import models.BoatOwners;
 import models.BookingTicket;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +33,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     public DashboardWindow() {
         initComponents();
     }
+    BoatOwners BO;
+    Integer boatCapacity;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,14 +79,13 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelAddBoat = new javax.swing.JPanel();
         tBoatRegNo = new java.awt.TextField();
-        tBoatCapacity = new java.awt.TextField();
         lBoatCapacity = new java.awt.Label();
         lBoatRegNo = new java.awt.Label();
         lBoatOwner = new java.awt.Label();
-        tBoatOwner = new java.awt.TextField();
         btnAddBoat = new java.awt.Button();
         btnClear = new java.awt.Button();
         jComboBoxBoatOwner = new javax.swing.JComboBox<>();
+        jComboBoxBoatCapacity = new javax.swing.JComboBox<>();
         jPanelAddOwnerDetails = new javax.swing.JPanel();
         lEmail = new java.awt.Label();
         tEmail = new java.awt.TextField();
@@ -439,25 +441,11 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
 
-        tBoatCapacity.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        tBoatCapacity.setName(""); // NOI18N
-        tBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tBoatCapacityActionPerformed(evt);
-            }
-        });
-
         lBoatCapacity.setText("Boat Capacity");
 
         lBoatRegNo.setText("Boat Reg no.");
 
         lBoatOwner.setText("Owner Name");
-
-        tBoatOwner.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tBoatOwnerActionPerformed(evt);
-            }
-        });
 
         btnAddBoat.setLabel("Add Boat");
         btnAddBoat.addActionListener(new java.awt.event.ActionListener() {
@@ -479,28 +467,35 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxBoatCapacity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12" }));
+        jComboBoxBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBoatCapacityActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAddBoatLayout = new javax.swing.GroupLayout(jPanelAddBoat);
         jPanelAddBoat.setLayout(jPanelAddBoatLayout);
         jPanelAddBoatLayout.setHorizontalGroup(
             jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAddBoatLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAddBoatLayout.createSequentialGroup()
-                        .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelAddBoatLayout.createSequentialGroup()
-                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanelAddBoatLayout.createSequentialGroup()
+                            .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(163, 163, 163))
+                        .addGroup(jPanelAddBoatLayout.createSequentialGroup()
+                            .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tBoatRegNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanelAddBoatLayout.setVerticalGroup(
@@ -510,21 +505,19 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(lBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(tBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(1, 1, 1)
+                .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(1, 1, 1)
+                .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAddBoat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Boat Details", jPanelAddBoat);
@@ -821,7 +814,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Clear the text Fields
         tBoatRegNo.setText("");
-        tBoatCapacity.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
 
@@ -829,44 +821,44 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tBoatRegNoActionPerformed
 
-    private void tBoatCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatCapacityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tBoatCapacityActionPerformed
-
-    private void tBoatOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatOwnerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tBoatOwnerActionPerformed
-
     private void jComboBoxBoatOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoatOwnerActionPerformed
         // TODO add your handling code here:
         String selectedOwner = (String) jComboBoxBoatOwner.getSelectedItem();
         String[] idString = selectedOwner.split(" ");
         Integer id = Integer.valueOf(idString[0]);
-//            JOptionPane.showMessageDialog(null, id);
-            tBoatOwner.setText(id.toString());
-            
+        BO = new BoatOwners(id);
+
     }//GEN-LAST:event_jComboBoxBoatOwnerActionPerformed
 
     private void btnAddBoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoatActionPerformed
         // TODO add your handling code here:
 
         String boatRegNo = tBoatRegNo.getText();
-        String boatCapacity = tBoatCapacity.getText();
-        String boatOwnerId = tBoatOwner.getText();
+        Integer capacity = getBoatCapacity();
+        String boatOwnerId = BO.getId().toString();
 
         if (boatRegNo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter Reg no.");
-        } else if (boatCapacity.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Enter capacity");
-        } else if (boatOwnerId.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Enter User id");
+        }else if(getBoatCapacity() == null){
+            JOptionPane.showMessageDialog(null, "select capacity");
         }
 
-        if (!boatRegNo.isEmpty() && !boatCapacity.isEmpty() && !boatOwnerId.isEmpty()) {
-            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
-            
+        if (!boatRegNo.isEmpty()) {
+            System.out.println("id : "+BO.getId());            
+            System.out.println("capacity : "+getBoatCapacity());
+
+            addBoatDetails(boatRegNo, capacity, Integer.valueOf(boatOwnerId));
         }
     }//GEN-LAST:event_btnAddBoatActionPerformed
+
+    private void jComboBoxBoatCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoatCapacityActionPerformed
+        // TODO add your handling code here:
+        String selectedCapacity = (String) jComboBoxBoatCapacity.getSelectedItem();
+        Integer capacity = Integer.parseInt(selectedCapacity);
+        
+        setBoatCapacity(capacity);
+        
+    }//GEN-LAST:event_jComboBoxBoatCapacityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1069,10 +1061,9 @@ public class DashboardWindow extends javax.swing.JFrame {
     }
 
     /**
-     * ------------------------------------ add boat details api call
-     * ----------------------------------
+     * ------------------ add boat details api call -----------------------------
      */
-    public void addBoatDetails(String boatRegNo, String boatCapacity, Integer boatOwnerId) {
+    public void addBoatDetails(String boatRegNo, Integer boatCapacity, Integer boatOwnerId) {
         String addBoatDetailApiUrl = Constants.URL + Constants.ADD_BOAT_ENDPOINT;
 
         try {
@@ -1136,8 +1127,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     }
 
     /**
-     * ------------------------------------ GET boat owner details api call
-     * ----------------------------------
+     * -------------------- GET boat owner details api call--------------------
      */
     public void getBoatOwners() {
         String getBoatOwnerdApiUrl = Constants.URL + Constants.GET_BOAT_OWNERS;
@@ -1188,8 +1178,21 @@ public class DashboardWindow extends javax.swing.JFrame {
         String fname = (String) owner.getString("first_name");
         String lname = (String) owner.getString("last_name");
 //        BoatOwners ownerObj = new BoatOwners(id, fname, lname);
-        jComboBoxBoatOwner.addItem(id.toString() +" "+fname+ " "+lname);
+        jComboBoxBoatOwner.addItem(id.toString() + " " + fname + " " + lname);
     }
+
+    public Integer getBoatCapacity() {
+        return boatCapacity;
+    }
+
+    public void setBoatCapacity(Integer boatCapacity) {
+        this.boatCapacity = boatCapacity;
+    }
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnAddBoat;
@@ -1198,6 +1201,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Button btnClearOwner;
     private javax.swing.JButton jBtnDecrementPax;
     private javax.swing.JButton jBtnIncrementPax;
+    private javax.swing.JComboBox<String> jComboBoxBoatCapacity;
     private javax.swing.JComboBox<String> jComboBoxBoatOwner;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1232,8 +1236,6 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Label lLastName;
     private java.awt.Label label2;
     private java.awt.TextField tAddress;
-    private java.awt.TextField tBoatCapacity;
-    private java.awt.TextField tBoatOwner;
     private java.awt.TextField tBoatRegNo;
     private java.awt.TextField tContact;
     private java.awt.TextField tEmail;

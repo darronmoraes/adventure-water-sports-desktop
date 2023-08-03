@@ -18,12 +18,29 @@ public class BoatOwners {
     private Integer id;
     private String first_name;
     private String last_name;
+    private Integer capacity;
 
+    
 //    public BoatOwners(Integer id, String first_name, String last_name) {
 //        this.id = id;
 //        this.first_name = first_name;
 //        this.last_name = last_name;
 //    }
+
+    public BoatOwners(Integer id) {
+        this.id = id;
+    }
+    
+    
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+    
     
     
 
