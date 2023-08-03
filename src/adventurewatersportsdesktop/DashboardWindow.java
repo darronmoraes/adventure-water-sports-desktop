@@ -4,7 +4,6 @@
  */
 package adventurewatersportsdesktop;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,13 +12,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import models.BoatOwners;
 import models.BookingTicket;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -85,7 +83,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         tBoatOwner = new java.awt.TextField();
         btnAddBoat = new java.awt.Button();
         btnClear = new java.awt.Button();
-        jComboBoxBoatCapacity = new javax.swing.JComboBox<>();
+        jComboBoxBoatOwner = new javax.swing.JComboBox<>();
         jPanelAddOwnerDetails = new javax.swing.JPanel();
         lEmail = new java.awt.Label();
         tEmail = new java.awt.TextField();
@@ -435,7 +433,6 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         jTabbedPane1.setToolTipText("BOAT");
 
-        tBoatRegNo.setText("textField1");
         tBoatRegNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tBoatRegNoActionPerformed(evt);
@@ -444,7 +441,6 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         tBoatCapacity.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         tBoatCapacity.setName(""); // NOI18N
-        tBoatCapacity.setText("textField2");
         tBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tBoatCapacityActionPerformed(evt);
@@ -457,7 +453,6 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         lBoatOwner.setText("Owner Name");
 
-        tBoatOwner.setText("textField4");
         tBoatOwner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tBoatOwnerActionPerformed(evt);
@@ -478,10 +473,9 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxBoatCapacity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "18", "20" }));
-        jComboBoxBoatCapacity.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxBoatOwner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxBoatCapacityActionPerformed(evt);
+                jComboBoxBoatOwnerActionPerformed(evt);
             }
         });
 
@@ -491,21 +485,22 @@ public class DashboardWindow extends javax.swing.JFrame {
             jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAddBoatLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelAddBoatLayout.createSequentialGroup()
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tBoatRegNo, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                        .addComponent(tBoatOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelAddBoatLayout.createSequentialGroup()
-                            .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(21, 21, 21)
-                            .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(tBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAddBoatLayout.createSequentialGroup()
+                        .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelAddBoatLayout.createSequentialGroup()
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanelAddBoatLayout.setVerticalGroup(
@@ -517,19 +512,18 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(tBoatRegNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(lBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelAddBoatLayout.createSequentialGroup()
-                        .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tBoatCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(lBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxBoatOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(jPanelAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddBoat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(226, Short.MAX_VALUE))
         );
 
@@ -720,6 +714,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabAddBoat.setVisible(true);
         jTabReport.setVisible(false);
         jTabbedPane1.setVisible(true);
+        getBoatOwners();
     }//GEN-LAST:event_jMenuAddBoatMouseClicked
 
     private void jMenuReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuReportMouseClicked
@@ -742,31 +737,31 @@ public class DashboardWindow extends javax.swing.JFrame {
     // Generate ticket on Button clicked
     private void jBtnTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTicketActionPerformed
         // TODO add your handling code here:
-        
+
         // Get the TextField data for commercial bookings
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
         String contactNumber = jTextFieldContactNumber.getText();
-        
+
         if (counter == 0 && estimatedAmount == 0) {
             JOptionPane.showMessageDialog(null, "Atleast 1 person is required to proceed with ticketing");
         } else if (counter != 0 && estimatedAmount != 0) {
-            if (areVehicleDetailsEntered()) {     
+            if (areVehicleDetailsEntered()) {
                 commercialApiCall(registrationNumber, proprieterName, contactNumber);
             } else {
                 nonCommercialApiCall();
             }
         }
-        
+
     }//GEN-LAST:event_jBtnTicketActionPerformed
 
     private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
         // TODO add your handling code here:
-        
+
         // Clear the text Fields
         jTextPaxCount.setText("0");
         jTextFieldAmount.setText("0 Rs.");
-        
+
         jTextFieldRegistrationNumber.setText("");
         jTextFieldTransportProprieter.setText("");
         jTextFieldContactNumber.setText("");
@@ -774,7 +769,7 @@ public class DashboardWindow extends javax.swing.JFrame {
 
     private void jToggleBtnCommercialVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleBtnCommercialVehicleActionPerformed
         // TODO add your handling code here:
-        if(jToggleBtnCommercialVehicle.isSelected()) {
+        if (jToggleBtnCommercialVehicle.isSelected()) {
             jPanelCommercialData.setVisible(true);
         } else {
             jPanelCommercialData.setVisible(false);
@@ -786,9 +781,9 @@ public class DashboardWindow extends javax.swing.JFrame {
         if (counter > 0) {
             counter--;
         }
-        
+
         jTextPaxCount.setText(String.valueOf(counter));
-        
+
         if (counter != 0) {
             estimatedAmount = amountPerPaxRide(counter);
             jTextFieldAmount.setText(String.valueOf(estimatedAmount));
@@ -796,15 +791,15 @@ public class DashboardWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Requires pax above 1 to calculate estimated cost");
             jTextFieldAmount.setText("0");
         }
-        
+
     }//GEN-LAST:event_jBtnDecrementPaxActionPerformed
 
     private void jBtnIncrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncrementPaxActionPerformed
         // TODO add your handling code here:
         counter++;
-        
+
         jTextPaxCount.setText(String.valueOf(counter));
-        
+
         estimatedAmount = amountPerPaxRide(counter);
         jTextFieldAmount.setText(String.valueOf(estimatedAmount));
     }//GEN-LAST:event_jBtnIncrementPaxActionPerformed
@@ -817,15 +812,19 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tEmailActionPerformed
 
-    
-    
-/** ------------------------------  Add boat tab ----------------------------------------- */
-    
+    /**
+     * ------------------------------ Add boat tab
+     * -----------------------------------------
+     */
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        // Clear the text Fields
+        tBoatRegNo.setText("");
+        tBoatCapacity.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
-    
+
     private void tBoatRegNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBoatRegNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tBoatRegNoActionPerformed
@@ -838,38 +837,36 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tBoatOwnerActionPerformed
 
-    private void jComboBoxBoatCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoatCapacityActionPerformed
+    private void jComboBoxBoatOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoatOwnerActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jComboBoxBoatCapacityActionPerformed
+        String selectedOwner = (String) jComboBoxBoatOwner.getSelectedItem();
+        String[] idString = selectedOwner.split(" ");
+        Integer id = Integer.valueOf(idString[0]);
+//            JOptionPane.showMessageDialog(null, id);
+            tBoatOwner.setText(id.toString());
+            
+    }//GEN-LAST:event_jComboBoxBoatOwnerActionPerformed
 
     private void btnAddBoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoatActionPerformed
         // TODO add your handling code here:
-        
+
         String boatRegNo = tBoatRegNo.getText();
         String boatCapacity = tBoatCapacity.getText();
         String boatOwnerId = tBoatOwner.getText();
-        
-        if(boatRegNo.isEmpty()){
+
+        if (boatRegNo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter Reg no.");
-        } else if(boatCapacity.isEmpty()){
+        } else if (boatCapacity.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter capacity");
-        }else if(boatOwnerId.isEmpty()){
+        } else if (boatOwnerId.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter User id");
         }
-        
-        if( !boatRegNo.isEmpty() && !boatCapacity.isEmpty() && !boatOwnerId.isEmpty()){
-//            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
-            getBoatOwners();
+
+        if (!boatRegNo.isEmpty() && !boatCapacity.isEmpty() && !boatOwnerId.isEmpty()) {
+            addBoatDetails(boatRegNo,boatCapacity,Integer.valueOf(boatOwnerId));
+            
         }
     }//GEN-LAST:event_btnAddBoatActionPerformed
-
-    
-    
-    
-
-    
-    
 
     /**
      * @param args the command line arguments
@@ -906,156 +903,80 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Custome Variable declaration 
     int counter = 0;
     int perHeadPrice = 350;
     int estimatedAmount = 0;
-    
+
     // Custom methods to calculate ticket amount for the given pax
     private int amountPerPaxRide(int pax) {
         return perHeadPrice * pax;
     }
-    
+
     // Non Commercial vehicle api call
     private void nonCommercialApiCall() {
-        
+
         String nonCommercialApiURL = Constants.URL + Constants.NON_COMMERCIAL_BOOKING_ENDPOINT;
-        
-        
-            try {
-                // Create the JSON object with pax and amount
-                JSONObject jsonRequest = new JSONObject();
-                jsonRequest.put("pax", counter);
-                jsonRequest.put("amount", estimatedAmount);
-            
-                // Open the connection and set up the request
-                URL url = new URL(nonCommercialApiURL);
-                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-                connect.setRequestMethod("POST");
-                connect.setRequestProperty("Content-Type", "application/json");
-                connect.setDoOutput(true);
-            
-                // Write the JSON payload to request body
-                try (OutputStream os = connect.getOutputStream()) {
-                    byte[] input = jsonRequest.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                } catch (IOException ex) {
-                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-                // Get the response from the server
-                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-                
-                // Parse the JSON response
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                
-                // Check if the status is 200 (success)
-                if (jsonResponse.getInt("status") == 200) {
-                    JSONObject result = jsonResponse.getJSONObject("result");
-                    JSONObject order = result.getJSONObject("order");
-                    
-                    BookingTicket bookingData = new BookingTicket(
-                            order.getString("serial_number"),
-                            order.getInt("amount"),
-                            order.getInt("pax")
-                    );
-                    
-                    // Show the serial number, amount and pax in dialog
-                    String message = "Serial Number: " + bookingData.getSerialNumber() +
-                            "\nAmount: " + bookingData.getAmount() +
-                            "\nPax: " + bookingData.getPax();
-                    
-                    JOptionPane.showMessageDialog(null, message);
-                }
-                
-                br.close();
-            
-                // Print in the terminal the response
-                System.out.println("Response " + response.toString());
-            
-                connect.disconnect();
-            
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ProtocolException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    
-    
-    // Commercial API call
-    private void commercialApiCall(String registrationNumber, String transportProp, String contactNumber) {
-        String nonCommercialApiURL = Constants.URL + Constants.COMMERCIAL_BOOKING_ENDPOINT;
-        
-        
+
         try {
             // Create the JSON object with pax and amount
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("pax", counter);
             jsonRequest.put("amount", estimatedAmount);
-            jsonRequest.put("reg_no", registrationNumber);
-            jsonRequest.put("name", transportProp);
-            jsonRequest.put("contact", contactNumber);
-            
+
             // Open the connection and set up the request
             URL url = new URL(nonCommercialApiURL);
             HttpURLConnection connect = (HttpURLConnection) url.openConnection();
             connect.setRequestMethod("POST");
             connect.setRequestProperty("Content-Type", "application/json");
             connect.setDoOutput(true);
-            
+
             // Write the JSON payload to request body
-            try (OutputStream os = connect.getOutputStream()) {
+            try ( OutputStream os = connect.getOutputStream()) {
                 byte[] input = jsonRequest.toString().getBytes("utf-8");
                 os.write(input, 0, input.length);
             } catch (IOException ex) {
                 Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             // Get the response from the server
             BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 response.append(line);
             }
-            br.close();
-            
+
             // Parse the JSON response
             JSONObject jsonResponse = new JSONObject(response.toString());
-                
+
             // Check if the status is 200 (success)
             if (jsonResponse.getInt("status") == 200) {
                 JSONObject result = jsonResponse.getJSONObject("result");
                 JSONObject order = result.getJSONObject("order");
-                    
+
                 BookingTicket bookingData = new BookingTicket(
                         order.getString("serial_number"),
                         order.getInt("amount"),
                         order.getInt("pax")
                 );
-                    
+
                 // Show the serial number, amount and pax in dialog
-                String message = "Serial Number: " + bookingData.getSerialNumber() +
-                        "\nAmount: " + bookingData.getAmount() +
-                        "\nPax: " + bookingData.getPax();
-                    
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
                 JOptionPane.showMessageDialog(null, message);
             }
-            
+
+            br.close();
+
             // Print in the terminal the response
             System.out.println("Response " + response.toString());
-            
+
             connect.disconnect();
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ProtocolException ex) {
@@ -1064,158 +985,210 @@ public class DashboardWindow extends javax.swing.JFrame {
             Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    // Commercial API call
+    private void commercialApiCall(String registrationNumber, String transportProp, String contactNumber) {
+        String nonCommercialApiURL = Constants.URL + Constants.COMMERCIAL_BOOKING_ENDPOINT;
+
+        try {
+            // Create the JSON object with pax and amount
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("pax", counter);
+            jsonRequest.put("amount", estimatedAmount);
+            jsonRequest.put("reg_no", registrationNumber);
+            jsonRequest.put("name", transportProp);
+            jsonRequest.put("contact", contactNumber);
+
+            // Open the connection and set up the request
+            URL url = new URL(nonCommercialApiURL);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try ( OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200) {
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONObject order = result.getJSONObject("order");
+
+                BookingTicket bookingData = new BookingTicket(
+                        order.getString("serial_number"),
+                        order.getInt("amount"),
+                        order.getInt("pax")
+                );
+
+                // Show the serial number, amount and pax in dialog
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
+                JOptionPane.showMessageDialog(null, message);
+            }
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // Check if Commercial vehicle details entered
     private boolean areVehicleDetailsEntered() {
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
         String contactNumber = jTextFieldContactNumber.getText();
-        
+
         return !registrationNumber.isEmpty() && !proprieterName.isEmpty() && !contactNumber.isEmpty();
     }
-    
-    
-    
-    /** ------------------------------------ add boat details api call ---------------------------------- */
-    
-    public void addBoatDetails(String boatRegNo, String boatCapacity, Integer boatOwnerId){
+
+    /**
+     * ------------------------------------ add boat details api call
+     * ----------------------------------
+     */
+    public void addBoatDetails(String boatRegNo, String boatCapacity, Integer boatOwnerId) {
         String addBoatDetailApiUrl = Constants.URL + Constants.ADD_BOAT_ENDPOINT;
-         
-         try {
-                // Create the JSON object
-                JSONObject jsonRequest = new JSONObject();
-                jsonRequest.put("registration_no", boatRegNo);
-                jsonRequest.put("capacity", boatCapacity);
-                jsonRequest.put("user_id", boatOwnerId);
-        
-        
-                URL url = new URL(addBoatDetailApiUrl);
-                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-                connect.setRequestMethod("POST");
-                connect.setRequestProperty("Content-Type", "application/json");
-                connect.setDoOutput(true);
-        
-            
-                // Write the JSON payload to request body
-                try (OutputStream os = connect.getOutputStream()) {
-                    byte[] input = jsonRequest.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                } catch (IOException ex) {
-                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "hello developer");
-                }
-            
-                // Get the response from the server
-                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-                
-                // Parse the JSON response
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                
-                
-                // Check if the status is 200 (success)
-                if (jsonResponse.getInt("status") == 200 || jsonResponse.getInt("status") == 410) {
-                    String responseMessage = jsonResponse.getString("message");
-                    
-                    JOptionPane.showMessageDialog(null, responseMessage);
-                }else{
-                    JOptionPane.showMessageDialog(null, "connection failed");
-                }
-                
-                br.close();
-            
-                // Print in the terminal the response
-                System.out.println("Response " + response.toString());
-            
-                connect.disconnect();
-            
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ProtocolException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+
+        try {
+            // Create the JSON object
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("registration_no", boatRegNo);
+            jsonRequest.put("capacity", boatCapacity);
+            jsonRequest.put("user_id", boatOwnerId);
+
+            URL url = new URL(addBoatDetailApiUrl);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try ( OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
             } catch (IOException ex) {
                 Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
+                JOptionPane.showMessageDialog(null, "hello developer");
             }
-        
-        
-        
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200 || jsonResponse.getInt("status") == 410) {
+                String responseMessage = jsonResponse.getString("message");
+
+                JOptionPane.showMessageDialog(null, responseMessage);
+            } else {
+                JOptionPane.showMessageDialog(null, "connection failed");
+            }
+
+            br.close();
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Boad no. " + boatRegNo + " exist");
+        }
+
     }
-    
-    /** ------------------------------------ GET boat owner details api call ---------------------------------- */
-    
-    public void getBoatOwners(){
+
+    /**
+     * ------------------------------------ GET boat owner details api call
+     * ----------------------------------
+     */
+    public void getBoatOwners() {
         String getBoatOwnerdApiUrl = Constants.URL + Constants.GET_BOAT_OWNERS;
-         
-         try {
-                URL url = new URL(getBoatOwnerdApiUrl);
-                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-                connect.setRequestMethod("GET");
-                connect.setRequestProperty("Content-Type", "application/json");
-                connect.setDoOutput(true);
-        
-            
-//                // Write the JSON payload to request body
-//                try (OutputStream os = connect.getOutputStream()) {
-//                    byte[] input = jsonRequest.toString().getBytes("utf-8");
-//                    os.write(input, 0, input.length);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-//                    JOptionPane.showMessageDialog(null, "hello developer");
-//                }
-            
-                // Get the response from the server
-                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                List<BoatOwners> boatOwnerDetails;
-                String line;
-                while((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-                
-                // Parse the JSON response
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                
-//                if(!response.isEmpty()){
-//                    boatOwnerDetails.setId(jsonResponse.getInt("id"));
-//                }
-//                
-//                String fname = jsonResponse.getString("first_name");
-//                JOptionPane.showMessageDialog(null, fname);
-                
-                
-                
-//                // Check if the status is 200 (success)
-//                if (jsonResponse.getInt("status") == 200) {
-//                    String responseMessage = jsonResponse.getString("message");
-//                    
-//                    JOptionPane.showMessageDialog(null, responseMessage);
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "connection failed");
-//                }
-                
-                br.close();
-            
-                // Print in the terminal the response
-                System.out.println("Response " + response.toString());
-            
-                connect.disconnect();
-            
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ProtocolException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-//                JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
+
+        try {
+            URL url = new URL(getBoatOwnerdApiUrl);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("GET");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+
             }
-        
-        
-        
+
+            // Parse the JSON response
+            JSONArray jsonResponseList = new JSONArray(response.toString());
+
+            // get each element of response
+            jsonResponseList.forEach(owner -> parseOwnerObject((JSONObject) owner));
+
+            br.close();
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                JOptionPane.showMessageDialog(null, "Boad no. "+boatRegNo+" exist");
+        }
+    }
+
+    private void parseOwnerObject(JSONObject owner) {
+
+        Integer id = (Integer) owner.getInt("id");
+        String fname = (String) owner.getString("first_name");
+        String lname = (String) owner.getString("last_name");
+//        BoatOwners ownerObj = new BoatOwners(id, fname, lname);
+        jComboBoxBoatOwner.addItem(id.toString() +" "+fname+ " "+lname);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1225,7 +1198,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Button btnClearOwner;
     private javax.swing.JButton jBtnDecrementPax;
     private javax.swing.JButton jBtnIncrementPax;
-    private javax.swing.JComboBox<String> jComboBoxBoatCapacity;
+    private javax.swing.JComboBox<String> jComboBoxBoatOwner;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

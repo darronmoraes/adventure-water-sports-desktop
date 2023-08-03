@@ -635,22 +635,24 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnClear" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnAddBoat" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lBoatRegNo" min="-2" max="-2" attributes="0"/>
                                       <Component id="lBoatOwner" min="-2" max="-2" attributes="0"/>
                                       <Component id="lBoatCapacity" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tBoatRegNo" pref="242" max="32767" attributes="0"/>
-                                      <Component id="tBoatOwner" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="tBoatCapacity" min="-2" pref="106" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxBoatCapacity" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tBoatRegNo" min="-2" pref="242" max="-2" attributes="0"/>
+                                      <Component id="tBoatCapacity" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jComboBoxBoatOwner" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="tBoatOwner" min="-2" pref="106" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnClear" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnAddBoat" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -667,21 +669,19 @@
                               <Component id="tBoatRegNo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="lBoatCapacity" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="tBoatCapacity" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxBoatCapacity" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lBoatOwner" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="tBoatOwner" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="btnAddBoat" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="btnClear" min="-2" max="-2" attributes="0"/>
+                              <Component id="tBoatCapacity" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="lBoatOwner" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tBoatOwner" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxBoatOwner" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnAddBoat" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnClear" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="226" max="32767" attributes="0"/>
                           </Group>
@@ -690,9 +690,6 @@
                   </Layout>
                   <SubComponents>
                     <Component class="java.awt.TextField" name="tBoatRegNo">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="textField1"/>
-                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tBoatRegNoActionPerformed"/>
                       </Events>
@@ -703,7 +700,6 @@
                           <Color id="Text Cursor"/>
                         </Property>
                         <Property name="name" type="java.lang.String" value="" noResource="true"/>
-                        <Property name="text" type="java.lang.String" value="textField2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tBoatCapacityActionPerformed"/>
@@ -725,9 +721,6 @@
                       </Properties>
                     </Component>
                     <Component class="java.awt.TextField" name="tBoatOwner">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="textField4"/>
-                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tBoatOwnerActionPerformed"/>
                       </Events>
@@ -748,22 +741,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBoxBoatCapacity">
+                    <Component class="javax.swing.JComboBox" name="jComboBoxBoatOwner">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="7">
-                            <StringItem index="0" value="8"/>
-                            <StringItem index="1" value="10"/>
-                            <StringItem index="2" value="12"/>
-                            <StringItem index="3" value="14"/>
-                            <StringItem index="4" value="16"/>
-                            <StringItem index="5" value="18"/>
-                            <StringItem index="6" value="20"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxBoatCapacityActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxBoatOwnerActionPerformed"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
