@@ -28,4 +28,6 @@ public class Constants {
     // GET EXISTING BOAT OWNER
     public static final String GET_BOAT_OWNERS = "user_as_owner";
     
+    // GET EXISTING BOAT OWNER
+    public static final String ADD_BOAT_OWNERS = "register-user";
 }

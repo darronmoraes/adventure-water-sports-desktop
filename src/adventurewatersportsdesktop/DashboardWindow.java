@@ -45,6 +45,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         label2 = new java.awt.Label();
         jMenuIssueTicket = new javax.swing.JPanel();
@@ -88,7 +90,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jComboBoxBoatCapacity = new javax.swing.JComboBox<>();
         jPanelAddOwnerDetails = new javax.swing.JPanel();
         lEmail = new java.awt.Label();
-        tEmail = new java.awt.TextField();
+        tOwnerEmail = new java.awt.TextField();
         lFirstName = new java.awt.Label();
         tFirstName = new java.awt.TextField();
         lLastName = new java.awt.Label();
@@ -98,9 +100,10 @@ public class DashboardWindow extends javax.swing.JFrame {
         lContact = new java.awt.Label();
         tContact = new java.awt.TextField();
         lGender = new java.awt.Label();
-        tGender = new java.awt.TextField();
         btnAddOwner = new java.awt.Button();
         btnClearOwner = new java.awt.Button();
+        jRadioButtonMale = new javax.swing.JRadioButton();
+        jRadioButtonFemale = new javax.swing.JRadioButton();
         jTabReport = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -524,63 +527,102 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         lEmail.setText("Email id");
 
-        tEmail.setText("textField3");
-        tEmail.addActionListener(new java.awt.event.ActionListener() {
+        tOwnerEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tEmailActionPerformed(evt);
+                tOwnerEmailActionPerformed(evt);
             }
         });
 
         lFirstName.setText("first name");
 
-        tFirstName.setText("textField5");
+        tFirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tFirstNameActionPerformed(evt);
+            }
+        });
 
         lLastName.setText("lastname");
 
-        tLastName.setText("textField6");
+        tLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tLastNameActionPerformed(evt);
+            }
+        });
 
         lAddress.setText("Address");
 
-        tAddress.setText("textField7");
+        tAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tAddressActionPerformed(evt);
+            }
+        });
 
         lContact.setText("Contact");
 
-        tContact.setText("textField8");
+        tContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tContactActionPerformed(evt);
+            }
+        });
 
         lGender.setText("Gender");
 
-        tGender.setText("textField9");
-
         btnAddOwner.setLabel("Add Owner");
+        btnAddOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOwnerActionPerformed(evt);
+            }
+        });
 
         btnClearOwner.setLabel("Clear");
+        btnClearOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearOwnerActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonMale);
+        jRadioButtonMale.setSelected(true);
+        jRadioButtonMale.setText("MALE");
+        jRadioButtonMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMaleActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonFemale);
+        jRadioButtonFemale.setText("FEMALE");
 
         javax.swing.GroupLayout jPanelAddOwnerDetailsLayout = new javax.swing.GroupLayout(jPanelAddOwnerDetails);
         jPanelAddOwnerDetails.setLayout(jPanelAddOwnerDetailsLayout);
         jPanelAddOwnerDetailsLayout.setHorizontalGroup(
             jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelAddOwnerDetailsLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addGroup(jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(tFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tGender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddOwnerDetailsLayout.createSequentialGroup()
                 .addContainerGap(341, Short.MAX_VALUE)
                 .addComponent(btnClearOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(btnAddOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
+            .addGroup(jPanelAddOwnerDetailsLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAddOwnerDetailsLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonMale)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonFemale))
+                    .addGroup(jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tOwnerEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                        .addComponent(tFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelAddOwnerDetailsLayout.setVerticalGroup(
             jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -593,7 +635,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tOwnerEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
@@ -612,9 +654,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addComponent(tContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(tGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAddOwnerDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonMale)
+                            .addComponent(jRadioButtonFemale))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(btnAddOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(72, 72, 72))
         );
@@ -801,9 +845,9 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldRegistrationNumberActionPerformed
 
-    private void tEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tEmailActionPerformed
+    private void tOwnerEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tOwnerEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tEmailActionPerformed
+    }//GEN-LAST:event_tOwnerEmailActionPerformed
 
     /**
      * ------------------------------ Add boat tab
@@ -860,6 +904,80 @@ public class DashboardWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBoxBoatCapacityActionPerformed
 
+    
+    
+    
+    /** -------------------------- add owner tab ---------------------------------*/
+    
+    private void tFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tFirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tFirstNameActionPerformed
+
+    private void tLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tLastNameActionPerformed
+
+    private void tAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tAddressActionPerformed
+
+    private void tContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tContactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tContactActionPerformed
+
+    private void jRadioButtonMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonMaleActionPerformed
+
+    private void btnAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOwnerActionPerformed
+        // TODO add your handling code here:
+        String email = tOwnerEmail.getText();
+        String fname = tFirstName.getText();
+        String lname = tLastName.getText();
+        String address = tAddress.getText();
+        String contact = tContact.getText();
+        String gender = "";
+        
+        if(tOwnerEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter Email");
+        }else if(tFirstName.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter Firstname");
+        }else if(tLastName.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter Lastname");
+        }else if(tAddress.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter address");
+        }else if(tContact.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Enter contact no.");
+        }
+        
+        
+        if(jRadioButtonMale.isSelected()){
+            gender = "MALE";
+            
+        }
+        if(jRadioButtonFemale.isSelected()){
+            gender = "FEMALE";
+        }
+        
+        // api function call
+        if(!tOwnerEmail.getText().isEmpty() && !tFirstName.getText().isEmpty() && !tLastName.getText().isEmpty() && !tAddress.getText().isEmpty() && !tContact.getText().isEmpty()){
+            addBoatOwnerDetails(email,fname,lname,address,contact,gender);
+        }
+        
+        
+    }//GEN-LAST:event_btnAddOwnerActionPerformed
+
+    private void btnClearOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearOwnerActionPerformed
+        // TODO add your handling code here:
+        clearOwnerTab();
+    }//GEN-LAST:event_btnClearOwnerActionPerformed
+
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1190,15 +1308,95 @@ public class DashboardWindow extends javax.swing.JFrame {
     }
     
     
+/**-------------------------------- added owner details --------------------------- */
+    
+    public void addBoatOwnerDetails(String email,String fname,String lname,String address,String contact,String gender) {
+        String addBoatOwnerDetailApiUrl = Constants.URL + Constants.ADD_BOAT_OWNERS;
+
+        try {
+            // Create the JSON object
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("email", email);
+            jsonRequest.put("firstname", fname);
+            jsonRequest.put("lastname", lname);
+            jsonRequest.put("address", address);
+            jsonRequest.put("contact", contact);
+            jsonRequest.put("gender", gender);
+            jsonRequest.put("role", "owner");
+            
+            
+            
+            URL url = new URL(addBoatOwnerDetailApiUrl);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try ( OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "hello developer");
+            }
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200 || jsonResponse.getInt("status") == 410) {
+                String responseMessage = jsonResponse.getString("message");
+
+                JOptionPane.showMessageDialog(null, responseMessage);
+                clearOwnerTab();
+            } else {
+                JOptionPane.showMessageDialog(null, "connection failed");
+            }
+
+            br.close();
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "User exist");
+        }
+
+    }
     
     
-    
+//    clear function
+    public void clearOwnerTab(){
+    tOwnerEmail.setText("");
+    tFirstName.setText("");
+    tLastName.setText("");
+    tAddress.setText("");
+    tContact.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnAddBoat;
     private java.awt.Button btnAddOwner;
     private java.awt.Button btnClear;
     private java.awt.Button btnClearOwner;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jBtnDecrementPax;
     private javax.swing.JButton jBtnIncrementPax;
     private javax.swing.JComboBox<String> jComboBoxBoatCapacity;
@@ -1215,6 +1413,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelAddBoat;
     private javax.swing.JPanel jPanelAddOwnerDetails;
     private javax.swing.JPanel jPanelCommercialData;
+    private javax.swing.JRadioButton jRadioButtonFemale;
+    private javax.swing.JRadioButton jRadioButtonMale;
     private javax.swing.JPanel jTabAddBoat;
     private javax.swing.JPanel jTabIssueTicket;
     private javax.swing.JPanel jTabReport;
@@ -1238,9 +1438,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.TextField tAddress;
     private java.awt.TextField tBoatRegNo;
     private java.awt.TextField tContact;
-    private java.awt.TextField tEmail;
     private java.awt.TextField tFirstName;
-    private java.awt.TextField tGender;
     private java.awt.TextField tLastName;
+    private java.awt.TextField tOwnerEmail;
     // End of variables declaration//GEN-END:variables
 }
