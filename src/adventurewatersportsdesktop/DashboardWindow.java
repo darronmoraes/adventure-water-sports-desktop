@@ -107,11 +107,19 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabReport = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jPanel2.setBackground(java.awt.SystemColor.activeCaption);
 
         label2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        label2.setForeground(new java.awt.Color(255, 255, 255));
         label2.setText("Adventure Water Sports");
 
-        jMenuIssueTicket.setBackground(new java.awt.Color(153, 153, 153));
+        jMenuIssueTicket.setBackground(java.awt.SystemColor.inactiveCaption);
         jMenuIssueTicket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuIssueTicketMouseClicked(evt);
@@ -139,7 +147,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuAddBoat.setBackground(new java.awt.Color(153, 153, 153));
+        jMenuAddBoat.setBackground(java.awt.SystemColor.inactiveCaption);
         jMenuAddBoat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuAddBoatMouseClicked(evt);
@@ -167,13 +175,14 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuReport.setBackground(new java.awt.Color(153, 153, 153));
+        jMenuReport.setBackground(java.awt.SystemColor.inactiveCaption);
         jMenuReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuReportMouseClicked(evt);
             }
         });
 
+        jLabel3.setBackground(java.awt.SystemColor.inactiveCaption);
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("REPORT");
@@ -212,11 +221,11 @@ public class DashboardWindow extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
+                .addGap(58, 58, 58)
                 .addComponent(jMenuIssueTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jMenuAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jMenuReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -751,7 +760,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabAddBoat.setVisible(true);
         jTabReport.setVisible(false);
         jTabbedPane1.setVisible(true);
-        getBoatOwners();
+//        getBoatOwners();
     }//GEN-LAST:event_jMenuAddBoatMouseClicked
 
     private void jMenuReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuReportMouseClicked
@@ -971,6 +980,12 @@ public class DashboardWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         clearOwnerTab();
     }//GEN-LAST:event_btnClearOwnerActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        getBoatOwners();
+        
+    }//GEN-LAST:event_formWindowActivated
 
     
     
