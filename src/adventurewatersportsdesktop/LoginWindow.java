@@ -194,6 +194,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 } else {
                     // Login Failed
                     // Handle failure
+                    // Comment for developers
                     System.out.println("Login failed! Invalid credentials");
                     JOptionPane.showMessageDialog(null, "Incorrect credentials");
                 }
