@@ -58,7 +58,8 @@
                           <Component id="textFieldUserPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="textFieldUserName" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="checkBoxShowPassword" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxShowPassword" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtnServer" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
@@ -81,7 +82,9 @@
                   <Component id="checkBoxShowPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="119" max="32767" attributes="0"/>
+                  <EmptySpace pref="90" max="32767" attributes="0"/>
+                  <Component id="jBtnServer" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -146,6 +149,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxShowPasswordActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jBtnServer">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Server Off"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnServerActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

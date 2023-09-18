@@ -45,6 +45,7 @@ public class LoginWindow extends javax.swing.JFrame {
         textFieldUserName = new javax.swing.JTextField();
         javax.swing.JButton btnLogin = new javax.swing.JButton();
         checkBoxShowPassword = new javax.swing.JCheckBox();
+        jBtnServer = new javax.swing.JButton();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,6 +76,13 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
 
+        jBtnServer.setText("Server Off");
+        jBtnServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnServerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,7 +97,8 @@ public class LoginWindow extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(textFieldUserPassword, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(textFieldUserName, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(checkBoxShowPassword))
+                    .addComponent(checkBoxShowPassword)
+                    .addComponent(jBtnServer))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,7 +118,9 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addComponent(checkBoxShowPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addComponent(jBtnServer)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
@@ -220,6 +231,17 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkBoxShowPasswordActionPerformed
 
+    private void jBtnServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnServerActionPerformed
+        // TODO add your handling code here:
+        if (!isServerRunning) {
+            startFlaskServer();
+            jBtnServer.setText("Server On");
+        } else {
+            stopFlaskServer();
+            jBtnServer.setText("Server Off");
+        }
+    }//GEN-LAST:event_jBtnServerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,9 +276,47 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
     }
+    
+    /*
+    Custom methods to handle functionalities
+    */
+    
+    /*
+        Private method to start the Flask Server
+    */
+    private void startFlaskServer() {
+        try {
+            String pythonCommand = "python";
+            String scriptPath = "D:/project/python-backend/python_flask-white-boat-water-sports-server/app.py";
+            ProcessBuilder processBuilder = new ProcessBuilder(pythonCommand, scriptPath);
+        
+            // Start the process
+            serverProcess = processBuilder.start();
+            isServerRunning = true;
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /*
+        Private method to stop the Flask Server
+    */
+    private void stopFlaskServer() {
+        if(serverProcess != null) {
+            serverProcess.destroy();
+            isServerRunning = false;
+        }
+    }
+    
+    // Custom Variables declaration
+    private Process serverProcess;   // Store the process
+    
+    private boolean isServerRunning = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxShowPassword;
+    private javax.swing.JButton jBtnServer;
     private javax.swing.JTextField textFieldUserName;
     private javax.swing.JPasswordField textFieldUserPassword;
     // End of variables declaration//GEN-END:variables
