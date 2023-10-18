@@ -12,11 +12,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.BookingTicket;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import models.Report;
 
 /**
  *
@@ -108,11 +112,11 @@ public class DashboardWindow extends javax.swing.JFrame {
         jPanelCommision2 = new javax.swing.JPanel();
         jLabelCommission1 = new javax.swing.JLabel();
         jPanelCommision3 = new javax.swing.JPanel();
-        jLabelCommissionAmount1 = new javax.swing.JLabel();
+        jLabelPaxCount = new javax.swing.JLabel();
         jPanelCommision4 = new javax.swing.JPanel();
         jLabelCommission2 = new javax.swing.JLabel();
         jPanelCommision5 = new javax.swing.JPanel();
-        jLabelCommissionAmount2 = new javax.swing.JLabel();
+        jLabelTotalAmount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -726,10 +730,10 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         jPanelCommision3.setBackground(new java.awt.Color(183, 106, 207));
 
-        jLabelCommissionAmount1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabelCommissionAmount1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelCommissionAmount1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCommissionAmount1.setText("12");
+        jLabelPaxCount.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabelPaxCount.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPaxCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelPaxCount.setText("12");
 
         javax.swing.GroupLayout jPanelCommision3Layout = new javax.swing.GroupLayout(jPanelCommision3);
         jPanelCommision3.setLayout(jPanelCommision3Layout);
@@ -737,14 +741,14 @@ public class DashboardWindow extends javax.swing.JFrame {
             jPanelCommision3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommision3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelCommissionAmount1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addComponent(jLabelPaxCount, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelCommision3Layout.setVerticalGroup(
             jPanelCommision3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCommision3Layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jLabelCommissionAmount1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -775,10 +779,10 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         jPanelCommision5.setBackground(new java.awt.Color(183, 106, 207));
 
-        jLabelCommissionAmount2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabelCommissionAmount2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelCommissionAmount2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCommissionAmount2.setText("1500");
+        jLabelTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabelTotalAmount.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTotalAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotalAmount.setText("1500");
 
         javax.swing.GroupLayout jPanelCommision5Layout = new javax.swing.GroupLayout(jPanelCommision5);
         jPanelCommision5.setLayout(jPanelCommision5Layout);
@@ -786,14 +790,14 @@ public class DashboardWindow extends javax.swing.JFrame {
             jPanelCommision5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommision5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelCommissionAmount2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelTotalAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelCommision5Layout.setVerticalGroup(
             jPanelCommision5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCommision5Layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jLabelCommissionAmount2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -902,6 +906,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabIssueTicket.setVisible(false);
         jTabAddBoat.setVisible(false);
         jTabReport.setVisible(true);
+        fetchCurrentDateReport();   // API call to get the report on current date.
         jTabbedPane1.setVisible(false);
     }//GEN-LAST:event_jMenuReportMouseClicked
 
@@ -917,31 +922,31 @@ public class DashboardWindow extends javax.swing.JFrame {
     // Generate ticket on Button clicked
     private void jBtnTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTicketActionPerformed
         // TODO add your handling code here:
-        
+
         // Get the TextField data for commercial bookings
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
         String contactNumber = jTextFieldContactNumber.getText();
-        
+
         if (counter == 0 && estimatedAmount == 0) {
             JOptionPane.showMessageDialog(null, "Atleast 1 person is required to proceed with ticketing");
         } else if (counter != 0 && estimatedAmount != 0) {
-            if (areVehicleDetailsEntered()) {     
+            if (areVehicleDetailsEntered()) {
                 commercialApiCall(registrationNumber, proprieterName, contactNumber);
             } else {
                 nonCommercialApiCall();
             }
         }
-        
+
     }//GEN-LAST:event_jBtnTicketActionPerformed
 
     private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
         // TODO add your handling code here:
-        
+
         // Clear the text Fields
         jTextPaxCount.setText("0");
         jTextFieldAmount.setText("0 Rs.");
-        
+
         jTextFieldRegistrationNumber.setText("");
         jTextFieldTransportProprieter.setText("");
         jTextFieldContactNumber.setText("");
@@ -949,7 +954,7 @@ public class DashboardWindow extends javax.swing.JFrame {
 
     private void jToggleBtnCommercialVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleBtnCommercialVehicleActionPerformed
         // TODO add your handling code here:
-        if(jToggleBtnCommercialVehicle.isSelected()) {
+        if (jToggleBtnCommercialVehicle.isSelected()) {
             jPanelCommercialData.setVisible(true);
         } else {
             jPanelCommercialData.setVisible(false);
@@ -961,9 +966,9 @@ public class DashboardWindow extends javax.swing.JFrame {
         if (counter > 0) {
             counter--;
         }
-        
+
         jTextPaxCount.setText(String.valueOf(counter));
-        
+
         if (counter != 0) {
             estimatedAmount = amountPerPaxRide(counter);
             jTextFieldAmount.setText(String.valueOf(estimatedAmount));
@@ -971,15 +976,15 @@ public class DashboardWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Requires pax above 1 to calculate estimated cost");
             jTextFieldAmount.setText("0");
         }
-        
+
     }//GEN-LAST:event_jBtnDecrementPaxActionPerformed
 
     private void jBtnIncrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncrementPaxActionPerformed
         // TODO add your handling code here:
         counter++;
-        
+
         jTextPaxCount.setText(String.valueOf(counter));
-        
+
         estimatedAmount = amountPerPaxRide(counter);
         jTextFieldAmount.setText(String.valueOf(estimatedAmount));
     }//GEN-LAST:event_jBtnIncrementPaxActionPerformed
@@ -991,6 +996,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     // Action button to toggle off server
     private void btnServerOnOffToggleDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServerOnOffToggleDashboardActionPerformed
         // TODO add your handling code here:
+        stopServerFromDashboard();
     }//GEN-LAST:event_btnServerOnOffToggleDashboardActionPerformed
 
     // Action button to logout of the system
@@ -1037,112 +1043,35 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Custome Variable declaration 
     int counter = 0;
     int perHeadPrice = 350;
     int estimatedAmount = 0;
-    
+
     // Custom methods to calculate ticket amount for the given pax
     private int amountPerPaxRide(int pax) {
         return perHeadPrice * pax;
     }
-    
+
     // Non Commercial vehicle api call
     private void nonCommercialApiCall() {
-        
+
         String nonCommercialApiURL = Constants.URL + Constants.NON_COMMERCIAL_BOOKING_ENDPOINT;
-        
-        
-            try {
-                // Create the JSON object with pax and amount
-                JSONObject jsonRequest = new JSONObject();
-                jsonRequest.put("pax", counter);
-                jsonRequest.put("amount", estimatedAmount);
-            
-                // Open the connection and set up the request
-                URL url = new URL(nonCommercialApiURL);
-                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-                connect.setRequestMethod("POST");
-                connect.setRequestProperty("Content-Type", "application/json");
-                connect.setDoOutput(true);
-            
-                // Write the JSON payload to request body
-                try (OutputStream os = connect.getOutputStream()) {
-                    byte[] input = jsonRequest.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                } catch (IOException ex) {
-                    Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-                // Get the response from the server
-                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-                
-                // Parse the JSON response
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                
-                // Check if the status is 200 (success)
-                if (jsonResponse.getInt("status") == 200) {
-                    JSONObject result = jsonResponse.getJSONObject("result");
-                    JSONObject order = result.getJSONObject("order");
-                    
-                    BookingTicket bookingData = new BookingTicket(
-                            order.getString("serial_number"),
-                            order.getInt("amount"),
-                            order.getInt("pax")
-                    );
-                    
-                    // Show the serial number, amount and pax in dialog
-                    String message = "Serial Number: " + bookingData.getSerialNumber() +
-                            "\nAmount: " + bookingData.getAmount() +
-                            "\nPax: " + bookingData.getPax();
-                    
-                    JOptionPane.showMessageDialog(null, message);
-                }
-                
-                br.close();
-            
-                // Print in the terminal the response
-                System.out.println("Response " + response.toString());
-            
-                connect.disconnect();
-            
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ProtocolException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    
-    
-    // Commercial API call
-    private void commercialApiCall(String registrationNumber, String transportProp, String contactNumber) {
-        String nonCommercialApiURL = Constants.URL + Constants.COMMERCIAL_BOOKING_ENDPOINT;
-        
-        
+
         try {
             // Create the JSON object with pax and amount
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("pax", counter);
             jsonRequest.put("amount", estimatedAmount);
-            jsonRequest.put("reg_no", registrationNumber);
-            jsonRequest.put("name", transportProp);
-            jsonRequest.put("contact", contactNumber);
-            
+
             // Open the connection and set up the request
             URL url = new URL(nonCommercialApiURL);
             HttpURLConnection connect = (HttpURLConnection) url.openConnection();
             connect.setRequestMethod("POST");
             connect.setRequestProperty("Content-Type", "application/json");
             connect.setDoOutput(true);
-            
+
             // Write the JSON payload to request body
             try (OutputStream os = connect.getOutputStream()) {
                 byte[] input = jsonRequest.toString().getBytes("utf-8");
@@ -1150,43 +1079,44 @@ public class DashboardWindow extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             // Get the response from the server
             BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 response.append(line);
             }
-            br.close();
-            
+
             // Parse the JSON response
             JSONObject jsonResponse = new JSONObject(response.toString());
-                
+
             // Check if the status is 200 (success)
             if (jsonResponse.getInt("status") == 200) {
                 JSONObject result = jsonResponse.getJSONObject("result");
                 JSONObject order = result.getJSONObject("order");
-                    
+
                 BookingTicket bookingData = new BookingTicket(
                         order.getString("serial_number"),
                         order.getInt("amount"),
                         order.getInt("pax")
                 );
-                    
+
                 // Show the serial number, amount and pax in dialog
-                String message = "Serial Number: " + bookingData.getSerialNumber() +
-                        "\nAmount: " + bookingData.getAmount() +
-                        "\nPax: " + bookingData.getPax();
-                    
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
                 JOptionPane.showMessageDialog(null, message);
             }
-            
+
+            br.close();
+
             // Print in the terminal the response
             System.out.println("Response " + response.toString());
-            
+
             connect.disconnect();
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ProtocolException ex) {
@@ -1195,21 +1125,183 @@ public class DashboardWindow extends javax.swing.JFrame {
             Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    // Commercial API call
+    private void commercialApiCall(String registrationNumber, String transportProp, String contactNumber) {
+        String nonCommercialApiURL = Constants.URL + Constants.COMMERCIAL_BOOKING_ENDPOINT;
+
+        try {
+            // Create the JSON object with pax and amount
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("pax", counter);
+            jsonRequest.put("amount", estimatedAmount);
+            jsonRequest.put("reg_no", registrationNumber);
+            jsonRequest.put("name", transportProp);
+            jsonRequest.put("contact", contactNumber);
+
+            // Open the connection and set up the request
+            URL url = new URL(nonCommercialApiURL);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try (OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200) {
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONObject order = result.getJSONObject("order");
+
+                BookingTicket bookingData = new BookingTicket(
+                        order.getString("serial_number"),
+                        order.getInt("amount"),
+                        order.getInt("pax")
+                );
+
+                // Show the serial number, amount and pax in dialog
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
+                JOptionPane.showMessageDialog(null, message);
+            }
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // Check if Commercial vehicle details entered
     private boolean areVehicleDetailsEntered() {
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
         String contactNumber = jTextFieldContactNumber.getText();
-        
+
         return !registrationNumber.isEmpty() && !proprieterName.isEmpty() && !contactNumber.isEmpty();
     }
-    
+
     /*
         REPORT TAB functions and variables
-    */
-    
-    
+     */
+    // Current date report on dashboard
+    private void fetchCurrentDateReport() {
+        /**
+         * Use Date class to create an object and use date formatter for
+         * formatting the date.
+         * 
+         */
+        
+        Date currentDate = new Date();
+        
+        // Create a date format to format the date as a String.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateStringFormat = dateFormat.format(currentDate);
+        
+        // Print the cuurent date
+        System.out.println("Current Date: " + currentDateStringFormat);
+        
+        try {
+            // Create the URL with query parameter
+            // query param variable
+            String dateQueryParam = "?date=";
+
+            String apiUrl = Constants.URL + Constants.CURRENT_DATE_REPORT + dateQueryParam + currentDateStringFormat;
+            URL url = new URL(apiUrl);
+
+            // Open a connection to the URL
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set the HTTP request method to GET
+            connection.setRequestMethod("GET");
+
+            // Get the HTTP response code
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+
+                    // Parse the JSON response
+                    JSONArray jsonArray = new JSONArray(response.toString());
+
+                    if (jsonArray.length() > 0) {
+                        // 
+                        JSONObject item = jsonArray.getJSONObject(0);
+
+                        // Create an instance of report model class and populate
+                        Report currentDateReport = new Report(
+                                item.getDouble("commission"),
+                                item.getString("order_date"),
+                                item.getString("pax"),
+                                item.getDouble("total_amount")
+                        );
+
+                        // Update the swing labels with extracter data
+                        jLabelCommissionAmount.setText(String.valueOf(currentDateReport.getCommission()));
+                        jLabelPaxCount.setText(currentDateReport.getPax());
+                        jLabelTotalAmount.setText(String.valueOf(currentDateReport.getTotal_amount()));
+                    } else {
+                        jLabelCommissionAmount.setText("0");
+                        jLabelPaxCount.setText("0");
+                        jLabelTotalAmount.setText("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
+
+    /*
+        Settings and Logout and Server off Functions
+     */
+    // Server off Function
+    private void stopServerFromDashboard() {
+        LoginWindow window = new LoginWindow(); // instance of LoginWindow class
+
+        if (window.isServerRunning()) {
+            window.stopServer();   // stop server if its running
+        } else {
+            // print message if server is not running
+            JOptionPane.showMessageDialog(null, "Server not running");
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDashboardLogout;
@@ -1229,8 +1321,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCommission1;
     private javax.swing.JLabel jLabelCommission2;
     private javax.swing.JLabel jLabelCommissionAmount;
-    private javax.swing.JLabel jLabelCommissionAmount1;
-    private javax.swing.JLabel jLabelCommissionAmount2;
+    private javax.swing.JLabel jLabelPaxCount;
+    private javax.swing.JLabel jLabelTotalAmount;
     private javax.swing.JPanel jMenuAddBoat;
     private javax.swing.JPanel jMenuIssueTicket;
     private javax.swing.JPanel jMenuReport;

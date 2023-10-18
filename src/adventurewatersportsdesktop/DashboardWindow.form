@@ -1122,7 +1122,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabelCommissionAmount1" pref="78" max="32767" attributes="0"/>
+                              <Component id="jLabelPaxCount" pref="78" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1131,14 +1131,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="33" max="32767" attributes="0"/>
-                              <Component id="jLabelCommissionAmount1" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="jLabelPaxCount" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabelCommissionAmount1">
+                    <Component class="javax.swing.JLabel" name="jLabelPaxCount">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="36" style="1"/>
@@ -1207,7 +1207,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabelCommissionAmount2" max="32767" attributes="0"/>
+                              <Component id="jLabelTotalAmount" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1216,14 +1216,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="33" max="32767" attributes="0"/>
-                              <Component id="jLabelCommissionAmount2" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="jLabelTotalAmount" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabelCommissionAmount2">
+                    <Component class="javax.swing.JLabel" name="jLabelTotalAmount">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="36" style="1"/>
