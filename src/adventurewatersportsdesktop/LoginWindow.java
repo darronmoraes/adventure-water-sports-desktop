@@ -146,8 +146,8 @@ public class LoginWindow extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,10 +323,20 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }
     
-    // Custom Variables declaration
-    private Process serverProcess;   // Store the process
+    // Public method to stop the flask server
+    public void stopServer() {
+        stopFlaskServer();
+    }
     
-    private boolean isServerRunning = false;
+    // Public method to check if the server is running
+    public boolean isServerRunning() {
+        return isServerRunning;
+    }
+    
+    // Custom Variables declaration
+    private Process serverProcess;   // Store the Server Process
+    
+    private boolean isServerRunning = false;   // check server status
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxShowPassword;

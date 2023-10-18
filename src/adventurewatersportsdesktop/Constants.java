@@ -22,4 +22,8 @@ public class Constants {
     
     public static final String COMMERCIAL_BOOKING_ENDPOINT = "booking";
     
+    
+    // REPORT API END-POINT
+    public static final String CURRENT_DATE_REPORT = "get_single_day_report";
+    
 }
