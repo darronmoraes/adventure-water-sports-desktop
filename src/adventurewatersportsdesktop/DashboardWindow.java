@@ -720,16 +720,29 @@ public class DashboardWindow extends javax.swing.JFrame {
         } else if (counter != 0 && estimatedAmount != 0) {
             if (areVehicleDetailsEntered()) {     
                 commercialApiCall(registrationNumber, proprieterName, contactNumber);
+                clearBookingTextFields();   // clear the text fields.
             } else {
                 nonCommercialApiCall();
+                clearBookingTextFields();   // clear the text fields.
             }
         }
         
     }//GEN-LAST:event_jBtnTicketActionPerformed
 
-    private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
-        // TODO add your handling code here:
-        
+    /**
+     * 
+     * Method to clear the input fields on successful booking process and on clear button clicked.
+     * 
+     * Fields to Clear - 
+     * 1. Pax-Count
+     * 2. Amount
+     * 3. Registration-Number
+     * 4. Transport-Proprietor
+     * 5. Contact-Number
+     * 
+     */
+    
+    private void clearBookingTextFields() {
         // Clear the text Fields
         jTextPaxCount.setText("0");
         jTextFieldAmount.setText("0 Rs.");
@@ -737,6 +750,16 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTextFieldRegistrationNumber.setText("");
         jTextFieldTransportProprieter.setText("");
         jTextFieldContactNumber.setText("");
+        
+        // set the variables counter and estimatedAmount to 0
+        counter = 0;
+        estimatedAmount = 0;
+    }
+    
+    private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
+        // TODO add your handling code here:
+        // Call the clearBookingTextFields() function.
+        clearBookingTextFields();
     }//GEN-LAST:event_jBtnClearTicketActionPerformed
 
     private void jToggleBtnCommercialVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleBtnCommercialVehicleActionPerformed
