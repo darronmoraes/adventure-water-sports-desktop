@@ -295,6 +295,11 @@ public class TicketBookingWindow extends javax.swing.JFrame {
         estimatedAmount = 0;
     }
     
+    // Method to exit from booking window to dashboard
+    private void closeWindow() {
+        this.setVisible(false);
+    }
+    
     private void jBtnIncrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncrementPaxActionPerformed
         // TODO add your handling code here:
         counter++;
@@ -357,9 +362,11 @@ public class TicketBookingWindow extends javax.swing.JFrame {
             if (areVehicleDetailsEntered()) {
                 commercialApiCall(registrationNumber, proprieterName, contactNumber);
                 clearBookingTextFields();   // clear the text fields.
+                closeWindow();
             } else {
                 nonCommercialApiCall();
                 clearBookingTextFields();   // clear the text fields.
+                closeWindow();
             }
         }
     }//GEN-LAST:event_jBtnTicketActionPerformed
