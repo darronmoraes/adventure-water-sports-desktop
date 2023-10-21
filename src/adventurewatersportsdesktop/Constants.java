@@ -29,4 +29,8 @@ public class Constants {
     // Date range report
     public static final String RANGE_DATE_REPORT = "get_report_between_dates";
     
+    
+    // Integer Constants
+    public static final Integer DOLPHIN_RIDE_PRICE = 350;
+    
 }
