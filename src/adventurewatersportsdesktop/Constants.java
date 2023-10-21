@@ -26,4 +26,7 @@ public class Constants {
     // REPORT API END-POINT
     public static final String CURRENT_DATE_REPORT = "get_single_day_report";
     
+    // Date range report
+    public static final String RANGE_DATE_REPORT = "get_report_between_dates";
+    
 }

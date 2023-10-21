@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -295,7 +295,7 @@
                   <Component id="jTabAddBoat" alignment="1" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                  <Component id="jTabReport" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTabReport" alignment="0" pref="652" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1258,7 +1258,7 @@
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanelDateSelector" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="749" max="-2" attributes="0"/>
+                              <Component id="scrollReportPanel" min="-2" pref="749" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1270,7 +1270,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanelDateSelector" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="243" max="-2" attributes="0"/>
+                          <Component id="scrollReportPanel" min="-2" pref="243" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1293,10 +1293,12 @@
                                       <Component id="jLabel16" min="-2" pref="25" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="tvToDate" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnFetchReports" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel14" min="-2" pref="217" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="210" max="32767" attributes="0"/>
+                              <EmptySpace pref="117" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1311,6 +1313,7 @@
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="tvToDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnFetchReports" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="33" max="32767" attributes="0"/>
                           </Group>
@@ -1328,7 +1331,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="tvFromDate">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="2023/11/12"/>
+                        <Property name="text" type="java.lang.String" value="2023-11-12"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel15">
@@ -1349,12 +1352,20 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="tvToDate">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="2023/12/14"/>
+                        <Property name="text" type="java.lang.String" value="2023-12-14"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnFetchReports">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Search"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFetchReportsActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                <Container class="javax.swing.JScrollPane" name="scrollReportPanel">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -1364,15 +1375,21 @@
                     <Component class="javax.swing.JTable" name="tableReport">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                          <Table columnCount="5" rowCount="4">
+                            <Column editable="false" title="Sr. No." type="java.lang.Object"/>
+                            <Column editable="false" title="Date" type="java.lang.Object"/>
+                            <Column editable="true" title="Pax" type="java.lang.Object"/>
+                            <Column editable="true" title="Amount" type="java.lang.Object"/>
+                            <Column editable="false" title="Commission" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="50" minWidth="25" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>

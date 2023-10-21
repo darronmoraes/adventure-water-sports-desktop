@@ -17,10 +17,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import models.BookingTicket;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import models.Report;
+import org.json.JSONException;
 
 /**
  *
@@ -124,7 +126,8 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         tvToDate = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        btnFetchReports = new javax.swing.JButton();
+        scrollReportPanel = new javax.swing.JScrollPane();
         tableReport = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -832,7 +835,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("REPORT MANAGEMENT");
 
-        tvFromDate.setText("2023/11/12");
+        tvFromDate.setText("2023-11-12");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("FROM");
@@ -840,7 +843,14 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setText("TO");
 
-        tvToDate.setText("2023/12/14");
+        tvToDate.setText("2023-12-14");
+
+        btnFetchReports.setText("Search");
+        btnFetchReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFetchReportsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelDateSelectorLayout = new javax.swing.GroupLayout(jPanelDateSelector);
         jPanelDateSelector.setLayout(jPanelDateSelectorLayout);
@@ -856,9 +866,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tvToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFetchReports))
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         jPanelDateSelectorLayout.setVerticalGroup(
             jPanelDateSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -870,22 +882,35 @@ public class DashboardWindow extends javax.swing.JFrame {
                     .addComponent(tvFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16)
-                    .addComponent(tvToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tvToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFetchReports))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
         tableReport.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Sr. No.", "Date", "Pax", "Amount", "Commission"
             }
-        ));
-        jScrollPane1.setViewportView(tableReport);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollReportPanel.setViewportView(tableReport);
+        if (tableReport.getColumnModel().getColumnCount() > 0) {
+            tableReport.getColumnModel().getColumn(0).setMinWidth(25);
+            tableReport.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         javax.swing.GroupLayout jPanelReportLayout = new javax.swing.GroupLayout(jPanelReport);
         jPanelReport.setLayout(jPanelReportLayout);
@@ -895,7 +920,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanelReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelDateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelReportLayout.setVerticalGroup(
@@ -904,7 +929,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanelDateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -958,7 +983,7 @@ public class DashboardWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jTabAddBoat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabReport, javax.swing.GroupLayout.PREFERRED_SIZE, 652, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1001,6 +1026,8 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabAddBoat.setVisible(false);
         jTabReport.setVisible(true);
         fetchCurrentDateReport();   // API call to get the report on current date.
+        //tableReport.setVisible(false);  // Disable the table view when no query passed
+        //scrollReportPanel.setVisible(false);
         jTabbedPane1.setVisible(false);
     }//GEN-LAST:event_jMenuReportMouseClicked
 
@@ -1124,6 +1151,17 @@ public class DashboardWindow extends javax.swing.JFrame {
         LoginWindow loginScreen = new LoginWindow();
         loginScreen.setVisible(true);       // Set visible true for loginWindow screen to display
     }//GEN-LAST:event_btnDashboardLogoutActionPerformed
+
+    private void btnFetchReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFetchReportsActionPerformed
+        // TODO add your handling code here:
+        String fromDate = tvFromDate.getText();
+        String toDate = tvToDate.getText();
+        
+        // Make the Scroll Pane for table visible
+        scrollReportPanel.setVisible(true);
+        
+        fetchReportBasedOnFromAndToDates(fromDate, toDate);
+    }//GEN-LAST:event_btnFetchReportsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1402,6 +1440,60 @@ public class DashboardWindow extends javax.swing.JFrame {
             e.getMessage();
         }
     }
+    
+    // function to make api call to fetch report data based on from and to dates
+    protected void fetchReportBasedOnFromAndToDates(String from, String to) {
+        
+        // Create defaultTableModel object and use tableReport instance.
+        DefaultTableModel tableModel = (DefaultTableModel) tableReport.getModel();
+        
+        try {
+            String fromDateQueryParam = "?firstdate=";
+            String toDateQueryParam = "&lastdate=";
+            
+            String apiUrl = Constants.URL + Constants.RANGE_DATE_REPORT + fromDateQueryParam + from + toDateQueryParam + to;
+            //String apiUrl = "http://127.0.0.1:5000/get_report_between_dates?firstdate=2023-07-26&lastdate=2023-07-30";
+            
+            // Fetch data from API
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            
+            // Get the response code
+            int responseCode = connection.getResponseCode();
+            
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read the respons from the connection's input
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+                    
+                    // Parse the JSON response
+                    JSONArray jsonArray = new JSONArray(response.toString());
+                    
+                    // Clear the existing data in the table if any.
+                    tableModel.setRowCount(0);
+                    
+                    // Add data to the table
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        
+                        // Add data to the tables model
+                        tableModel.addRow(new Object[]{i+1, item.getString("order_date"), item.getString("pax"), item.getBigDecimal("total_amount"), item.getBigDecimal("commission")});
+                        
+                    }  // End of For loop
+                }   // End of Try block
+            }   // End of If block
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+    }
 
     /*
         Settings and Logout and Server off Functions
@@ -1422,6 +1514,7 @@ public class DashboardWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDashboardLogout;
+    private javax.swing.JButton btnFetchReports;
     private javax.swing.JButton btnServerOnOffToggleDashboard;
     private java.awt.Button button1;
     private java.awt.Button button2;
@@ -1460,7 +1553,6 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCommision5;
     private javax.swing.JPanel jPanelDateSelector;
     private javax.swing.JPanel jPanelReport;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jTabAddBoat;
     private javax.swing.JPanel jTabIssueTicket;
     private javax.swing.JPanel jTabReport;
@@ -1481,6 +1573,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Label label7;
     private java.awt.Label label8;
     private java.awt.Label label9;
+    private javax.swing.JScrollPane scrollReportPanel;
     private javax.swing.JTable tableReport;
     private java.awt.TextField textField1;
     private java.awt.TextField textField2;
