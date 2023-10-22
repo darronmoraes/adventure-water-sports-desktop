@@ -8,6 +8,7 @@ public class BookingTicket {
     
     // Variables declaration
     private String serialNumber;
+    private String date;
     private int amount;
     private int pax;
     
@@ -16,6 +17,13 @@ public class BookingTicket {
         this.serialNumber = serialNumber;
         this.amount = amount;
         this.pax = pax;
+    }
+    
+    public BookingTicket(String date, String serialNumber, int amount, int pax) {
+        this.serialNumber = serialNumber;
+        this.amount = amount;
+        this.pax = pax;
+        this.date = date;
     }
     
     // getters
@@ -32,4 +40,7 @@ public class BookingTicket {
         return pax;
     }
     
+    public String getDate() {
+        return date;
+    }
 }

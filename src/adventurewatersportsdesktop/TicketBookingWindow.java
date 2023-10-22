@@ -4,6 +4,11 @@
  */
 package adventurewatersportsdesktop;
 
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.BookingTicket;
 import org.json.JSONObject;
+import system.Print;
 
 /**
  *
@@ -300,6 +306,35 @@ public class TicketBookingWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }
     
+    // Method to print a message
+    private void printMessage(String date, String serialNo, int pax, int amount) {
+        // Create a PrinterJob
+        PrinterJob job = PrinterJob.getPrinterJob();
+        
+        // Create a Printable object for the message
+        Printable printable = new Print(date, serialNo, pax, amount);
+        
+        // Set the page format with a width of 57mm
+        PageFormat pageFormat = new PageFormat();
+        Paper paper = new Paper();
+        paper.setSize(57, pageFormat.getPaper().getHeight());
+        pageFormat.setPaper(paper);
+        
+        // Set the printable for the job
+        job.setPrintable(printable, pageFormat);
+        
+        // Show a print dialog to the user
+        if (job.printDialog()) {
+            try {
+                // Print the message
+                job.print();
+            } catch (PrinterException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error printing");
+            }
+        }
+    }
+    
     private void jBtnIncrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncrementPaxActionPerformed
         // TODO add your handling code here:
         counter++;
@@ -469,6 +504,7 @@ public class TicketBookingWindow extends javax.swing.JFrame {
                 JSONObject order = result.getJSONObject("order");
 
                 BookingTicket bookingData = new BookingTicket(
+                        order.getString("date"),
                         order.getString("serial_number"),
                         order.getInt("amount"),
                         order.getInt("pax")
@@ -480,6 +516,12 @@ public class TicketBookingWindow extends javax.swing.JFrame {
                         + "\nPax: " + bookingData.getPax();
 
                 JOptionPane.showMessageDialog(null, message);
+                printMessage(
+                        bookingData.getDate(),
+                        bookingData.getSerialNumber(),
+                        bookingData.getPax(),
+                        bookingData.getAmount()
+                );
             }
 
             br.close();
