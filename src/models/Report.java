@@ -20,6 +20,13 @@ public class Report {
         this.total_amount = totalAmount;
     }
     
+    // Constructor
+    public Report(String orderDate, String pax, double totalAmount) {
+        this.order_date = orderDate;
+        this.pax = pax;
+        this.total_amount = totalAmount;
+    }
+    
     // getters and setters
     public double getCommission() {
         return commission;
