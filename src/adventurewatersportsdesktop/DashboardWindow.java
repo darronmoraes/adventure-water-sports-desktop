@@ -4,6 +4,11 @@
  */
 package adventurewatersportsdesktop;
 
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import models.Report;
 import org.json.JSONException;
+import system.Print;
 
 /**
  *
@@ -64,6 +70,18 @@ public class DashboardWindow extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
+        jBtnDecrementPax = new javax.swing.JButton();
+        jTextPaxCount = new javax.swing.JLabel();
+        jBtnIncrementPax = new javax.swing.JButton();
+        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
+        jTextFieldAmount = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
+        jTextFieldRegistrationNumber = new javax.swing.JTextField();
+        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
+        jTextFieldTransportProprieter = new javax.swing.JTextField();
+        javax.swing.JButton jBtnTicket = new javax.swing.JButton();
+        javax.swing.JButton jBtnClearTicket = new javax.swing.JButton();
         javax.swing.JLabel jLabel19 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -297,26 +315,145 @@ public class DashboardWindow extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Pax Count");
+
+        jBtnDecrementPax.setText("-");
+        jBtnDecrementPax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnDecrementPaxActionPerformed(evt);
+            }
+        });
+
+        jTextPaxCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextPaxCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextPaxCount.setText("0");
+
+        jBtnIncrementPax.setText("+");
+        jBtnIncrementPax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnIncrementPaxActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Amount");
+
+        jTextFieldAmount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextFieldAmount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jTextFieldAmount.setText("0 Rs.");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Registration no");
+
+        jTextFieldRegistrationNumber.setText("GA-08-T-1214");
+        jTextFieldRegistrationNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRegistrationNumberActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Transport Prop.");
+
+        jTextFieldTransportProprieter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTransportProprieterActionPerformed(evt);
+            }
+        });
+
+        jBtnTicket.setText("Generate Ticket");
+        jBtnTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTicketActionPerformed(evt);
+            }
+        });
+
+        jBtnClearTicket.setText("Clear");
+        jBtnClearTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnClearTicketActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jLabel17)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jLabel17))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldTransportProprieter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldRegistrationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtnTicket))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtnDecrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextPaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jBtnIncrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtnClearTicket)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(219, 219, 219))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jBtnIncrementPax)
+                        .addComponent(jBtnDecrementPax)
+                        .addComponent(jTextPaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextFieldAmount))
+                        .addGap(4, 4, 4)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextFieldRegistrationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextFieldTransportProprieter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jBtnTicket)
+                    .addComponent(jBtnClearTicket))
                 .addContainerGap())
         );
 
@@ -1001,6 +1138,303 @@ public class DashboardWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
+     * Instance variables for counter and amount
+     * 
+     * @param evt 
+     */
+    
+    private int counter = 0;
+    private int estimatedAmount = 0;
+    
+    /**
+     * Custom methods
+     * 
+     * @param evt 
+     */
+    
+    // Method to calculate the total amount generated 
+    private int amountPerPaxRide(int pax) {
+        return Constants.DOLPHIN_RIDE_PRICE * pax;
+    }
+    
+    // Check if Commercial vehicle details entered
+    private boolean areVehicleDetailsEntered() {
+        String registrationNumber = jTextFieldRegistrationNumber.getText();
+        String proprieterName = jTextFieldTransportProprieter.getText();
+
+        return !registrationNumber.isEmpty() && !proprieterName.isEmpty();
+    }
+    
+    // Method to clear the fields
+    private void clearBookingTextFields() {
+        // Clear the text Fields
+        jTextPaxCount.setText("0");
+        jTextFieldAmount.setText("0 Rs.");
+
+        jTextFieldRegistrationNumber.setText("");
+        jTextFieldTransportProprieter.setText("");
+        
+        // set the variables counter and estimatedAmount to 0
+        counter = 0;
+        estimatedAmount = 0;
+    }
+    
+    // Method to exit from booking window to dashboard
+    private void closeWindow() {
+        this.setVisible(false);
+    }
+    
+    // Method to print a message
+    private void printMessage(String date, String serialNo, int pax, int amount) {
+        // Create a PrinterJob
+        PrinterJob job = PrinterJob.getPrinterJob();
+        
+        // Create a Printable object for the message
+        Printable printable = new Print(date, serialNo, pax, amount);
+        
+        // Set the page format with a width of 57mm
+        PageFormat pageFormat = new PageFormat();
+        Paper paper = new Paper();
+        paper.setSize(57, pageFormat.getPaper().getHeight());
+        pageFormat.setPaper(paper);
+        
+        // Set the printable for the job
+        job.setPrintable(printable, pageFormat);
+        
+        // Show a print dialog to the user
+        if (job.printDialog()) {
+            try {
+                // Print the message
+                job.print();
+            } catch (PrinterException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error printing");
+            }
+        }
+    }
+    
+    // Non Commercial vehicle api call
+    private void nonCommercialApiCall() {
+
+        String nonCommercialApiURL = Constants.URL + Constants.NON_COMMERCIAL_BOOKING_ENDPOINT;
+
+        try {
+            // Create the JSON object with pax and amount
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("pax", counter);
+            jsonRequest.put("amount", estimatedAmount);
+
+            // Open the connection and set up the request
+            URL url = new URL(nonCommercialApiURL);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try (OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200) {
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONObject order = result.getJSONObject("order");
+
+                BookingTicket bookingData = new BookingTicket(
+                        order.getString("date"),
+                        order.getString("serial_number"),
+                        order.getInt("amount"),
+                        order.getInt("pax")
+                );
+
+                // Show the serial number, amount and pax in dialog
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
+                JOptionPane.showMessageDialog(null, message);
+                printMessage(
+                        bookingData.getDate(),
+                        bookingData.getSerialNumber(),
+                        bookingData.getPax(),
+                        bookingData.getAmount()
+                );
+            }
+
+            br.close();
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    // Commercial API call
+    private void commercialApiCall(String registrationNumber, String transportProp) {
+        String nonCommercialApiURL = Constants.URL + Constants.COMMERCIAL_BOOKING_ENDPOINT;
+
+        try {
+            // Create the JSON object with pax and amount
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("pax", counter);
+            jsonRequest.put("amount", estimatedAmount);
+            jsonRequest.put("reg_no", registrationNumber);
+            jsonRequest.put("name", transportProp);
+
+            // Open the connection and set up the request
+            URL url = new URL(nonCommercialApiURL);
+            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+            connect.setRequestMethod("POST");
+            connect.setRequestProperty("Content-Type", "application/json");
+            connect.setDoOutput(true);
+
+            // Write the JSON payload to request body
+            try (OutputStream os = connect.getOutputStream()) {
+                byte[] input = jsonRequest.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Get the response from the server
+            BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Check if the status is 200 (success)
+            if (jsonResponse.getInt("status") == 200) {
+                JSONObject result = jsonResponse.getJSONObject("result");
+                JSONObject order = result.getJSONObject("order");
+
+                BookingTicket bookingData = new BookingTicket(
+                        order.getString("serial_number"),
+                        order.getInt("amount"),
+                        order.getInt("pax")
+                );
+
+                // Show the serial number, amount and pax in dialog
+                String message = "Serial Number: " + bookingData.getSerialNumber()
+                        + "\nAmount: " + bookingData.getAmount()
+                        + "\nPax: " + bookingData.getPax();
+
+                JOptionPane.showMessageDialog(null, message);
+                printMessage(
+                        bookingData.getDate(),
+                        bookingData.getSerialNumber(),
+                        bookingData.getPax(),
+                        bookingData.getAmount());
+            }
+
+            // Print in the terminal the response
+            System.out.println("Response " + response.toString());
+
+            connect.disconnect();
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void jBtnDecrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDecrementPaxActionPerformed
+        // TODO add your handling code here:
+        if (counter > 0) {
+            counter--;
+        }
+
+        jTextPaxCount.setText(String.valueOf(counter));
+
+        if (counter != 0) {
+            estimatedAmount = amountPerPaxRide(counter);
+            jTextFieldAmount.setText(String.valueOf(estimatedAmount));
+        } else {
+            JOptionPane.showMessageDialog(null, "Requires pax above 1 to calculate estimated cost");
+            jTextFieldAmount.setText("0");
+        }
+    }//GEN-LAST:event_jBtnDecrementPaxActionPerformed
+
+    private void jBtnIncrementPaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncrementPaxActionPerformed
+        // TODO add your handling code here:
+        counter++;
+
+        jTextPaxCount.setText(String.valueOf(counter));
+
+        estimatedAmount = amountPerPaxRide(counter);
+        jTextFieldAmount.setText(String.valueOf(estimatedAmount));
+    }//GEN-LAST:event_jBtnIncrementPaxActionPerformed
+
+    private void jTextFieldRegistrationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRegistrationNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRegistrationNumberActionPerformed
+
+    private void jTextFieldTransportProprieterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTransportProprieterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTransportProprieterActionPerformed
+
+    private void jBtnTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTicketActionPerformed
+        // TODO add your handling code here:
+
+        // Get the TextField data for commercial bookings
+        String registrationNumber = jTextFieldRegistrationNumber.getText();
+        String proprieterName = jTextFieldTransportProprieter.getText();
+
+        if (counter == 0 && estimatedAmount == 0) {
+            JOptionPane.showMessageDialog(null, "Atleast 1 person is required to proceed with ticketing");
+        } else if (counter != 0 && estimatedAmount != 0) {
+            if (areVehicleDetailsEntered()) {
+                commercialApiCall(registrationNumber, proprieterName);
+                clearBookingTextFields();   // clear the text fields.
+                closeWindow();
+            } else {
+                nonCommercialApiCall();
+                clearBookingTextFields();   // clear the text fields.
+                closeWindow();
+            }
+        }
+    }//GEN-LAST:event_jBtnTicketActionPerformed
+
+    private void jBtnClearTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTicketActionPerformed
+        // TODO add your handling code here:
+        // Call the clearBookingTextFields() function.
+        clearBookingTextFields();
+    }//GEN-LAST:event_jBtnClearTicketActionPerformed
+
+    
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -1194,6 +1628,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Button button2;
     private java.awt.Button button3;
     private java.awt.Button button4;
+    private javax.swing.JButton jBtnDecrementPax;
+    private javax.swing.JButton jBtnIncrementPax;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -1235,6 +1671,10 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jTabIssueTicket;
     private javax.swing.JPanel jTabReport;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel jTextFieldAmount;
+    private javax.swing.JTextField jTextFieldRegistrationNumber;
+    private javax.swing.JTextField jTextFieldTransportProprieter;
+    private javax.swing.JLabel jTextPaxCount;
     private java.awt.Label label1;
     private java.awt.Label label10;
     private java.awt.Label label2;
