@@ -4,6 +4,7 @@
  */
 package adventurewatersportsdesktop;
 
+import system.Constants;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.Printable;

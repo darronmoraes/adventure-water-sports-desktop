@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import system.DateTime;
+import validations.Validation;
 
 /**
  *
@@ -48,19 +50,23 @@ public class CommissionWindow extends javax.swing.JFrame {
 
         tblCommission.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Sr No.", "Date", "Amount", "Status", ""
+                "Sr No.", "Date", "Vehicle-no", "Transport", "pax", "Amount", "Status"
             }
         ));
         jScrollPane1.setViewportView(tblCommission);
         if (tblCommission.getColumnModel().getColumnCount() > 0) {
             tblCommission.getColumnModel().getColumn(0).setMinWidth(25);
             tblCommission.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblCommission.getColumnModel().getColumn(4).setMinWidth(20);
+            tblCommission.getColumnModel().getColumn(4).setMaxWidth(30);
+            tblCommission.getColumnModel().getColumn(6).setMinWidth(40);
+            tblCommission.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -114,7 +120,11 @@ public class CommissionWindow extends javax.swing.JFrame {
     private void btnSearchVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchVehicleActionPerformed
         // TODO add your handling code here:
         String registrationNumber = tvRegisterationNumber.getText();
-        displayCommission(registrationNumber);
+        if (Validation.isRegistrationNumber(tvRegisterationNumber)) {
+            displayCommission(registrationNumber);
+        } else {
+            JOptionPane.showMessageDialog(null, "Last 4 digits of vehicle number");
+        }
         
     }//GEN-LAST:event_btnSearchVehicleActionPerformed
 
@@ -184,8 +194,8 @@ public class CommissionWindow extends javax.swing.JFrame {
                     JSONObject jsonDataObject = new JSONObject(response.toString());
 
                     // Now we can access the data from the JSON response
-                    String registrationNumber = jsonDataObject.getString("reg_no");
-                    String transportName = jsonDataObject.getString("transport_name");
+                    //String registrationNumber = jsonDataObject.getString("reg_no");
+                    //String transportName = jsonDataObject.getString("transport_name");
 
                     // Access data within the order-details
                     JSONArray orderDetails = jsonDataObject.getJSONArray("order_details");
@@ -199,14 +209,25 @@ public class CommissionWindow extends javax.swing.JFrame {
                         String dateTimeStamp = orderItem.getString("created_at");
                         String dateStamp = DateTime.getDate(dateTimeStamp);
                         
+                        int paymentStatusCode = orderItem.getInt("commission_payment_status");
+                        String paymentStatus = "";
+                        if (paymentStatusCode == 0) {
+                            paymentStatus = "Not Paid";
+                        } else {
+                            paymentStatus = "Paid";
+                        }
+                        
                         // Add to the table
-                        tableModel.addRow(new Object[] {i+1, dateStamp, "", orderItem.getInt("commission_payment_status")});
+                        tableModel.addRow(new Object[] {i+1, dateStamp, orderItem.getString("vehical_no"),
+                            orderItem.getString("transport_name"),
+                            orderItem.getInt("pax"),
+                            orderItem.getInt("commission"),
+                            paymentStatus});
 
                         String serialNumber = orderItem.getString("serial_no");
                         String createdAt = orderItem.getString("created_at");
-                        int status = orderItem.getInt("commission_payment_status");
 
-                        System.out.println(serialNumber + " " + createdAt + " " + status);
+                        System.out.println(serialNumber + " " + createdAt + " " + paymentStatus);
                     }
                 }
             }

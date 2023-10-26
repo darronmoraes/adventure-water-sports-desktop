@@ -4,7 +4,6 @@
  */
 package system;
 
-import adventurewatersportsdesktop.Constants;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
