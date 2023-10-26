@@ -4,13 +4,20 @@
  */
 package adventurewatersportsdesktop;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import models.Commission;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,9 +208,15 @@ public class CommissionWindow extends javax.swing.JFrame {
                     JSONArray orderDetails = jsonDataObject.getJSONArray("order_details");
 
                     tableModel.setRowCount(0);
+                    Map<Integer, Integer> vehicleIdMap = new HashMap<>();
 
                     for (int i = 0; i < orderDetails.length(); i++) {
+                        
                         JSONObject orderItem = orderDetails.getJSONObject(i);
+                        
+                        int vehicleId = orderItem.getInt("vehical_id");
+                        // HashMap
+                        vehicleIdMap.put(i, vehicleId);
 
                         // Convert dateTimeStamp to dateStamp
                         String dateTimeStamp = orderItem.getString("created_at");
@@ -229,6 +242,40 @@ public class CommissionWindow extends javax.swing.JFrame {
 
                         System.out.println(serialNumber + " " + createdAt + " " + paymentStatus);
                     }
+                    
+                    tblCommission.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            // Get the selected row
+                            int selectedRow = tblCommission.getSelectedRow();
+                            
+                            if (selectedRow != -1) {
+                                // Get the value in the vehicle-id
+                                int vehicleId = vehicleIdMap.get(selectedRow);
+                                System.out.println(vehicleId);
+                                
+                                // Fetch column data in the row
+                                String regNo = (String) tblCommission.getValueAt(selectedRow, 2);
+                                String transportName = (String) tblCommission.getValueAt(selectedRow, 3);
+                                int pax = (int) tblCommission.getValueAt(selectedRow, 4);
+                                int commission = (int) tblCommission.getValueAt(selectedRow, 5);
+                                String date = (String) tblCommission.getValueAt(selectedRow, 1);
+                                
+                                System.out.println("Reg-no: " + regNo);
+                                System.out.println("Transport-name: " + transportName);
+                                System.out.println("pax: " + pax);
+                                System.out.println("commission: " + commission);
+                                System.out.println("date: " + date);
+                                
+                                
+                                // Pass the vehicleId to payment window
+                                CommissionPaymentWindow pay = new CommissionPaymentWindow(vehicleId, regNo, transportName, commission, pax, date);
+                                pay.setVisible(true);
+                                
+                            }
+                        }
+                        
+                    });
                 }
             }
         } catch (IOException | JSONException e) {
