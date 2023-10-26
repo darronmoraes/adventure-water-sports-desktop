@@ -313,7 +313,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setText("DOLPHIN RIDE BOOKING");
 
-        jButton1.setText("Book");
+        jButton1.setText("Payments");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

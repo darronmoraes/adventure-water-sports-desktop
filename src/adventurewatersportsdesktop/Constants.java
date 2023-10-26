@@ -41,4 +41,10 @@ public class Constants {
     public static final String ADDRESS_PIN = "403 706";
     public static final String PHONE = "832 2995468";
     
+    
+    // Date and Time
+    public static final String DATE_YYYY_MM_DD = "yyyy MM dd";
+    public static final String DATE_DD_MM_YYYY = "dd-MM-yyyy";
+    public static final String DATE_DD_MM_YY = "dd-MM-yy";
+    
 }

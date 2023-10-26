@@ -4,6 +4,8 @@
  */
 package system;
 
+import adventurewatersportsdesktop.Constants;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,6 +35,24 @@ public class DateTime {
         Date currentTime = new Date();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH-mm-ss");
         return timeFormat.format(currentTime);
+    }
+    
+    public static String getDate(String input) {
+        // Input date format
+        SimpleDateFormat inputFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
+        
+        try {
+            // Parse the input
+            Date date = inputFormat.parse(input);
+            
+            // Define the output date format
+            SimpleDateFormat outputFormat = new SimpleDateFormat(Constants.DATE_DD_MM_YYYY);
+            
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
 }
