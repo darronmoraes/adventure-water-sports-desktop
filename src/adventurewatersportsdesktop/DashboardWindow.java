@@ -34,7 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import models.BookingTicket;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import models.Report;
 import org.json.JSONException;
 import system.DateTime;
 import system.Print;
@@ -1138,6 +1137,10 @@ public class DashboardWindow extends javax.swing.JFrame {
         counter = 0;
         estimatedAmount = 0;
         paymentMode = "";
+        radioBtnUPI.setSelected(false);
+        radioBtnCash.setSelected(false);
+        
+                
     }
     
     // Method to exit from booking window to dashboard
@@ -1383,19 +1386,27 @@ public class DashboardWindow extends javax.swing.JFrame {
         // Get the TextField data for commercial bookings
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
+        
+        
 
         if (counter == 0 && estimatedAmount == 0) {
             JOptionPane.showMessageDialog(null, "Atleast 1 person is required to proceed with ticketing");
         } else if (counter != 0 && estimatedAmount != 0) {
-            if (areVehicleDetailsEntered()) {
-                commercialApiCall(registrationNumber, proprieterName);
-                clearBookingTextFields();   // clear the text fields.
-                //closeWindow();
+            if (!radioBtnUPI.isSelected() && !radioBtnCash.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Payment-Mode Required for payment");
             } else {
-                nonCommercialApiCall();
-                clearBookingTextFields();   // clear the text fields.
-                //closeWindow();
+                if (areVehicleDetailsEntered()) {
+                    commercialApiCall(registrationNumber, proprieterName);
+                    clearBookingTextFields();   // clear the text fields.
+                    //closeWindow();
+                } else {
+                    nonCommercialApiCall();
+                    clearBookingTextFields();   // clear the text fields.
+                    //closeWindow();
+                }
             }
+             
+            
         }
     }//GEN-LAST:event_jBtnTicketActionPerformed
 
