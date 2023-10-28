@@ -394,7 +394,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         radioBtnUPI.setText("UPI");
         radioBtnUPI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioBtnUPIActionPerformed(evt);
+                //radioBtnUPIActionPerformed(evt);
             }
         });
 
@@ -403,7 +403,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         radioBtnCash.setText("CASH");
         radioBtnCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioBtnCashActionPerformed(evt);
+                //radioBtnCashActionPerformed(evt);
             }
         });
 
@@ -1137,8 +1137,8 @@ public class DashboardWindow extends javax.swing.JFrame {
         counter = 0;
         estimatedAmount = 0;
         paymentMode = "";
-        radioBtnUPI.setSelected(false);
-        radioBtnCash.setSelected(false);
+        
+        btnGrpPayment.clearSelection();
         
                 
     }
@@ -1387,6 +1387,12 @@ public class DashboardWindow extends javax.swing.JFrame {
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
         
+        if (radioBtnUPI.isSelected()) {
+            paymentMode = "UPI";
+        } else if(radioBtnCash.isSelected()) {
+            paymentMode = "CASH";
+        }
+        
         
 
         if (counter == 0 && estimatedAmount == 0) {
@@ -1416,7 +1422,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         clearBookingTextFields();
     }//GEN-LAST:event_jBtnClearTicketActionPerformed
 
-    private void radioBtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBtnCashActionPerformed
+    /*private void radioBtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBtnCashActionPerformed
         // TODO add your handling code here:
         paymentMode = "CASH";
         System.out.println(paymentMode);
@@ -1427,7 +1433,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         paymentMode = "UPI";
         System.out.println(paymentMode);
     }//GEN-LAST:event_radioBtnUPIActionPerformed
-
+*/
     
     
     /**
