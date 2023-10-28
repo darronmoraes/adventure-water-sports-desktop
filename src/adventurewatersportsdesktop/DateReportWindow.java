@@ -429,7 +429,7 @@ public class DateReportWindow extends javax.swing.JFrame {
             // query param variable
             String dateQueryParam = "?date=";
 
-            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + this.dateFormater();
+            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + DateTime.formatDate(this.date);
             URL url = new URL(apiUrl);
 
             // Open a connection to the URL

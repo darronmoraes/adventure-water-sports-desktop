@@ -27,6 +27,8 @@ public class LoginWindow extends javax.swing.JFrame {
      */
     public LoginWindow() {
         initComponents();
+        System.out.println("Constructor : Server-State -> " + isServerRunning);
+        changeServerToggleButtonState();
     }
 
     /**
@@ -251,9 +253,12 @@ public class LoginWindow extends javax.swing.JFrame {
         if (!isServerRunning) {
             startFlaskServer();
             jBtnServer.setText("Server On");
+            System.out.println("Button-Clicked if: Server-State -> " + isServerRunning);
         } else {
             stopFlaskServer();
+            isServerRunning = false;
             jBtnServer.setText("Server Off");
+            System.out.println("Button-Clicked else: Server-State -> " + isServerRunning);
         }
     }//GEN-LAST:event_jBtnServerActionPerformed
 
@@ -320,7 +325,6 @@ public class LoginWindow extends javax.swing.JFrame {
     private void stopFlaskServer() {
         if(serverProcess != null) {
             serverProcess.destroy();
-            isServerRunning = false;
         }
     }
     
@@ -332,6 +336,13 @@ public class LoginWindow extends javax.swing.JFrame {
     // Public method to check if the server is running
     public boolean isServerRunning() {
         return isServerRunning;
+    }
+    
+    // Change state of server button to ON or OFF
+    private void changeServerToggleButtonState() {
+        if (isServerRunning) {
+            jBtnServer.setText("Server On");
+        }
     }
     
     // Custom Variables declaration
