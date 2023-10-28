@@ -70,7 +70,7 @@ public class CommissionPaymentWindow extends javax.swing.JFrame {
         tvPax = new javax.swing.JLabel();
         tvDate = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Vehicle Details");
 
