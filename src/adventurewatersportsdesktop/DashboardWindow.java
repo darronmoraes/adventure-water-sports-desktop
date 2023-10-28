@@ -1145,7 +1145,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }
     
-    // Method to print a message
+    // Method to print a ticket order
     private void printMessage(String date, String serialNo, int pax, int amount) {
         // Create a PrinterJob
         PrinterJob job = PrinterJob.getPrinterJob();

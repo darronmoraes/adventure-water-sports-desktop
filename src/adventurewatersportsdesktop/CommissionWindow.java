@@ -32,6 +32,7 @@ public class CommissionWindow extends javax.swing.JFrame {
      */
     public CommissionWindow() {
         initComponents();
+        clearTableElements();
     }
 
     /**
@@ -284,8 +285,9 @@ public class CommissionWindow extends javax.swing.JFrame {
                                 
                                 // Pass the vehicleId to payment window
                                 CommissionPaymentWindow pay = new CommissionPaymentWindow(vehicleId, regNo, transportName, commission, pax, date);
+                                clearInputFields();
                                 pay.setVisible(true);
-                                
+                                clearTableElements();
                             }
                         }
                         
@@ -295,6 +297,18 @@ public class CommissionWindow extends javax.swing.JFrame {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    // Clear table
+    private void clearTableElements() {
+        DefaultTableModel dm = (DefaultTableModel) tblCommission.getModel();
+        dm.getDataVector().removeAllElements();
+        dm.fireTableDataChanged();
+    }
+    
+    private void clearInputFields() {
+        tvRegisterationNumber.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
