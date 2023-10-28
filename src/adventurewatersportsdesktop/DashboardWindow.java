@@ -7,6 +7,8 @@ package adventurewatersportsdesktop;
 import system.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.Printable;
@@ -22,6 +24,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -1554,7 +1558,7 @@ public class DashboardWindow extends javax.swing.JFrame {
             String toDateQueryParam = "&lastdate=";
             
             String apiUrl = Constants.URL + Constants.RANGE_DATE_REPORT + fromDateQueryParam + from + toDateQueryParam + to;
-            //String apiUrl = "http://127.0.0.1:5000/get_report_between_dates?firstdate=2023-07-26&lastdate=2023-07-30";
+            //String apiUrl = "http://127.0.0.1:5000/get_order_details_dates?firstdate=2023-07-26&lastdate=2023-07-30";
             
             // Fetch data from API
             URL url = new URL(apiUrl);
@@ -1579,16 +1583,48 @@ public class DashboardWindow extends javax.swing.JFrame {
                     // Clear the existing data in the table if any.
                     tableModel.setRowCount(0);
                     
+                    // Hashmap to store date for onClick event
+                    Map<Integer, String> reportDates = new HashMap<>();
+                    
                     // Add data to the table
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         
                         int orders = item.getInt("no_of_orders");
+                        String date = item.getString("order_date");
+                        String formatDate = DateTime.getDate(date);
+                        
+                        reportDates.put(i, formatDate);
+                        
+                        
+                        //System.out.print(orders);
                         
                         // Add data to the tables model
-                        tableModel.addRow(new Object[]{i+1, item.getString("order_date"), orders, item.getDouble("income"), item.getDouble("commission_amount"), item.getDouble("profit")});
+                        tableModel.addRow(new Object[]{i+1, formatDate, orders, item.getDouble("income"), item.getDouble("commission_amount"), item.getDouble("profit")});
                         
                     }  // End of For loop
+                    
+                    // Click event listener
+                    tableReport.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            // Get the selected row
+                            int selectedRow = tableReport.getSelectedRow();
+                            
+                            // condition check
+                            if (selectedRow != -1){
+                                String selectedDate = reportDates.get(selectedRow);
+                                
+                                //String selectedRowDate = (String) tableReport.getValueAt(selectedRow, 2);
+                                System.out.println(selectedDate);
+                                
+                                DateReportWindow dateSpecificWindow = new DateReportWindow(selectedDate);
+                                dateSpecificWindow.setVisible(true);
+                            }
+                        }
+                        
+                    });
+                    
                 }   // End of Try block
             }   // End of If block
         } catch (IOException | JSONException e) {

@@ -54,4 +54,22 @@ public class DateTime {
         }
     }
     
+    public static String formatDate(String input) {
+        // Input date format
+        SimpleDateFormat inputFormat = new SimpleDateFormat(Constants.DATE_DD_MM_YYYY);
+        
+        try {
+            // Parse the input
+            Date date = inputFormat.parse(input);
+            
+            // Define the output date format
+            SimpleDateFormat outputFormat = new SimpleDateFormat(Constants.DATE_YYYY_MM_DD);
+            
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
 }

@@ -4,17 +4,51 @@
  */
 package adventurewatersportsdesktop;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import system.Constants;
+import system.DateTime;
+
 /**
  *
  * @author darro
  */
 public class DateReportWindow extends javax.swing.JFrame {
 
+    // Instance Variables
+    private String date;
+    
+    
     /**
      * Creates new form DateReportWindow
      */
     public DateReportWindow() {
         initComponents();
+    }
+   
+    
+    // Constructors
+    public DateReportWindow(String date) {
+        this.date = date;
+        initComponents();
+        
+        displayDate();
+        reportBasedOnDate();
+        reportDayEntries();
+    }
+    
+    private String dateFormater() {
+        return DateTime.formatDate(this.date);
     }
 
     /**
@@ -38,15 +72,15 @@ public class DateReportWindow extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        tvOrders = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        tvUpi = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tvCash = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableTickets = new javax.swing.JTable();
         etDate = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -144,9 +178,9 @@ public class DateReportWindow extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel5.setText("PAX");
+        jLabel5.setText("ORDERS");
 
-        jLabel8.setText("0");
+        tvOrders.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -158,7 +192,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tvOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -167,13 +201,13 @@ public class DateReportWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jLabel8)
+                .addComponent(tvOrders)
                 .addContainerGap())
         );
 
         jLabel6.setText("UPI");
 
-        jLabel9.setText("0 Rs.");
+        tvUpi.setText("0 Rs.");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -185,7 +219,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tvUpi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -194,7 +228,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jLabel9)
+                .addComponent(tvUpi)
                 .addContainerGap())
         );
 
@@ -249,28 +283,29 @@ public class DateReportWindow extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Serial No", "Pax", "Amount", "Payment"
+                "Sr. No.", "Serial No", "Pax", "Amount", "Payment"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-
-        etDate.setText("2023-10-26");
+        jScrollPane1.setViewportView(tableTickets);
+        if (tableTickets.getColumnModel().getColumnCount() > 0) {
+            tableTickets.getColumnModel().getColumn(0).setPreferredWidth(25);
+        }
 
         btnSearch.setText("Search");
 
@@ -376,6 +411,168 @@ public class DateReportWindow extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    // Custom methods
+    private void displayDate() {
+        System.out.println(dateFormater());
+        etDate.setText(dateFormater());
+    }
+    
+    
+    // Api calls
+    // Current date report on dashboard
+    private void reportBasedOnDate() {
+      
+        try {
+            // Create the URL with query parameter
+            // query param variable
+            String dateQueryParam = "?date=";
+
+            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + this.dateFormater();
+            URL url = new URL(apiUrl);
+
+            // Open a connection to the URL
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set the HTTP request method to GET
+            connection.setRequestMethod("GET");
+
+            // Get the HTTP response code
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+
+                    // Parse the JSON response
+                    //JSONArray jsonArray = new JSONArray(response.toString());
+
+                    JSONObject object = new JSONObject(response.toString());
+                    
+                    double amount = object.getDouble("amount");
+                    double commission = object.getDouble("commission");
+                    double profit = object.getDouble("profit");
+                    int pax = object.getInt("pax");
+                    int orders = object.getInt("orders");
+                    JSONObject paymentMode = object.getJSONObject("payment-mode");
+
+                    // payment-mode
+                    double upi = paymentMode.getDouble("upi");
+                    double cash = paymentMode.getDouble("cash");
+                   
+                    tvAmount.setText(String.valueOf(amount));
+                    tvCommission.setText(String.valueOf(commission));
+                    tvProfit.setText(String.valueOf(profit));
+                    tvOrders.setText(String.valueOf(orders));
+                    tvUpi.setText(String.valueOf(upi));
+                    tvCash.setText(String.valueOf(cash));
+                  
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String message = "No data found for " + this.date;
+                JOptionPane.showMessageDialog(null, "Error: " + message, "No Data Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            /*else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+                    
+                    JSONObject object = new JSONObject(response.toString());
+                    
+                    String message = object.getString("message");
+                    System.out.println(message);
+                    
+                    JOptionPane.showMessageDialog(null, "Unauthorized: " + message, "Unauthorized Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }*/
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
+    
+    
+    
+    // Call single-day-report-each-object
+    private void reportDayEntries() {
+        /*
+        "amount": 300.0,
+        "created-at": "Wed, 26 Jul 2023 14:01:27 GMT",
+        "id": 1,
+        "pax": 3,
+        "payment-method": null,
+        "serial-no": "6069"
+        */
+        
+        // Create defaultTableModel object and use tableReport instance.
+        DefaultTableModel tableModel = (DefaultTableModel) tableTickets.getModel();
+        
+        try {
+            String apiUrl = "http://127.0.0.1:5000/get_single_day_order_details?date=" + this.dateFormater();
+
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Get the response code
+            int responseCode = connection.getResponseCode();
+            System.out.println(responseCode);
+            
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+                    
+                    System.out.println(response);
+                    
+                    // Parse the JSON response
+                    JSONArray jsonArray = new JSONArray(response.toString());
+                    
+                    // Clear the existing data in the table if any.
+                    tableModel.setRowCount(0);
+                    
+                    // Add data to the table
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        
+                        String serialNumber = item.getString("serial-no");
+                        int pax = item.getInt("pax");
+                        double amount = item.getDouble("amount");
+                        //String paymentMethod = item.getString("payment-method");
+                        String paymentMethod = "";
+                        
+                        if (item.isNull("payment-method"))
+                            paymentMethod = "NA";
+                        else
+                            paymentMethod = item.getString("payment-method");
+                        
+                        
+                        // Add data to the tables model
+                        tableModel.addRow(new Object[]{i+1, serialNumber, pax, amount, paymentMethod});
+                        
+                    }
+                }
+            }
+        } catch (IOException | JSONException e) {
+            
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -388,8 +585,6 @@ public class DateReportWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -398,10 +593,12 @@ public class DateReportWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableTickets;
     private javax.swing.JLabel tvAmount;
     private javax.swing.JLabel tvCash;
     private javax.swing.JLabel tvCommission;
+    private javax.swing.JLabel tvOrders;
     private javax.swing.JLabel tvProfit;
+    private javax.swing.JLabel tvUpi;
     // End of variables declaration//GEN-END:variables
 }

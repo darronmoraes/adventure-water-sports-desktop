@@ -28,7 +28,7 @@ public class Constants {
     public static final String ROUTE_CURRENT_DATE_REPORT = "day-report";
     
     // Date range report
-    public static final String RANGE_DATE_REPORT = "get_report_between_dates";
+    public static final String RANGE_DATE_REPORT = "get_order_details_dates";
     
     
     // Integer Constants
@@ -44,7 +44,7 @@ public class Constants {
     
     
     // Date and Time
-    public static final String DATE_YYYY_MM_DD = "yyyy MM dd";
+    public static final String DATE_YYYY_MM_DD = "yyyy-MM-dd";
     public static final String DATE_DD_MM_YYYY = "dd-MM-yyyy";
     public static final String DATE_DD_MM_YY = "dd-MM-yy";
     
