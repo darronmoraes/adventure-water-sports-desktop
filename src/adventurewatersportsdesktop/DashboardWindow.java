@@ -51,6 +51,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     public DashboardWindow() {
         initComponents();
         refreshTimer.start();
+        fetchCurrentDateReport();   // API call to get the report on current date.
     }
 
     /**
@@ -430,12 +431,12 @@ public class DashboardWindow extends javax.swing.JFrame {
                                 .addGap(28, 28, 28)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtnDecrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnDecrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextPaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jBtnIncrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jTextPaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtnIncrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -457,7 +458,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                                     .addComponent(radioBtnUPI, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldTransportProprieter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(radioBtnCash, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -665,7 +666,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jTabIssueTicketLayout.setVerticalGroup(
             jTabIssueTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1038,7 +1039,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private void jMenuIssueTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuIssueTicketMouseClicked
         // TODO add your handling code here:
         jTabIssueTicket.setVisible(true);
-        fetchCurrentDateReport();   // API call to get the report on current date.
+        
         jTabAddBoat.setVisible(false);
         jTabReport.setVisible(false);
         jTabbedPane1.setVisible(false);
@@ -1345,7 +1346,7 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         if (counter != 0) {
             estimatedAmount = amountPerPaxRide(counter);
-            jTextFieldAmount.setText(String.valueOf(estimatedAmount));
+            jTextFieldAmount.setText(String.valueOf(estimatedAmount) + " Rs.");
         } else {
             JOptionPane.showMessageDialog(null, "Requires pax above 1 to calculate estimated cost");
             jTextFieldAmount.setText("0");
@@ -1357,9 +1358,15 @@ public class DashboardWindow extends javax.swing.JFrame {
         counter++;
 
         jTextPaxCount.setText(String.valueOf(counter));
-
+        
+        if (counter > 12) {
+            counter--;
+            JOptionPane.showMessageDialog(null, "Maximum pax peak reached for this ride.");
+            jTextPaxCount.setText(String.valueOf(counter));
+        }
+        
         estimatedAmount = amountPerPaxRide(counter);
-        jTextFieldAmount.setText(String.valueOf(estimatedAmount));
+        jTextFieldAmount.setText(String.valueOf(estimatedAmount) + " Rs.");
     }//GEN-LAST:event_jBtnIncrementPaxActionPerformed
 
     private void jTextFieldRegistrationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRegistrationNumberActionPerformed
@@ -1383,11 +1390,11 @@ public class DashboardWindow extends javax.swing.JFrame {
             if (areVehicleDetailsEntered()) {
                 commercialApiCall(registrationNumber, proprieterName);
                 clearBookingTextFields();   // clear the text fields.
-                closeWindow();
+                //closeWindow();
             } else {
                 nonCommercialApiCall();
                 clearBookingTextFields();   // clear the text fields.
-                closeWindow();
+                //closeWindow();
             }
         }
     }//GEN-LAST:event_jBtnTicketActionPerformed
@@ -1505,16 +1512,21 @@ public class DashboardWindow extends javax.swing.JFrame {
                     int pax = object.getInt("pax");
                     int orders = object.getInt("orders");
                     JSONObject paymentMode = object.getJSONObject("payment-mode");
+                    
+                    
 
                     // payment-mode
                     double upi = paymentMode.getDouble("upi");
                     double cash = paymentMode.getDouble("cash");
                     
+                    int castAmount = (int) amount;
+                    int castUpi = (int) upi;
+                    int castCash = (int) cash;
                     
                     labelPax.setText(String.valueOf(pax));
-                    labelAmount.setText(String.valueOf(amount));
-                    labelUPI.setText(String.valueOf(upi));
-                    labelCash.setText(String.valueOf(cash));
+                    labelAmount.setText(String.valueOf(castAmount));
+                    labelUPI.setText(String.valueOf(castUpi));
+                    labelCash.setText(String.valueOf(castCash));
                   
                 } catch (Exception e) {
                     e.printStackTrace();
