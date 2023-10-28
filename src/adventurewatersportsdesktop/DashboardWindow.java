@@ -1048,7 +1048,7 @@ public class DashboardWindow extends javax.swing.JFrame {
     private void jMenuAddBoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAddBoatMouseClicked
         // TODO add your handling code here:
         jTabIssueTicket.setVisible(false);
-        jTabAddBoat.setVisible(true);
+        jTabAddBoat.setVisible(false);
         jTabReport.setVisible(false);
         jTabbedPane1.setVisible(true);
     }//GEN-LAST:event_jMenuAddBoatMouseClicked
