@@ -472,7 +472,6 @@ public class DashboardWindow extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jTextFieldAmount))
                         .addGap(4, 4, 4)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextFieldRegistrationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -681,7 +680,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))
                     .addGroup(jTabIssueTicketLayout.createSequentialGroup()
@@ -925,17 +924,17 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         tableReport.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Sr. No.", "Date", "Pax", "Amount", "Commission"
+                "Sr. No.", "Date", "Orders", "Income", "Commission", "Profit"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -946,6 +945,10 @@ public class DashboardWindow extends javax.swing.JFrame {
         if (tableReport.getColumnModel().getColumnCount() > 0) {
             tableReport.getColumnModel().getColumn(0).setMinWidth(25);
             tableReport.getColumnModel().getColumn(0).setMaxWidth(50);
+            tableReport.getColumnModel().getColumn(1).setMinWidth(60);
+            tableReport.getColumnModel().getColumn(2).setResizable(false);
+            tableReport.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tableReport.getColumnModel().getColumn(5).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanelReportLayout = new javax.swing.GroupLayout(jPanelReport);
@@ -1467,7 +1470,7 @@ public class DashboardWindow extends javax.swing.JFrame {
             // query param variable
             String dateQueryParam = "?date=";
 
-            String apiUrl = Constants.URL + Constants.CURRENT_DATE_REPORT + dateQueryParam + currentDateStringFormat;
+            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + currentDateStringFormat;
             URL url = new URL(apiUrl);
 
             // Open a connection to the URL
@@ -1488,34 +1491,53 @@ public class DashboardWindow extends javax.swing.JFrame {
                     }
 
                     // Parse the JSON response
-                    JSONArray jsonArray = new JSONArray(response.toString());
+                    //JSONArray jsonArray = new JSONArray(response.toString());
 
-                    if (jsonArray.length() > 0) {
-                        // 
-                        JSONObject item = jsonArray.getJSONObject(0);
+                    JSONObject object = new JSONObject(response.toString());
+                    
+                    double amount = object.getDouble("amount");
+                    double commission = object.getDouble("commission");
+                    double profit = object.getDouble("profit");
+                    int pax = object.getInt("pax");
+                    int orders = object.getInt("orders");
+                    JSONObject paymentMode = object.getJSONObject("payment-mode");
 
-                        // Create an instance of report model class and populate
-                        Report currentDateReport = new Report(
-                                item.getString("order_date"),
-                                item.getString("pax"),
-                                item.getDouble("total_amount")
-                        );
-
-                        // Update the swing labels with extracter data
-                        labelPax.setText(currentDateReport.getPax());
-                        labelAmount.setText(String.valueOf(currentDateReport.getTotal_amount()));
-                        labelUPI.setText(String.valueOf(2500));
-                        labelCash.setText(String.valueOf(2900));
-                    } else {
-                        labelPax.setText("0");
-                        labelAmount.setText("0");
-                        labelUPI.setText("0");
-                        labelCash.setText("0");
-                    }
+                    // payment-mode
+                    double upi = paymentMode.getDouble("upi");
+                    double cash = paymentMode.getDouble("cash");
+                    
+                    
+                    labelPax.setText(String.valueOf(pax));
+                    labelAmount.setText(String.valueOf(amount));
+                    labelUPI.setText(String.valueOf(upi));
+                    labelCash.setText(String.valueOf(cash));
+                  
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                String message = "No data found for " + currentDateStringFormat;
+                JOptionPane.showMessageDialog(null, "Error: " + message, "No Data Error", JOptionPane.ERROR_MESSAGE);
             }
+            
+            /*else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+                    
+                    JSONObject object = new JSONObject(response.toString());
+                    
+                    String message = object.getString("message");
+                    System.out.println(message);
+                    
+                    JOptionPane.showMessageDialog(null, "Unauthorized: " + message, "Unauthorized Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }*/
         } catch (IOException e) {
             e.getMessage();
         }
@@ -1561,8 +1583,10 @@ public class DashboardWindow extends javax.swing.JFrame {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         
+                        int orders = item.getInt("no_of_orders");
+                        
                         // Add data to the tables model
-                        tableModel.addRow(new Object[]{i+1, item.getString("order_date"), item.getString("pax"), item.getBigDecimal("total_amount"), item.getBigDecimal("commission")});
+                        tableModel.addRow(new Object[]{i+1, item.getString("order_date"), orders, item.getDouble("income"), item.getDouble("commission_amount"), item.getDouble("profit")});
                         
                     }  // End of For loop
                 }   // End of Try block
