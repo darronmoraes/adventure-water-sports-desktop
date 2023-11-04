@@ -27,13 +27,15 @@ public class Print implements Printable {
     private int pax;
     private int amount;
     private String modeOfPayment;
+    private String copyOf;
     
-    public Print(String date, String serialNo, String paymentMode, int pax, int amount) {
+    public Print(String date, String serialNo, String paymentMode, int pax, int amount, String copyOf) {
         this.date = date;
         this.serialNumber = serialNo;
         this.pax = pax;
         this.amount = amount;
         this.modeOfPayment = paymentMode;
+        this.copyOf = copyOf;
     }
     
     public Print(String date, String serialNo, int pax, int amount) {
@@ -51,46 +53,72 @@ public class Print implements Printable {
         
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+        // Get the papers width from the PageFormat
+        double pageWidth = pageFormat.getImageableWidth();
+        
+        
         
         // Define the font and size for your text
-        Font font = new Font("SanSerif", Font.PLAIN, 10);
+        Font font = new Font("SanSerif", Font.PLAIN, 15);
         g2d.setFont(font);
         
         // Define the line spacing for different items
         int lineHeight = 12;
         
         // print business name
-        g2d.drawString(Constants.BUSINESS_NAME, 10, 10);
+        // calculate the x coordinate to center align the texts
+        int xCenteredBusinessName = (int) (pageWidth - g2d.getFontMetrics().stringWidth(Constants.BUSINESS_NAME))/2;
+        g2d.drawString(Constants.BUSINESS_NAME, xCenteredBusinessName, 25);
         // print the address
-        g2d.drawString(Constants.ADDRESS_LINE_1, 10, 22);
-        g2d.drawString(Constants.ADDRESS_LINE_2, 10, 34);
-        g2d.drawString(Constants.ADDRESS_LINE_3, 10, 46);
-        g2d.drawString("PHONE : " + Constants.PHONE, 10, 58);
+        int xCenteredAddressLine1 = (int) (pageWidth - g2d.getFontMetrics().stringWidth(Constants.ADDRESS_LINE_1))/2;
+        g2d.drawString(Constants.ADDRESS_LINE_1, xCenteredAddressLine1, 45);
+        int xCenteredAddressLine2 = (int) (pageWidth - g2d.getFontMetrics().stringWidth(Constants.ADDRESS_LINE_2))/2;
+        g2d.drawString(Constants.ADDRESS_LINE_2, xCenteredAddressLine2, 65);
+        int xCenteredAddressLine3 = (int) (pageWidth - g2d.getFontMetrics().stringWidth(Constants.ADDRESS_LINE_3))/2;
+        g2d.drawString(Constants.ADDRESS_LINE_3, xCenteredAddressLine3, 85);
+        //g2d.drawString("PHONE : " + Constants.PHONE, 10, 58);
+        
+        // After printing the address lines, add lines
+        int x1CenteredLine = (int) (pageWidth /2) + 170;
+        int x2CenteredLine = (int) (pageWidth /2) - 170;
+        g2d.drawLine(x1CenteredLine, 100, x2CenteredLine, 100);  // Draws a line from (10, 58) to (200, 58)
+        
+        // Print the copyOf data
+        int xCenteredCopyOf = (int) (pageWidth - g2d.getFontMetrics().stringWidth(this.copyOf))/2;
+        g2d.drawString(this.copyOf, xCenteredCopyOf, 120);
+        
+        g2d.drawLine(x1CenteredLine, 125, x2CenteredLine, 125);  // Draws another line below copyOf
+
+        // Continue with your other text and drawing
         
         // print date and time
-        g2d.drawString("Date : " + date, 10, 76);
+        g2d.drawString("Date : " + this.date, 25, 150);
         
         // Print booking details
-        g2d.drawString("Serial No: " + serialNumber, 10, 88);
-        g2d.drawString("Payment Mode: " + modeOfPayment, 10, 100);
+        g2d.drawString("Serial No: " + this.serialNumber, 25, 170);
+        g2d.drawString("Payment Mode: " + modeOfPayment, 25, 190);
+        
         // table format
-        g2d.drawString("Ride", 10, 120);
-        g2d.drawString("Dolphin", 10, 132);
+        g2d.drawLine(x1CenteredLine, 210, x2CenteredLine, 210);  // Draws another line before headers
+        g2d.drawLine(x1CenteredLine, 230, x2CenteredLine, 230);  // Draws another line below headers
+        g2d.drawString("Ride", 25, 225);
+        g2d.drawString("Dolphin", 25, 255);
         
-        g2d.drawString("Pax", 90, 120);
-        g2d.drawString(String.valueOf(pax), 90, 132);
+        g2d.drawString("Pax", 180, 225);
+        g2d.drawString(String.valueOf(pax), 180, 255);
         
-        g2d.drawString("Amount", 120, 120);
-        g2d.drawString(String.valueOf(amount), 120, 132);
+        g2d.drawString("Amount", 300, 225);
+        g2d.drawString(String.valueOf(amount), 300, 255);
+        
+        g2d.drawLine(x1CenteredLine, 265, x2CenteredLine, 265);  // Draws another line below headers
         
         // Thank you visit again message
         String message = "Thank you, visit again.";
-        g2d.drawString(message, 40, 154);
+        int xCenteredThankYouMessage = (int) (pageWidth - g2d.getFontMetrics().stringWidth(message))/2;
+        g2d.drawString(message, xCenteredThankYouMessage, 280);
         
         
         return PAGE_EXISTS;
-
-        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

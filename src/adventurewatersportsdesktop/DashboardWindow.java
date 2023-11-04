@@ -1149,12 +1149,12 @@ public class DashboardWindow extends javax.swing.JFrame {
     }
     
     // Method to print a ticket order
-    private void printMessage(String date, String serialNo, int pax, int amount) {
+    private void printMessage(String date, String serialNo, int pax, int amount, String paymentMode, String copyOf) {
         // Create a PrinterJob
         PrinterJob job = PrinterJob.getPrinterJob();
         
         // Create a Printable object for the message
-        Printable printable = new Print(date, serialNo, pax, amount);
+        Printable printable = new Print(date, serialNo, paymentMode, pax, amount, copyOf);
         
         // Set the page format with a width of 57mm
         PageFormat pageFormat = new PageFormat();
@@ -1225,7 +1225,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                         order.getString("date"),
                         order.getString("serial_number"),
                         order.getInt("amount"),
-                        order.getInt("pax")
+                        order.getInt("pax"),
+                        order.getString("payment-mode")
                 );
 
                 // Show the serial number, amount and pax in dialog
@@ -1234,12 +1235,35 @@ public class DashboardWindow extends javax.swing.JFrame {
                         + "\nPax: " + bookingData.getPax();
 
                 JOptionPane.showMessageDialog(null, message);
-                printMessage(
-                        bookingData.getDate(),
-                        bookingData.getSerialNumber(),
-                        bookingData.getPax(),
-                        bookingData.getAmount()
-                );
+                
+                // Print the ticket twice
+                // 1 - Customer
+                // 2 - Owner
+                for (int i = 1; i <= 2; i++) {
+                    String copyOf = "";
+                    if (i == 1) {
+                        copyOf = "CUSTOMER";
+                        printMessage(
+                            bookingData.getDate(),
+                            bookingData.getSerialNumber(),
+                            bookingData.getPax(),
+                            bookingData.getAmount(),
+                            bookingData.getPaymentMode(),
+                            copyOf
+                        );
+                    } else {
+                        copyOf = "OWNER";
+                        printMessage(
+                            bookingData.getDate(),
+                            bookingData.getSerialNumber(),
+                            bookingData.getPax(),
+                            bookingData.getAmount(),
+                            bookingData.getPaymentMode(),
+                            copyOf
+                        );
+                    }
+                }
+                
             }
 
             br.close();
@@ -1307,9 +1331,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                 JSONObject order = result.getJSONObject("order");
 
                 BookingTicket bookingData = new BookingTicket(
+                        order.getString("date"),
                         order.getString("serial_number"),
                         order.getInt("amount"),
-                        order.getInt("pax")
+                        order.getInt("pax"),
+                        order.getString("payment-mode")
                 );
 
                 // Show the serial number, amount and pax in dialog
@@ -1318,11 +1344,41 @@ public class DashboardWindow extends javax.swing.JFrame {
                         + "\nPax: " + bookingData.getPax();
 
                 JOptionPane.showMessageDialog(null, message);
-                printMessage(
+                
+                // Print the ticket twice
+                // 1 - Customer
+                // 2 - Owner
+                for (int i = 1; i <= 2; i++) {
+                    String copyOf = "";
+                    if (i == 1) {
+                        copyOf = "CUSTOMER";
+                        printMessage(
+                            bookingData.getDate(),
+                            bookingData.getSerialNumber(),
+                            bookingData.getPax(),
+                            bookingData.getAmount(),
+                            bookingData.getPaymentMode(),
+                            copyOf
+                        );
+                    } else {
+                        copyOf = "OWNER";
+                        printMessage(
+                            bookingData.getDate(),
+                            bookingData.getSerialNumber(),
+                            bookingData.getPax(),
+                            bookingData.getAmount(),
+                            bookingData.getPaymentMode(),
+                            copyOf
+                        );
+                    }
+                }
+                
+                /*printMessage(
                         bookingData.getDate(),
                         bookingData.getSerialNumber(),
                         bookingData.getPax(),
-                        bookingData.getAmount());
+                        bookingData.getAmount(),
+                        bookingData.getPaymentMode());*/
             }
 
             // Print in the terminal the response

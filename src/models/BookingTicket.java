@@ -11,6 +11,7 @@ public class BookingTicket {
     private String date;
     private int amount;
     private int pax;
+    private String paymentMode;
     
     // Constructor
     public BookingTicket(String serialNumber, int amount, int pax) {
@@ -19,11 +20,12 @@ public class BookingTicket {
         this.pax = pax;
     }
     
-    public BookingTicket(String date, String serialNumber, int amount, int pax) {
+    public BookingTicket(String date, String serialNumber, int amount, int pax, String paymentMode) {
         this.serialNumber = serialNumber;
         this.amount = amount;
         this.pax = pax;
         this.date = date;
+        this.paymentMode = paymentMode;
     }
     
     // getters
@@ -33,7 +35,7 @@ public class BookingTicket {
     }
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public int getPax() {
@@ -42,5 +44,9 @@ public class BookingTicket {
     
     public String getDate() {
         return date;
+    }
+    
+    public String getPaymentMode() {
+        return this.paymentMode;
     }
 }

@@ -35,10 +35,10 @@ public class Constants {
     public static final Integer DOLPHIN_RIDE_PRICE = 350;
     
     // Business profile
-    public static final String BUSINESS_NAME = "Adventure Water Sports";
-    public static final String ADDRESS_LINE_1 = "SINQUETIM JETTY";
-    public static final String ADDRESS_LINE_2 = "SINQUETIM-CANDOLIM BEACH";
-    public static final String ADDRESS_LINE_3 = "NORTH, GOA";
+    public static final String BUSINESS_NAME = "ADVENTURE WATER SPORTS";
+    public static final String ADDRESS_LINE_1 = "Sinquerim-Candolim";
+    public static final String ADDRESS_LINE_2 = "Boat Owner's Association";
+    public static final String ADDRESS_LINE_3 = "(Sinquerim Jetty)";
     public static final String ADDRESS_PIN = "403 706";
     public static final String PHONE = "832 2995468";
     
