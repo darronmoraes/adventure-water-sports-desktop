@@ -75,6 +75,10 @@ public class DashboardWindow extends javax.swing.JFrame {
         btnServerOnOffToggleDashboard = new javax.swing.JButton();
         btnDashboardLogout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        btnCommissionPayment = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        btnDeleteTicketWindow = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabIssueTicket = new javax.swing.JPanel();
         javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
@@ -281,6 +285,67 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnCommissionPayment.setBackground(new java.awt.Color(153, 153, 153));
+        btnCommissionPayment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCommissionPaymentMouseClicked(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("PAYMENT");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnCommissionPaymentLayout = new javax.swing.GroupLayout(btnCommissionPayment);
+        btnCommissionPayment.setLayout(btnCommissionPaymentLayout);
+        btnCommissionPaymentLayout.setHorizontalGroup(
+            btnCommissionPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCommissionPaymentLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnCommissionPaymentLayout.setVerticalGroup(
+            btnCommissionPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCommissionPaymentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnDeleteTicketWindow.setBackground(new java.awt.Color(153, 153, 153));
+        btnDeleteTicketWindow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteTicketWindowMouseClicked(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("DELETE TICKET");
+
+        javax.swing.GroupLayout btnDeleteTicketWindowLayout = new javax.swing.GroupLayout(btnDeleteTicketWindow);
+        btnDeleteTicketWindow.setLayout(btnDeleteTicketWindowLayout);
+        btnDeleteTicketWindowLayout.setHorizontalGroup(
+            btnDeleteTicketWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDeleteTicketWindowLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnDeleteTicketWindowLayout.setVerticalGroup(
+            btnDeleteTicketWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDeleteTicketWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -293,6 +358,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
             .addComponent(jMenuIssueTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCommissionPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDeleteTicketWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,11 +368,15 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
                 .addComponent(jMenuIssueTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jMenuAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeleteTicketWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCommissionPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jMenuReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jMenuAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -394,7 +465,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         radioBtnUPI.setText("UPI");
         radioBtnUPI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //radioBtnUPIActionPerformed(evt);
+                radioBtnUPIActionPerformed(evt);
             }
         });
 
@@ -403,7 +474,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         radioBtnCash.setText("CASH");
         radioBtnCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //radioBtnCashActionPerformed(evt);
+                radioBtnCashActionPerformed(evt);
             }
         });
 
@@ -1489,8 +1560,28 @@ public class DashboardWindow extends javax.swing.JFrame {
         paymentMode = "UPI";
         System.out.println(paymentMode);
     }//GEN-LAST:event_radioBtnUPIActionPerformed
+
+    private void btnDeleteTicketWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteTicketWindowMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteTicketWindowMouseClicked
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void btnCommissionPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCommissionPaymentMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCommissionPaymentMouseClicked
 */
+    private void btnDeleteTicketWindowMouseClicked(java.awt.event.MouseEvent evt) {
+        DeleteTicketWindow window = new DeleteTicketWindow();
+        window.setVisible(true);
+    }
     
+    private void btnCommissionPaymentMouseClicked(java.awt.event.MouseEvent evt) {
+        CommissionWindow commissionWindow = new CommissionWindow();
+        commissionWindow.setVisible(true);
+    }
     
     /**
      * @param args the command line arguments
@@ -1746,7 +1837,9 @@ public class DashboardWindow extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnCommissionPayment;
     private javax.swing.JButton btnDashboardLogout;
+    private javax.swing.JPanel btnDeleteTicketWindow;
     private javax.swing.JButton btnFetchReports;
     private javax.swing.ButtonGroup btnGrpPayment;
     private javax.swing.JButton btnServerOnOffToggleDashboard;
@@ -1765,6 +1858,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
