@@ -1362,11 +1362,11 @@ public class DashboardWindow extends javax.swing.JFrame {
 
         jTextPaxCount.setText(String.valueOf(counter));
         
-        if (counter > 12) {
+        /*if (counter > 12) {
             counter--;
             JOptionPane.showMessageDialog(null, "Maximum pax peak reached for this ride.");
             jTextPaxCount.setText(String.valueOf(counter));
-        }
+        }*/
         
         estimatedAmount = amountPerPaxRide(counter);
         jTextFieldAmount.setText(String.valueOf(estimatedAmount) + " Rs.");
