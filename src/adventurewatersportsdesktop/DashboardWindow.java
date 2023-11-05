@@ -1523,30 +1523,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         clearBookingTextFields();
     }//GEN-LAST:event_jBtnClearTicketActionPerformed
 
-    /*private void radioBtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBtnCashActionPerformed
-        // TODO add your handling code here:
-        paymentMode = "CASH";
-        System.out.println(paymentMode);
-    }//GEN-LAST:event_radioBtnCashActionPerformed
-
-    private void radioBtnUPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBtnUPIActionPerformed
-        // TODO add your handling code here:
-        paymentMode = "UPI";
-        System.out.println(paymentMode);
-    }//GEN-LAST:event_radioBtnUPIActionPerformed
-
-    private void btnDeleteTicketWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteTicketWindowMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteTicketWindowMouseClicked
-
-    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel21MouseClicked
-
-    private void btnCommissionPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCommissionPaymentMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCommissionPaymentMouseClicked
-*/
     private void btnDeleteTicketWindowMouseClicked(java.awt.event.MouseEvent evt) {
         DeleteTicketWindow window = new DeleteTicketWindow();
         window.setVisible(true);
