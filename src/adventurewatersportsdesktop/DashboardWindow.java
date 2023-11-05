@@ -1720,8 +1720,15 @@ public class DashboardWindow extends javax.swing.JFrame {
                         response.append(line);
                     }
                     
+                    System.out.println(response);
+                    
                     // Parse the JSON response
-                    JSONArray jsonArray = new JSONArray(response.toString());
+                    //JSONArray jsonArray = new JSONArray(response.toString());
+                    JSONObject object = new JSONObject(response.toString());
+                    
+                    JSONArray jsonArray = object.getJSONArray("list");
+                    
+                    System.out.println(jsonArray);
                     
                     // Clear the existing data in the table if any.
                     tableModel.setRowCount(0);
@@ -1733,17 +1740,17 @@ public class DashboardWindow extends javax.swing.JFrame {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         
-                        int orders = item.getInt("no_of_orders");
-                        String date = item.getString("order_date");
-                        String formatDate = DateTime.getDate(date);
+                        int orders = item.getInt("orders");
+                        String date = item.getString("date");
+                        //String formatDate = DateTime.getDate(date);
                         
-                        reportDates.put(i, formatDate);
+                        reportDates.put(i, date);
                         
                         
                         //System.out.print(orders);
                         
                         // Add data to the tables model
-                        tableModel.addRow(new Object[]{i+1, formatDate, orders, item.getDouble("income"), item.getDouble("commission_amount"), item.getDouble("profit")});
+                        tableModel.addRow(new Object[]{i+1, date, orders, item.getDouble("amount"), item.getDouble("commission"), item.getDouble("profit")});
                         
                     }  // End of For loop
                     

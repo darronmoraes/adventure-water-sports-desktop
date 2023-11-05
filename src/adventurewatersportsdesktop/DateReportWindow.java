@@ -9,15 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import system.Constants;
-import system.DateTime;
 
 /**
  *
@@ -47,9 +44,9 @@ public class DateReportWindow extends javax.swing.JFrame {
         reportDayEntries();
     }
     
-    private String dateFormater() {
+    /*private String dateFormater() {
         return DateTime.formatDate(this.date);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -415,8 +412,8 @@ public class DateReportWindow extends javax.swing.JFrame {
     
     // Custom methods
     private void displayDate() {
-        System.out.println(dateFormater());
-        etDate.setText(dateFormater());
+        System.out.println(this.date);
+        etDate.setText(this.date);
     }
     
     
@@ -429,7 +426,7 @@ public class DateReportWindow extends javax.swing.JFrame {
             // query param variable
             String dateQueryParam = "?date=";
 
-            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + DateTime.formatDate(this.date);
+            String apiUrl = Constants.URL + Constants.ROUTE_CURRENT_DATE_REPORT + dateQueryParam + this.date;
             URL url = new URL(apiUrl);
 
             // Open a connection to the URL
@@ -520,7 +517,7 @@ public class DateReportWindow extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) tableTickets.getModel();
         
         try {
-            String apiUrl = "http://127.0.0.1:5000/get_single_day_order_details?date=" + this.dateFormater();
+            String apiUrl = "http://127.0.0.1:5000/get_single_day_order_details?date=" + this.date;
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -550,7 +547,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         
-                        String serialNumber = item.getString("serial-no");
+                        String serialNumber = item.getString("name");
                         int pax = item.getInt("pax");
                         double amount = item.getDouble("amount");
                         //String paymentMethod = item.getString("payment-method");
@@ -559,7 +556,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                         if (item.isNull("payment-method"))
                             paymentMethod = "NA";
                         else
-                            paymentMethod = item.getString("payment-method");
+                            paymentMethod = item.getString("payment_method");
                         
                         
                         // Add data to the tables model
