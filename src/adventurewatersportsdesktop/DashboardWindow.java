@@ -1,4 +1,3 @@
-
 package adventurewatersportsdesktop;
 
 import system.Constants;
@@ -291,11 +290,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("PAYMENT");
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel21MouseClicked(evt);
-            }
-        });
+        
 
         javax.swing.GroupLayout btnCommissionPaymentLayout = new javax.swing.GroupLayout(btnCommissionPayment);
         btnCommissionPayment.setLayout(btnCommissionPaymentLayout);
@@ -452,20 +447,12 @@ public class DashboardWindow extends javax.swing.JFrame {
         btnGrpPayment.add(radioBtnUPI);
         radioBtnUPI.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         radioBtnUPI.setText("UPI");
-        radioBtnUPI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioBtnUPIActionPerformed(evt);
-            }
-        });
+        
 
         btnGrpPayment.add(radioBtnCash);
         radioBtnCash.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         radioBtnCash.setText("CASH");
-        radioBtnCash.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioBtnCashActionPerformed(evt);
-            }
-        });
+        
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Payment Mode");
