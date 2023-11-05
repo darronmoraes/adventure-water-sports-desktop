@@ -59,7 +59,7 @@ public class Print implements Printable {
         
         
         // Define the font and size for your text
-        Font font = new Font("SanSerif", Font.PLAIN, 15);
+        Font font = new Font("SanSerif", Font.PLAIN, 12);
         g2d.setFont(font);
         
         // Define the line spacing for different items
@@ -92,23 +92,23 @@ public class Print implements Printable {
         // Continue with your other text and drawing
         
         // print date and time
-        g2d.drawString("Date : " + this.date, 25, 150);
+        g2d.drawString("Date : " + this.date, 10, 150);
         
         // Print booking details
-        g2d.drawString("Serial No: " + this.serialNumber, 25, 170);
-        g2d.drawString("Payment Mode: " + modeOfPayment, 25, 190);
+        g2d.drawString("Serial No: " + this.serialNumber, 10, 170);
+        g2d.drawString("Payment Mode: " + modeOfPayment, 10, 190);
         
         // table format
         g2d.drawLine(x1CenteredLine, 210, x2CenteredLine, 210);  // Draws another line before headers
         g2d.drawLine(x1CenteredLine, 230, x2CenteredLine, 230);  // Draws another line below headers
-        g2d.drawString("Ride", 25, 225);
-        g2d.drawString("Dolphin", 25, 255);
+        g2d.drawString("Ride", 10, 225);
+        g2d.drawString("Dolphin", 10, 255);
         
-        g2d.drawString("Pax", 180, 225);
-        g2d.drawString(String.valueOf(pax), 180, 255);
+        g2d.drawString("Pax", 80, 225);
+        g2d.drawString(String.valueOf(pax), 80, 255);
         
-        g2d.drawString("Amount", 300, 225);
-        g2d.drawString(String.valueOf(amount), 300, 255);
+        g2d.drawString("Amount", 120, 225);
+        g2d.drawString(String.valueOf(amount), 120, 255);
         
         g2d.drawLine(x1CenteredLine, 265, x2CenteredLine, 265);  // Draws another line below headers
         
