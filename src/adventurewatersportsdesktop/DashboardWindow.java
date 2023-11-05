@@ -1159,7 +1159,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         String registrationNumber = jTextFieldRegistrationNumber.getText();
         String proprieterName = jTextFieldTransportProprieter.getText();
 
-        return !registrationNumber.isEmpty() && !proprieterName.isEmpty();
+        return !registrationNumber.isEmpty() || !proprieterName.isEmpty();
     }
     
     // Method to clear the fields
@@ -1197,7 +1197,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         // Set the page format with a width of 57mm
         PageFormat pageFormat = new PageFormat();
         Paper paper = new Paper();
-        paper.setSize(57, pageFormat.getPaper().getHeight());
+        paper.setSize(80, pageFormat.getPaper().getHeight());
         pageFormat.setPaper(paper);
         
         // Set the printable for the job
