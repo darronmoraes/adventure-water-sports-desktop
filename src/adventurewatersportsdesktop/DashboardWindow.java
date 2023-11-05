@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package adventurewatersportsdesktop;
 
 import system.Constants;
@@ -84,7 +81,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         jBtnDecrementPax = new javax.swing.JButton();
         jTextPaxCount = new javax.swing.JLabel();
@@ -389,13 +385,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setText("DOLPHIN RIDE BOOKING");
 
-        jButton1.setText("Payments");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Pax Count");
@@ -491,11 +480,9 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(jLabel17))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBtnTicket))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
@@ -565,7 +552,6 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(jBtnTicket)
                     .addComponent(jBtnClearTicket))
                 .addContainerGap())
@@ -1159,12 +1145,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         
         fetchReportBasedOnFromAndToDates(fromDate, toDate);
     }//GEN-LAST:event_btnFetchReportsActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        CommissionWindow commissionWindow = new CommissionWindow();
-        commissionWindow.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * Instance variables for counter and amount
@@ -1849,7 +1829,6 @@ public class DashboardWindow extends javax.swing.JFrame {
     private java.awt.Button button4;
     private javax.swing.JButton jBtnDecrementPax;
     private javax.swing.JButton jBtnIncrementPax;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
