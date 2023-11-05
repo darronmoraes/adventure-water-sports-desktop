@@ -225,7 +225,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnDashboardLogout" min="-2" pref="127" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="btnServerOnOffToggleDashboard" max="32767" attributes="0"/>
+                      <Component id="btnAdminLogin" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -241,7 +241,7 @@
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnDashboardLogout" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnServerOnOffToggleDashboard" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAdminLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -251,12 +251,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnServerOnOffToggleDashboard">
+            <Component class="javax.swing.JButton" name="btnAdminLogin">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Off Server"/>
+                <Property name="text" type="java.lang.String" value="Admin Login"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnServerOnOffToggleDashboardActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminLoginActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnDashboardLogout">

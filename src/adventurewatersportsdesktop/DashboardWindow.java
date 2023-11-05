@@ -39,6 +39,8 @@ import system.Print;
  * @author darro
  */
 public class DashboardWindow extends javax.swing.JFrame {
+    
+    private boolean displayErrorMessage = false;
 
     /**
      * Creates new form HomeWindow
@@ -47,6 +49,13 @@ public class DashboardWindow extends javax.swing.JFrame {
         initComponents();
         refreshTimer.start();
         fetchCurrentDateReport();   // API call to get the report on current date.
+    }
+    
+    private void displayErrorMessage(String date) {
+        if (displayErrorMessage) {
+            String message = "No data found for " + date; 
+            JOptionPane.showMessageDialog(null, "Error: " + message, "No Data Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -68,7 +77,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         jMenuReport = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        btnServerOnOffToggleDashboard = new javax.swing.JButton();
+        btnAdminLogin = new javax.swing.JButton();
         btnDashboardLogout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCommissionPayment = new javax.swing.JPanel();
@@ -236,10 +245,10 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnServerOnOffToggleDashboard.setText("Off Server");
-        btnServerOnOffToggleDashboard.addActionListener(new java.awt.event.ActionListener() {
+        btnAdminLogin.setText("Admin Login");
+        btnAdminLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnServerOnOffToggleDashboardActionPerformed(evt);
+                btnAdminLoginActionPerformed(evt);
             }
         });
 
@@ -261,7 +270,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnDashboardLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnServerOnOffToggleDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAdminLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
@@ -274,7 +283,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDashboardLogout)
-                    .addComponent(btnServerOnOffToggleDashboard))
+                    .addComponent(btnAdminLogin))
                 .addGap(22, 22, 22)
                 .addComponent(jLabel6)
                 .addContainerGap())
@@ -467,12 +476,10 @@ public class DashboardWindow extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(jLabel17))
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBtnTicket)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jBtnTicket))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnDecrementPax, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1108,10 +1115,10 @@ public class DashboardWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuReportMouseClicked
     
     // Action button to toggle off server
-    private void btnServerOnOffToggleDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServerOnOffToggleDashboardActionPerformed
+    private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
         // TODO add your handling code here:
-        stopServerFromDashboard();
-    }//GEN-LAST:event_btnServerOnOffToggleDashboardActionPerformed
+        
+    }//GEN-LAST:event_btnAdminLoginActionPerformed
 
     // Action button to logout of the system
     private void btnDashboardLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardLogoutActionPerformed
@@ -1277,7 +1284,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 // Print the ticket twice
                 // 1 - Customer
                 // 2 - Owner
-                for (int i = 1; i <= 2; i++) {
+                for (int i = 1; i <= 3; i++) {
                     String copyOf = "";
                     if (i == 1) {
                         copyOf = "CUSTOMER";
@@ -1386,7 +1393,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 // Print the ticket twice
                 // 1 - Customer
                 // 2 - Owner
-                for (int i = 1; i <= 2; i++) {
+                for (int i = 1; i <= 3; i++) {
                     String copyOf = "";
                     if (i == 1) {
                         copyOf = "CUSTOMER";
@@ -1625,6 +1632,7 @@ public class DashboardWindow extends javax.swing.JFrame {
             int responseCode = connection.getResponseCode();
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
+                
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                     StringBuilder response = new StringBuilder();
                     String line;
@@ -1661,10 +1669,11 @@ public class DashboardWindow extends javax.swing.JFrame {
                   
                 } catch (Exception e) {
                     e.printStackTrace();
+                    displayErrorMessage = true;
                 }
             } else {
-                String message = "No data found for " + currentDateStringFormat;
-                JOptionPane.showMessageDialog(null, "Error: " + message, "No Data Error", JOptionPane.ERROR_MESSAGE);
+                
+                displayErrorMessage = false;
             }
             
             /*else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
@@ -1687,6 +1696,10 @@ public class DashboardWindow extends javax.swing.JFrame {
             }*/
         } catch (IOException e) {
             e.getMessage();
+        }
+        
+        if (displayErrorMessage) {
+            displayErrorMessage(currentDateStringFormat);
         }
     }
     
@@ -1811,12 +1824,12 @@ public class DashboardWindow extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdminLogin;
     private javax.swing.JPanel btnCommissionPayment;
     private javax.swing.JButton btnDashboardLogout;
     private javax.swing.JPanel btnDeleteTicketWindow;
     private javax.swing.JButton btnFetchReports;
     private javax.swing.ButtonGroup btnGrpPayment;
-    private javax.swing.JButton btnServerOnOffToggleDashboard;
     private java.awt.Button button1;
     private java.awt.Button button2;
     private java.awt.Button button3;
