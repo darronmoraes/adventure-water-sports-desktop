@@ -12,6 +12,7 @@ public class BookingTicket {
     private int amount;
     private int pax;
     private String paymentMode;
+    private String vehicleNumber;
     
     // Constructor
     public BookingTicket(String serialNumber, int amount, int pax) {
@@ -20,6 +21,15 @@ public class BookingTicket {
         this.pax = pax;
     }
     
+    public BookingTicket(String date, String serialNumber, int amount, int pax, String paymentMode, String vehicleNumber) {
+        this.serialNumber = serialNumber;
+        this.amount = amount;
+        this.pax = pax;
+        this.date = date;
+        this.paymentMode = paymentMode;
+        this.vehicleNumber = vehicleNumber;
+    }
+
     public BookingTicket(String date, String serialNumber, int amount, int pax, String paymentMode) {
         this.serialNumber = serialNumber;
         this.amount = amount;
@@ -48,5 +58,13 @@ public class BookingTicket {
     
     public String getPaymentMode() {
         return this.paymentMode;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
     }
 }

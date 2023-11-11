@@ -28,14 +28,17 @@ public class Print implements Printable {
     private int amount;
     private String modeOfPayment;
     private String copyOf;
+
+    private String vehicleNo;
     
-    public Print(String date, String serialNo, String paymentMode, int pax, int amount, String copyOf) {
+    public Print(String date, String serialNo, String paymentMode, int pax, int amount, String copyOf, String vehicleNo) {
         this.date = date;
         this.serialNumber = serialNo;
         this.pax = pax;
         this.amount = amount;
         this.modeOfPayment = paymentMode;
         this.copyOf = copyOf;
+        this.vehicleNo = vehicleNo;
     }
     
     public Print(String date, String serialNo, int pax, int amount) {
@@ -97,25 +100,26 @@ public class Print implements Printable {
         // Print booking details
         g2d.drawString("Serial No: " + this.serialNumber, 10, 170);
         g2d.drawString("Payment Mode: " + modeOfPayment, 10, 190);
-        
+        g2d.drawString("Vehicle Reg: " + vehicleNo, 10, 210);
+
         // table format
-        g2d.drawLine(x1CenteredLine, 210, x2CenteredLine, 210);  // Draws another line before headers
-        g2d.drawLine(x1CenteredLine, 230, x2CenteredLine, 230);  // Draws another line below headers
-        g2d.drawString("Ride", 10, 225);
-        g2d.drawString("Dolphin", 10, 255);
+        g2d.drawLine(x1CenteredLine, 230, x2CenteredLine, 230);  // Draws another line before headers
+        g2d.drawLine(x1CenteredLine, 250, x2CenteredLine, 250);  // Draws another line below headers
+        g2d.drawString("Ride", 10, 245);
+        g2d.drawString("Dolphin", 10, 275);
         
-        g2d.drawString("Pax", 80, 225);
-        g2d.drawString(String.valueOf(pax), 80, 255);
+        g2d.drawString("Pax", 80, 245);
+        g2d.drawString(String.valueOf(pax), 80, 275);
         
-        g2d.drawString("Amount", 120, 225);
-        g2d.drawString(String.valueOf(amount), 120, 255);
+        g2d.drawString("Amount", 150, 245);
+        g2d.drawString(String.valueOf(amount), 150, 275);
         
-        g2d.drawLine(x1CenteredLine, 265, x2CenteredLine, 265);  // Draws another line below headers
+        g2d.drawLine(x1CenteredLine, 285, x2CenteredLine, 285);  // Draws another line below headers
         
         // Thank you visit again message
         String message = "Thank you, visit again.";
         int xCenteredThankYouMessage = (int) (pageWidth - g2d.getFontMetrics().stringWidth(message))/2;
-        g2d.drawString(message, xCenteredThankYouMessage, 280);
+        g2d.drawString(message, xCenteredThankYouMessage, 300);
         
         
         return PAGE_EXISTS;

@@ -1194,12 +1194,12 @@ public class DashboardWindow extends javax.swing.JFrame {
     }
     
     // Method to print a ticket order
-    private void printMessage(String date, String serialNo, int pax, int amount, String paymentMode, String copyOf) {
+    private void printMessage(String date, String serialNo, int pax, int amount, String paymentMode, String copyOf, String vehicleNo) {
         // Create a PrinterJob
         PrinterJob job = PrinterJob.getPrinterJob();
         
         // Create a Printable object for the message
-        Printable printable = new Print(date, serialNo, paymentMode, pax, amount, copyOf);
+        Printable printable = new Print(date, serialNo, paymentMode, pax, amount, copyOf, vehicleNo);
         
         // Set the page format with a width of 57mm
         PageFormat pageFormat = new PageFormat();
@@ -1286,6 +1286,15 @@ public class DashboardWindow extends javax.swing.JFrame {
                 // 2 - Owner
                 for (int i = 1; i <= 3; i++) {
                     String copyOf = "";
+
+                    // Check if vehicle number is null
+                    String vehicleNo = "";
+                    if (bookingData.getVehicleNumber() == null) {
+                        vehicleNo = "N/A";
+                    } else {
+                        vehicleNo = bookingData.getVehicleNumber();
+                    }
+
                     if (i == 1) {
                         copyOf = "CUSTOMER";
                         printMessage(
@@ -1294,7 +1303,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                             bookingData.getPax(),
                             bookingData.getAmount(),
                             bookingData.getPaymentMode(),
-                            copyOf
+                            copyOf,
+                            vehicleNo
                         );
                     } else {
                         copyOf = "OWNER";
@@ -1304,7 +1314,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                             bookingData.getPax(),
                             bookingData.getAmount(),
                             bookingData.getPaymentMode(),
-                            copyOf
+                            copyOf,
+                            vehicleNo
                         );
                     }
                 }
@@ -1374,13 +1385,15 @@ public class DashboardWindow extends javax.swing.JFrame {
             if (jsonResponse.getInt("status") == 200) {
                 JSONObject result = jsonResponse.getJSONObject("result");
                 JSONObject order = result.getJSONObject("order");
+                JSONObject vehicle = result.getJSONObject("vehical");
 
                 BookingTicket bookingData = new BookingTicket(
                         order.getString("date"),
                         order.getString("serial_number"),
                         order.getInt("amount"),
                         order.getInt("pax"),
-                        order.getString("payment-mode")
+                        order.getString("payment-mode"),
+                        vehicle.getString("reg_no")
                 );
 
                 // Show the serial number, amount and pax in dialog
@@ -1395,6 +1408,13 @@ public class DashboardWindow extends javax.swing.JFrame {
                 // 2 - Owner
                 for (int i = 1; i <= 3; i++) {
                     String copyOf = "";
+
+                    // Check if vehicle number is null
+                    String vehicleNo = bookingData.getVehicleNumber();
+                    if (vehicleNo.isEmpty()) {
+                        vehicleNo = "N/A";
+                    }
+
                     if (i == 1) {
                         copyOf = "CUSTOMER";
                         printMessage(
@@ -1403,7 +1423,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                             bookingData.getPax(),
                             bookingData.getAmount(),
                             bookingData.getPaymentMode(),
-                            copyOf
+                            copyOf,
+                            vehicleNo
                         );
                     } else {
                         copyOf = "OWNER";
@@ -1413,7 +1434,8 @@ public class DashboardWindow extends javax.swing.JFrame {
                             bookingData.getPax(),
                             bookingData.getAmount(),
                             bookingData.getPaymentMode(),
-                            copyOf
+                            copyOf,
+                            vehicleNo
                         );
                     }
                 }

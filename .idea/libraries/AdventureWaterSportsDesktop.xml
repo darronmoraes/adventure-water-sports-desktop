@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AdventureWaterSportsDesktop">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/AdventureWaterSportsDesktop.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
