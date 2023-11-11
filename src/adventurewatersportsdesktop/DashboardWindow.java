@@ -157,6 +157,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         tableReport = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         label2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         label2.setText("Adventure Water Sports");
@@ -299,7 +300,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("PAYMENT");
-        
 
         javax.swing.GroupLayout btnCommissionPaymentLayout = new javax.swing.GroupLayout(btnCommissionPayment);
         btnCommissionPayment.setLayout(btnCommissionPaymentLayout);
@@ -456,12 +456,11 @@ public class DashboardWindow extends javax.swing.JFrame {
         btnGrpPayment.add(radioBtnUPI);
         radioBtnUPI.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         radioBtnUPI.setText("UPI");
-        
 
         btnGrpPayment.add(radioBtnCash);
         radioBtnCash.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         radioBtnCash.setText("CASH");
-        
+
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Payment Mode");
@@ -1117,7 +1116,8 @@ public class DashboardWindow extends javax.swing.JFrame {
     // Action button to toggle off server
     private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
         // TODO add your handling code here:
-        
+        UserRegistrationWindow registerEmp = new UserRegistrationWindow();
+        registerEmp.setVisible(true);
     }//GEN-LAST:event_btnAdminLoginActionPerformed
 
     // Action button to logout of the system

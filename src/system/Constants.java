@@ -15,6 +15,7 @@ public class Constants {
     
     // AUTH API END-POINT
     public static final String LOGIN_ENDPOINT = "login";
+    public static final String REGISTER_ENDPOINT = "register-user";
     
     
     // BOOKING API END-POINT
@@ -47,5 +48,9 @@ public class Constants {
     public static final String DATE_YYYY_MM_DD = "yyyy-MM-dd";
     public static final String DATE_DD_MM_YYYY = "dd-MM-yyyy";
     public static final String DATE_DD_MM_YY = "dd-MM-yy";
+
+
+    // Password Length
+    public static final int DEFAULT_PASSWORD_LENGTH = 8;
     
 }

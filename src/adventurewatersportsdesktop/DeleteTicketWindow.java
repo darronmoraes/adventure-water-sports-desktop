@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+
 import models.Order;
 import org.json.JSONObject;
 import system.DateTime;
@@ -57,7 +58,7 @@ public class DeleteTicketWindow extends javax.swing.JFrame {
         tvDate = new javax.swing.JLabel();
         tvPaymentMode = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
