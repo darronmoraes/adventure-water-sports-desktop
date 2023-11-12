@@ -72,8 +72,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         jMenuIssueTicket = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jMenuAddBoat = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jMenuReport = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -190,34 +188,6 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuAddBoat.setBackground(new java.awt.Color(153, 153, 153));
-        jMenuAddBoat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuAddBoatMouseClicked(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ADD BOAT");
-
-        javax.swing.GroupLayout jMenuAddBoatLayout = new javax.swing.GroupLayout(jMenuAddBoat);
-        jMenuAddBoat.setLayout(jMenuAddBoatLayout);
-        jMenuAddBoatLayout.setHorizontalGroup(
-            jMenuAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jMenuAddBoatLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
-        );
-        jMenuAddBoatLayout.setVerticalGroup(
-            jMenuAddBoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jMenuAddBoatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         jMenuReport.setBackground(new java.awt.Color(153, 153, 153));
         jMenuReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -246,7 +216,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnAdminLogin.setText("Admin Login");
+        btnAdminLogin.setText("Create Employee");
         btnAdminLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdminLoginActionPerformed(evt);
@@ -261,7 +231,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("version 2023.10.1.0");
+        jLabel6.setText("version 1.0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -350,7 +320,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jMenuAddBoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jMenuReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -374,9 +343,7 @@ public class DashboardWindow extends javax.swing.JFrame {
                 .addComponent(btnCommissionPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jMenuReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jMenuAddBoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -460,7 +427,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         btnGrpPayment.add(radioBtnCash);
         radioBtnCash.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         radioBtnCash.setText("CASH");
-
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Payment Mode");
@@ -924,15 +890,11 @@ public class DashboardWindow extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("REPORT MANAGEMENT");
 
-        tvFromDate.setText("2023-11-12");
-
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("FROM");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setText("TO");
-
-        tvToDate.setText("2023-12-14");
 
         btnFetchReports.setText("Search");
         btnFetchReports.addActionListener(new java.awt.event.ActionListener() {
@@ -1093,14 +1055,6 @@ public class DashboardWindow extends javax.swing.JFrame {
         jTabReport.setVisible(false);
         jTabbedPane1.setVisible(false);
     }//GEN-LAST:event_jMenuIssueTicketMouseClicked
-
-    private void jMenuAddBoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAddBoatMouseClicked
-        // TODO add your handling code here:
-        jTabIssueTicket.setVisible(false);
-        jTabAddBoat.setVisible(false);
-        jTabReport.setVisible(false);
-        jTabbedPane1.setVisible(true);
-    }//GEN-LAST:event_jMenuAddBoatMouseClicked
 
     private void jMenuReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuReportMouseClicked
         // TODO add your handling code here:
@@ -1840,7 +1794,6 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1849,7 +1802,6 @@ public class DashboardWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jMenuAddBoat;
     private javax.swing.JPanel jMenuIssueTicket;
     private javax.swing.JPanel jMenuReport;
     private javax.swing.JPanel jPanel1;
