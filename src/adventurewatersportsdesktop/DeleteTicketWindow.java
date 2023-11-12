@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import models.Order;
 import org.json.JSONObject;
+import system.Constants;
 import system.DateTime;
 
 /**
@@ -311,8 +312,11 @@ public class DeleteTicketWindow extends javax.swing.JFrame {
     
     // API to get ticket details
     private void getTicketDetailsOnSerialNumber(String ticketSerialNumber) {
-        String api = "http://127.0.0.1:5000/get_order_details?serial_no=" + ticketSerialNumber;
-        
+
+        String serialNo = "?serial_no=";
+        String api = Constants.URL + Constants.ORDER_DETAILS + serialNo + ticketSerialNumber;
+        //String api = "http://127.0.0.1:5000/get_order_details?serial_no=" + ticketSerialNumber;
+
         try {
             URL url = new URL(api);
 
@@ -365,8 +369,9 @@ public class DeleteTicketWindow extends javax.swing.JFrame {
     private void deleteOrderTicket() {
         int id = ticketOrder.getId();
         System.out.println(id + " Order-Ticket-Id");
-        String api = "http://127.0.0.1:5000/delete_order/" + id;
-        
+        String api = Constants.URL + Constants.DELETE_ORDER_TICKET + id;
+        //String api = "http://127.0.0.1:5000/delete_order/" + id;
+
         try {
             URL url = new URL(api);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

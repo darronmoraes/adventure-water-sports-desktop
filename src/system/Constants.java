@@ -11,8 +11,9 @@ package system;
 public class Constants {
     
     // API URL
-    public static final String URL = "http://127.0.0.1:5000/";
-    
+    //public static final String URL = "http://127.0.0.1:5000/";
+    public static final String URL = "http://18.119.160.201/";
+
     // AUTH API END-POINT
     public static final String LOGIN_ENDPOINT = "login";
     public static final String REGISTER_ENDPOINT = "register-user";
@@ -20,12 +21,21 @@ public class Constants {
     
     // BOOKING API END-POINT
     public static final String NON_COMMERCIAL_BOOKING_ENDPOINT = "private_booking";
-    
     public static final String COMMERCIAL_BOOKING_ENDPOINT = "booking";
-    
+    public static final String ORDER_DETAILS = "get_order_details";
+
+    // DELETE ORDER API END-POINT
+    public static final String DELETE_ORDER_TICKET = "delete_order/";
+
+
+    //  Commission API END-POINT
+    public static final String UPDATE_COMMISSION_STATUS = "update_commisssion_payment_status";
+    public static final String UNPAID_COMMISSION = "get_unpaid_commission";
+
     
     // REPORT API END-POINT
     public static final String CURRENT_DATE_REPORT = "get_single_day_report";
+    public static final String CURRENT_DATE_ORDER_REPORT = "get_single_day_order_details";
     public static final String ROUTE_CURRENT_DATE_REPORT = "day-report";
     
     // Date range report

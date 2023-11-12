@@ -4,6 +4,8 @@
  */
 package adventurewatersportsdesktop;
 
+import system.Constants;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.swing.JOptionPane;
@@ -249,8 +251,11 @@ public class CommissionPaymentWindow extends javax.swing.JFrame {
      */
     
     private void updatePaymentStatus(int id) {
-        String apiUrl = "http://127.0.0.1:5000/update_commisssion_payment_status?Vehical_id=" + id;
-        
+        String vehicleId = "?Vehical_id=";
+
+        String apiUrl = Constants.URL + Constants.UPDATE_COMMISSION_STATUS + vehicleId + id;
+        //String apiUrl = "http://127.0.0.1:5000/update_commisssion_payment_status?Vehical_id=" + id;
+
         try {
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

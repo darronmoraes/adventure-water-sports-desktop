@@ -515,9 +515,12 @@ public class DateReportWindow extends javax.swing.JFrame {
         
         // Create defaultTableModel object and use tableReport instance.
         DefaultTableModel tableModel = (DefaultTableModel) tableTickets.getModel();
+
+        String date = "?date=";
         
         try {
-            String apiUrl = "http://127.0.0.1:5000/get_single_day_order_details?date=" + this.date;
+            String apiUrl = Constants.URL + Constants.CURRENT_DATE_ORDER_REPORT + date + this.date;
+            //String apiUrl = "http://127.0.0.1:5000/get_single_day_order_details?date=" + this.date;
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import system.Constants;
 import system.DateTime;
 import validations.Validation;
 
@@ -193,8 +194,11 @@ public class CommissionWindow extends javax.swing.JFrame {
         // Create defaultTableModel object and use tableReport instance.
         DefaultTableModel tableModel = (DefaultTableModel) tblCommission.getModel();
 
+        String vehicleNo = "?Vehical_no=";
+
         try {
-            String apiUrl = "http://127.0.0.1:5000/get_unpaid_commission?Vehical_no=" + regNumber;
+            String apiUrl = Constants.URL + Constants.UNPAID_COMMISSION + vehicleNo + regNumber;
+            //String apiUrl = "http://127.0.0.1:5000/get_unpaid_commission?Vehical_no=" + regNumber;
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
