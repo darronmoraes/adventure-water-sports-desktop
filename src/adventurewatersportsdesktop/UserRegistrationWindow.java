@@ -260,9 +260,10 @@ public class UserRegistrationWindow extends javax.swing.JFrame {
             int responseCode = connect.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 // Show the serial number, amount and pax in dialog
-                String message = "Employee : " + user.getFirstName() + user.getLastName()
+                String message = "Employee : " + user.getFirstName() + " " +user.getLastName()
                         + "\nEmail : " + user.getCredential().getEmail()
-                        + "\nPassword : " + user.getCredential().getPassword();
+                        + "\nPassword : " + user.getCredential().getPassword()
+                        + "\n\n Please Note: Pen down the password generated.";
 
                 JOptionPane.showMessageDialog(null, message);
             }
@@ -289,9 +290,9 @@ public class UserRegistrationWindow extends javax.swing.JFrame {
         String email = etEmail.getText();
         credential = new Credential(email);
 
-        String firstName = etFirstName.getText();
-        String lastName = etLastName.getText();
-        String address = etAddress.getText();
+        String firstName = upperCaseFirstCharacter(etFirstName);
+        String lastName = upperCaseFirstCharacter(etLastName);
+        String address = upperCaseFirstCharacter(etAddress);
         String contactNo = etContact.getText();
         String gender = "";
 
@@ -304,6 +305,15 @@ public class UserRegistrationWindow extends javax.swing.JFrame {
         }
 
         userEmployee = new User(firstName, lastName, address, contactNo, gender, credential);
+    }
+
+
+    // method to make first character of String to upper case and rest lower
+    private String upperCaseFirstCharacter(JTextField jTextField) {
+        String string = jTextField.getText();
+        if (!string.isEmpty())
+            return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
+        return string;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
