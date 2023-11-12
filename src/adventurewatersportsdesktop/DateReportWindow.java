@@ -556,7 +556,7 @@ public class DateReportWindow extends javax.swing.JFrame {
                         //String paymentMethod = item.getString("payment-method");
                         String paymentMethod = "";
                         
-                        if (item.isNull("payment-method"))
+                        if (item.isNull("payment_method"))
                             paymentMethod = "NA";
                         else
                             paymentMethod = item.getString("payment_method");
