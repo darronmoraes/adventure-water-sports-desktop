@@ -275,7 +275,7 @@ public class DeleteTicketWindow extends javax.swing.JFrame {
         panelTicketInfo.setVisible(false);
     }
     
-    // Check if serial number entered in the field
+    // Check if serial number typed in the field
     private boolean isSerialNumberValid() {
         String serialNumber = etTicketSerialNumber.getText();
         
@@ -284,7 +284,7 @@ public class DeleteTicketWindow extends javax.swing.JFrame {
             return false;
         }
         
-        if (serialNumber.length() > 7) {
+        if (serialNumber.length() > 13) {
             JOptionPane.showMessageDialog(null, "Error: " + "Serial-Number length is over character", "No Data Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
