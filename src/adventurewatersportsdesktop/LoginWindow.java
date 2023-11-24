@@ -4,8 +4,10 @@
  */
 package adventurewatersportsdesktop;
 
+import java.io.BufferedReader;
 import system.Constants;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.json.JSONException;
 import org.json.JSONObject;
+import validations.User;
 
 /**
  *
@@ -210,14 +213,39 @@ public class LoginWindow extends javax.swing.JFrame {
                 if (responseCode == 200) {
                     // Login Successful
                     // Prompt user to next window
-                    System.out.println();
-                    //JOptionPane.showMessageDialog(null, "Login as Admin successful");
-                    // Disable login window
-                    this.setVisible(false);
-                    // Create object to next window
-                    DashboardWindow dashboard = new DashboardWindow();
-                    // Show home window
-                    dashboard.setVisible(true);
+                    
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            response.append(line);
+                        }
+                        
+                        JSONObject dataObject = new JSONObject(response.toString());
+                        JSONObject credential = dataObject.getJSONObject("credential");
+                        // {"initial_login":1,"password":"darron@12345","id":4,"email":"darron@dev.com"}
+                        int initialFlag = credential.getInt("initial_login");
+                        System.out.println(initialFlag);
+                        
+                        if (initialFlag == 0) {
+                            int id = credential.getInt("id");
+                            String userEmail = credential.getString("email");
+                            String userOldPassword = credential.getString("password");
+                            User user = new User(id, userEmail, userOldPassword);
+                            PasswordReset resetPassword = new PasswordReset(user);
+                            this.setVisible(false);
+                            resetPassword.setVisible(Boolean.TRUE);
+                        } else {
+                            //JOptionPane.showMessageDialog(null, "Login as Admin successful");
+                            // Disable login window
+                            this.setVisible(false);
+                            // Create object to next window
+                            DashboardWindow dashboard = new DashboardWindow();
+                            // Show home window
+                            dashboard.setVisible(true);
+                        }
+                        
+                    }
                 } else {
                     // Login Failed
                     // Handle failure

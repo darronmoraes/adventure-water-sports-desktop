@@ -18,23 +18,14 @@ public class PasswordReset extends javax.swing.JFrame {
     private DashboardWindow dashboard;
     PasswordResetService resetPassword;
     
-    
-    /*public PasswordResetService(int credId, String email, String password) {
-        userCreds = new User("darron@dev.com", "dev@12345");
-        validateCreds();
-        setUserNewAndConfirmPasswords();
-        System.out.println("Param Constructor Created:");
-        
-        System.out.println(userCreds.getEmail() + " " + userCreds.getOldPassword());
-    }*/
+    public PasswordReset(User user) {
+        initComponents();
+        this.userCreds = user;
+    }
     
     public PasswordReset() {
         initComponents();
         System.out.println("Constructor Created:");
-        
-        //userCreds = new User(4, "darron@dev.com", "dev@12345");
-        
-        //System.out.println(userCreds.getEmail() + " " + userCreds.getOldPassword());
     }
 
     /**

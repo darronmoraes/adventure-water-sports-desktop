@@ -11,6 +11,12 @@ public class User {
         this.email = email;
         this.oldPassword = oldPassword;
     }
+    
+    public User(User user) {
+        this.credentialId = user.credentialId;
+        this.email = user.email;
+        this.oldPassword = user.oldPassword;
+    }
 
     public int getCredentialId() {
         return credentialId;

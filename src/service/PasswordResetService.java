@@ -8,18 +8,16 @@ import java.util.logging.Logger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONException;
-import org.json.JSONObject;
 import service.interfaces.IPasswordReset;
-import system.HttpStatusCode;
+import system.Constants;
 
 public class PasswordResetService implements IPasswordReset {
     
-    
-    
-
     @Override
     public boolean reset(int credentialId, String password) {
-        String api = "http://18.119.160.201/update_account_password?Credential_id=" + credentialId + "&new_password=" + password;
+        String idPathParam = "?Credential_id=";
+        String passwordPathParam = "&new_password=";
+        String api = Constants.URL + Constants.RESET_PASSWORD_ENDPOINT + idPathParam + credentialId + passwordPathParam + password;
         
         try {
             URL url = new URL(api);

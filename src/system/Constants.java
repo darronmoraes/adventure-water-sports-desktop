@@ -17,6 +17,8 @@ public class Constants {
     // AUTH API END-POINT
     public static final String LOGIN_ENDPOINT = "login";
     public static final String REGISTER_ENDPOINT = "register-user";
+    // RESET PASSWORD END-POINT
+    public static final String RESET_PASSWORD_ENDPOINT = "update_account_password";
     
     
     // BOOKING API END-POINT
