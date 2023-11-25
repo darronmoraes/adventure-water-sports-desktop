@@ -52,7 +52,7 @@ public class CommissionWindow extends javax.swing.JFrame {
         tvRegisterationNumber = new javax.swing.JTextField();
         btnSearchVehicle = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblCommission.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
