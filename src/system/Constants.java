@@ -64,5 +64,8 @@ public class Constants {
 
     // Password Length
     public static final int DEFAULT_PASSWORD_LENGTH = 8;
+
+    // Business GST number
+    public static final String GST_NUMBER = "30ABJAS3918E1ZP";
     
 }
