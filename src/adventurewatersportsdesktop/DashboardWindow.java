@@ -1355,7 +1355,7 @@ public class DashboardWindow extends javax.swing.JFrame {
         String currentDateStringFormat = dateFormat.format(currentDate);
         
         // Print the cuurent date
-        System.out.println("Current Date: " + currentDateStringFormat);
+        //System.out.println("Current Date: " + currentDateStringFormat);
         
         try {
             // Create the URL with query parameter

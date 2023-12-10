@@ -11,8 +11,8 @@ package system;
 public class Constants {
     
     // API URL
-    //public static final String URL = "http://127.0.0.1:5000/";
-    public static final String URL = "http://18.119.160.201/";
+    public static final String URL = "http://127.0.0.1:5000/";
+    //public static final String URL = "http://18.119.160.201/";
 
     // AUTH API END-POINT
     public static final String LOGIN_ENDPOINT = "login";
