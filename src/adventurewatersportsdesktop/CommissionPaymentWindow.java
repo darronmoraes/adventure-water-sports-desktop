@@ -8,6 +8,7 @@ import system.Constants;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
  * @author darro
  */
 public class CommissionPaymentWindow extends javax.swing.JFrame {
+
+    private static final Logger logger = Logger.getLogger(CommissionPaymentWindow.class.getName());
     
     // Instance variable
     private int vehicleId;
@@ -32,6 +35,8 @@ public class CommissionPaymentWindow extends javax.swing.JFrame {
     }
     
     public CommissionPaymentWindow(int vehicleId) {
+        logger.info("Constructor Created");
+        logger.info("vehicle-id param @" + vehicleId);
         this.vehicleId = vehicleId;
         initComponents();
         displayPaymentDetails();
@@ -235,12 +240,14 @@ public class CommissionPaymentWindow extends javax.swing.JFrame {
     
     // Set the labels
     private void displayPaymentDetails() {
+        logger.info("Setting Display Texts");
         tvRegistrationNumber.setText(registrationNumber);
         tvTransportName.setText(transportName);
         String amountStr = amount + " Rs.";
         tvAmount.setText(amountStr);
         tvPax.setText(String.valueOf(pax));
-        tvDate.setText(date);        
+        tvDate.setText(date);
+        logger.info("Display Payment to be made details");
     }
     
     /**
@@ -252,27 +259,36 @@ public class CommissionPaymentWindow extends javax.swing.JFrame {
      */
     
     private void updatePaymentStatus(int id) {
+        logger.info("Vehicle id : " + id);
         String vehicleId = "?Vehical_id=";
 
         String apiUrl = Constants.URL + Constants.UPDATE_COMMISSION_STATUS + vehicleId + id;
+        logger.info("API Endpoint : " + apiUrl);
         //String apiUrl = "http://127.0.0.1:5000/update_commisssion_payment_status?Vehical_id=" + id;
 
         try {
+            logger.info("Creating connection.");
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
             
             // Get the response code
             int responseCode = connection.getResponseCode();
+            logger.info("API Response : code @" + responseCode);
             
             if (responseCode == HttpURLConnection.HTTP_OK) {
+                logger.info("Payment Success");
                 JOptionPane.showMessageDialog(null, "Payment Successful");
+                logger.info("Exiting Success Dialog on Okay Clicked");
             } else {
+                logger.warning("Payment Failed");
                 // Payment failed, show an error message
                 JOptionPane.showMessageDialog(null, "Payment Failed:", "Payment Error", JOptionPane.ERROR_MESSAGE);
+                logger.info("Exiting Failed Dialog on Okay Clicked");
             }
             
         } catch (Exception e) {
+            logger.severe("Connection Failed.. Reconnecting to API service");
             e.printStackTrace();
         }
     }
