@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
@@ -27,6 +29,9 @@ import validations.Validation;
  * @author darro
  */
 public class CommissionWindow extends javax.swing.JFrame {
+
+    //private static final Logger logger = LogManager.getLogManager().getLogger(CommissionWindow.class.getName());
+    private static final Logger logger = Logger.getLogger(CommissionWindow.class.getName());
 
     /**
      * Creates new form CommissionWindow
@@ -127,9 +132,12 @@ public class CommissionWindow extends javax.swing.JFrame {
     private void btnSearchVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchVehicleActionPerformed
         // TODO add your handling code here:
         String registrationNumber = tvRegisterationNumber.getText();
+        logger.info("Vehicle Registration Number : " + registrationNumber);
         if (Validation.isRegistrationNumber(tvRegisterationNumber)) {
+            logger.info("Valid Vehicle Registration Number");
             displayCommission(registrationNumber);
         } else {
+            logger.warning("Invalid Vehicle Registration Number : " + registrationNumber);
             JOptionPane.showMessageDialog(null, "Last 4 digits of vehicle number");
         }
         
@@ -173,6 +181,7 @@ public class CommissionWindow extends javax.swing.JFrame {
     
     // Display commission in table format
     public void displayCommission(String vehicleNumber) {
+        logger.info("displayCommission() : Vehicle Registration Number : " + vehicleNumber);
         int regNumber = Integer.parseInt(vehicleNumber);
 
         // Create defaultTableModel object and use tableReport instance.
@@ -181,8 +190,10 @@ public class CommissionWindow extends javax.swing.JFrame {
         String vehicleNo = "?Vehical_no=";
 
         try {
+            logger.info("displayCommission() : Creating api url path");
             String apiUrl = Constants.URL + Constants.UNPAID_COMMISSION + vehicleNo + regNumber;
             //String apiUrl = "http://127.0.0.1:5000/get_unpaid_commission?Vehical_no=" + regNumber;
+            logger.info("displayCommission() : API ENDPOINT PATH : " + apiUrl);
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -190,9 +201,124 @@ public class CommissionWindow extends javax.swing.JFrame {
 
             // Get the response code
             int responseCode = connection.getResponseCode();
-            System.out.println(responseCode);
+            logger.info("response-code : " + responseCode);
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            switch (responseCode) {
+                case HttpURLConnection.HTTP_OK:
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            response.append(line);
+                        }
+
+                        // Parse the JSON response
+                        JSONObject jsonDataObject = new JSONObject(response.toString());
+
+                        // Now we can access the data from the JSON response
+                        //String registrationNumber = jsonDataObject.getString("reg_no");
+                        //String transportName = jsonDataObject.getString("transport_name");
+
+                        // Access data within the order-details
+                        JSONArray orderDetails = jsonDataObject.getJSONArray("order_details");
+
+                        tableModel.setRowCount(0);
+                        Map<Integer, Integer> vehicleIdMap = new HashMap<>();
+
+                        for (int i = 0; i < orderDetails.length(); i++) {
+
+                            JSONObject orderItem = orderDetails.getJSONObject(i);
+
+                            int vehicleId = orderItem.getInt("vehical_id");
+                            // HashMap
+                            vehicleIdMap.put(i, vehicleId);
+
+                            // Convert dateTimeStamp to dateStamp
+                            String dateTimeStamp = orderItem.getString("created_at");
+                            String dateStamp = DateTime.getDate(dateTimeStamp);
+
+                            int paymentStatusCode = orderItem.getInt("commission_payment_status");
+                            String paymentStatus = "";
+                            if (paymentStatusCode == 0) {
+                                paymentStatus = "Not Paid";
+                            } else {
+                                paymentStatus = "Paid";
+                            }
+
+                            // Add to the table
+                            tableModel.addRow(new Object[] {i+1, dateStamp, orderItem.getString("vehical_no"),
+                                    orderItem.getString("transport_name"),
+                                    orderItem.getInt("pax"),
+                                    orderItem.getInt("commission"),
+                                    paymentStatus});
+
+                            String serialNumber = orderItem.getString("serial_no");
+                            String createdAt = orderItem.getString("created_at");
+
+                            System.out.println(serialNumber + " " + createdAt + " " + paymentStatus);
+                        }
+
+                        logger.info("displayCommission(): Implementing onMouseClickedListener()");
+                        tblCommission.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                // Get the selected row
+                                int selectedRow = tblCommission.getSelectedRow();
+                                logger.info("Mouse Clicked: " + selectedRow);
+
+                                if (selectedRow != -1) {
+                                    // Get the value in the vehicle-id
+                                    int vehicleId = vehicleIdMap.get(selectedRow);
+                                    logger.info("Mouse Clicked: Vehicle Id : " + vehicleId);
+
+                                    // Fetch column data in the row
+                                    String regNo = (String) tblCommission.getValueAt(selectedRow, 2);
+                                    String transportName = (String) tblCommission.getValueAt(selectedRow, 3);
+                                    int pax = (int) tblCommission.getValueAt(selectedRow, 4);
+                                    int commission = (int) tblCommission.getValueAt(selectedRow, 5);
+                                    String date = (String) tblCommission.getValueAt(selectedRow, 1);
+
+                                    // Pass the vehicleId to payment window
+                                    CommissionPaymentWindow pay = new CommissionPaymentWindow(vehicleId, regNo, transportName, commission, pax, date);
+                                    logger.info("Instance of CommissionPaymentWindow Created: sending details of vehicle id : " + vehicleId);
+                                    logger.info("Registration Number of Vehicle : " + regNo);
+                                    clearInputFields();
+                                    pay.setVisible(true);
+                                    clearTableElements();
+                                }
+                            }
+
+                        });
+                    }
+                    break;
+                case HttpURLConnection.HTTP_NOT_FOUND:
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            response.append(line);
+                        }
+
+                        logger.info(String.valueOf(response));
+                        JSONObject jsonObject = new JSONObject(response.toString());
+
+                        String errorMessage = jsonObject.getString("message");
+                        logger.severe("message : " + errorMessage);
+                        int statusCode = jsonObject.getInt("status");
+                        logger.severe("status : " + statusCode);
+
+                        /*
+                         *  "message": "no data available"
+                         *  "status": 400
+                         * */
+                    }
+                    break;
+                default:
+                    logger.severe(String.valueOf(responseCode));
+                    break;
+            }
+
+            /*if (responseCode == HttpURLConnection.HTTP_OK) {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                     StringBuilder response = new StringBuilder();
                     String line;
@@ -245,17 +371,19 @@ public class CommissionWindow extends javax.swing.JFrame {
 
                         System.out.println(serialNumber + " " + createdAt + " " + paymentStatus);
                     }
-                    
+
+                    logger.info("displayCommission(): Implementing onMouseClickedListener()");
                     tblCommission.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             // Get the selected row
                             int selectedRow = tblCommission.getSelectedRow();
+                            logger.info("Mouse Clicked: " + selectedRow);
                             
                             if (selectedRow != -1) {
                                 // Get the value in the vehicle-id
                                 int vehicleId = vehicleIdMap.get(selectedRow);
-                                System.out.println(vehicleId);
+                                logger.info("Mouse Clicked: Vehicle Id : " + vehicleId);
                                 
                                 // Fetch column data in the row
                                 String regNo = (String) tblCommission.getValueAt(selectedRow, 2);
@@ -263,16 +391,11 @@ public class CommissionWindow extends javax.swing.JFrame {
                                 int pax = (int) tblCommission.getValueAt(selectedRow, 4);
                                 int commission = (int) tblCommission.getValueAt(selectedRow, 5);
                                 String date = (String) tblCommission.getValueAt(selectedRow, 1);
-                                
-                                System.out.println("Reg-no: " + regNo);
-                                System.out.println("Transport-name: " + transportName);
-                                System.out.println("pax: " + pax);
-                                System.out.println("commission: " + commission);
-                                System.out.println("date: " + date);
-                                
-                                
+
                                 // Pass the vehicleId to payment window
                                 CommissionPaymentWindow pay = new CommissionPaymentWindow(vehicleId, regNo, transportName, commission, pax, date);
+                                logger.info("Instance of CommissionPaymentWindow Created: sending details of vehicle id : " + vehicleId);
+                                logger.info("Registration Number of Vehicle : " + regNo);
                                 clearInputFields();
                                 pay.setVisible(true);
                                 clearTableElements();
@@ -281,8 +404,36 @@ public class CommissionWindow extends javax.swing.JFrame {
                         
                     });
                 }
-            }
+            } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        response.append(line);
+                    }
+
+                    logger.info(String.valueOf(response));
+                    JSONObject jsonObject = new JSONObject(response.toString());
+
+                    String errorMessage = jsonObject.getString("message");
+                    logger.severe("message : " + errorMessage);
+                    int statusCode = jsonObject.getInt("status");
+                    logger.severe("status : " + statusCode);
+
+                    *//*
+                    *  "message": "no data available"
+                    *  "status": 400
+                    * *//*
+                }
+            } else {
+                // Handle other response codes
+                logger.severe(String.valueOf(responseCode));
+            }*/
+
+            connection.disconnect();
         } catch (IOException | JSONException e) {
+            logger.warning("No Data Found for that Vehicle Registration Number");
+            logger.warning(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -297,6 +448,7 @@ public class CommissionWindow extends javax.swing.JFrame {
     
     private void clearInputFields() {
         tvRegisterationNumber.setText("");
+        //this.setVisible(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
